@@ -6,11 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:47:01 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/17 11:47:21 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/17 12:14:36 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+#include "libft.h"
 
 #endif
