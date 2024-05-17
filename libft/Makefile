@@ -63,6 +63,8 @@ SRCS = $(addprefix src/, \
 	ft_split_quote_utils.c \
 	get_length.c \
 	ft_atof.c \
+	ft_strisspace.c \
+	ft_isspace.c \
 )
 
 $(NAME) : $(OBJS)

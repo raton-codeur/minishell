@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:47:01 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/17 12:25:25 by jteste           ###   ########.fr       */
+/*   Updated: 2024/05/17 17:57:44 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <readline/readline.h>
+# include <readline/history.h>
 /* readline, rl_clear_history, rl_on_new_line
        rl_replace_line, rl_redisplay, add_history */
 # include <stdio.h>
@@ -43,5 +44,17 @@
 # include <curses.h>
 /* tgetent, tgetflag, tgetnum, tgetstr
        tgoto, tputs */
+
+
+# define WORD
+# define LEFT_SIMPLE_QUOTE
+# define RIGHT_SIMPLE_QUOTE
+# define LEFT_DOUBLE_QUOTE
+# define RIGHT_DOUBLE_QUOTE
+# define PIPE
+# define LEFT_SIMPLE_CHEVRON
+# define RIGHT_SIMPLE_CHEVRON
+# define LEFT_DOUBLE_CHEVRON
+# define RIGHT_DOUBLE_CHEVRON
 
 #endif

@@ -1,16 +1,16 @@
 NAME = minishell
-FLAGS = -Wall -Werror -Wextra -I . -I libft
+CFLAGS = -Wall -Werror -Wextra -I . -I libft 
+LFLAGS = -lreadline
 LIBFT = libft/libft.a
-OBJS = $(addprefix tmp/, $(notdir $(SRCS:.c=.o)))
-OBJS_BONUS = $(addprefix tmp/, $(notdir $(SRCS_BONUS:.c=.o)))
-SRCS = $(addprefix src/, $(shell ls src))
+SRCS = $(shell find src -type f)
+OBJS = $(patsubst src/%,tmp/%,$(SRCS:.c=.o))
 
 tmp/%.o : src/%.c
-	@ mkdir -p tmp
-	@ cc $(FLAGS) -c $< -o $@ && printf "\rcompilation for $(NAME) : %d / %d" $$(ls tmp | wc -w) $(words $(SRCS))
+	@ mkdir -p $(dir $@)
+	@ cc $(CFLAGS) -c $< -o $@ && printf "\rcompilation for $(NAME) : %d / %d" $$(ls tmp | wc -w) $(words $(SRCS))
 
 $(NAME) : $(LIBFT) $(OBJS)
-	@ cc $(FLAGS) $(OBJS) $(LIBFT) -o $@ && printf "\n$@ created\n"
+	@ cc $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $@ && printf "\n$@ created\n"
 
 $(LIBFT) :
 	@ make --no-print-directory -C libft
@@ -25,6 +25,8 @@ fclean : clean
 	@ make fclean --no-print-directory -C libft > /dev/null && printf "libft.a deleted\n"
 	@ rm -f $(NAME) && printf "$(NAME) deleted\n"
 
-re : fclean all
+# re : fclean all
+re : clean all
 
 .PHONY : all clean fclean re
+

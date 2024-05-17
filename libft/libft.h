@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/06 15:23:30 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/17 14:33:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_isspace(int c);
 
 /* string */
 size_t	ft_strlen(const char *s);
@@ -54,6 +55,7 @@ char	**ft_split(const char *s, const char *delimiter);
 char	**ft_split_quote(const char *s, char c);
 int		ft_size_inside_quotes(const char *s);
 size_t	get_length(char **s);
+int		ft_strisspace(char *s);
 
 /* list */
 typedef struct s_list
