@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -I . -I libft 
+CFLAGS = -Wall -Werror -Wextra -I . -I libft -g3
 LFLAGS = -lreadline
 LIBFT = libft/libft.a
 SRCS = $(shell find src -type f)
@@ -30,3 +30,6 @@ re : clean all
 
 .PHONY : all clean fclean re
 
+test :
+	make re
+	./minishell
