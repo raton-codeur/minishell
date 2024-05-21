@@ -32,10 +32,20 @@ commande
 // {
 // 	STATE_GENERAL,
 // 	STATE_QUOTE_SIMPLE,
-// 	STATE_QUOTE_DOUBLE
+// 	STATE_QUOTE_DOUBLE,
+//	STATE_
 // }	t_state;
 
+enum e_token
+{
+	TOKEN_COMMAND
+};
 
+typedef struct s_token
+{
+	char			*content;
+	enum e_token	type;
+}	t_token;
 
 t_list	*get_tokens(char *input)
 {
@@ -150,8 +160,6 @@ int	main()
 {
 	char	*input;
 	t_list	*tokens;
-	// char	*path;
-	// char	**path_list;
 
 	// path = getenv("PATH");
 	// path_list = get_path_list(path);
@@ -166,8 +174,8 @@ int	main()
 				add_history(input);
 			tokens = get_tokens(input);
 			free(input);
-			// list_print(tokens, print_as_string);
-			run_commands(tokens);
+			list_print(tokens, print_as_string);
+			// run_commands(tokens);
 		}
 	}
 	rl_clear_history();

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:47:01 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/19 23:29:21 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/21 13:08:45 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@
 /* tgetent, tgetflag, tgetnum, tgetstr
        tgoto, tputs */
 
+/* get_path.c */
+char	**get_path(void);
 
-/* get_path_list.c */
-char	**get_path_list(char *path);
 
 # define WORD
 # define LEFT_SIMPLE_QUOTE
