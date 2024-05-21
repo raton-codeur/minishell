@@ -108,19 +108,43 @@ t_command	*get_cmd(char *command, char **path)
 	return (result);
 }
 
-
-
-
-
-
-
 void	run_commands(t_list *tokens)
 {
-	
+	t_list			*current;
+	t_command		*command;
+	char			**path;
+	pid_t			pid;
+
+	pid = 0;
+	path = get_path_list(getenv("PATH"));
+	current = tokens;
+	while (current)
+	{
+		command = get_cmd(current->content, path);
+		if (command == NULL)
+			return ;
+		if (command->split != NULL)
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				execve(command->pathname, command->split, NULL);
+				free_cmd(command);
+				exit (1);
+			}
+			else if (pid > 0)
+			{
+				waitpid(pid, NULL, 0);
+			}
+			else
+			{
+				ft_putendl_fd("fork error", 2);
+			}
+		}
+		current = current->next;
+	}
+	deep_free(path, get_length(path));
 }
-
-
-
 
 int	main()
 {
@@ -142,7 +166,7 @@ int	main()
 				add_history(input);
 			tokens = get_tokens(input);
 			free(input);
-			list_print(tokens, print_as_string);
+			// list_print(tokens, print_as_string);
 			run_commands(tokens);
 		}
 	}
