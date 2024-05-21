@@ -6,7 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:47:01 by qhauuy            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/21 13:30:06 by qhauuy           ###   ########.fr       */
+=======
+/*   Updated: 2024/05/21 13:08:45 by qhauuy           ###   ########.fr       */
+>>>>>>> list_doublement_chainee
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +49,9 @@
 /* tgetent, tgetflag, tgetnum, tgetstr
        tgoto, tputs */
 
+/* get_path.c */
+char	**get_path(void);
 
-/* get_path_list.c */
-char	**get_path_list(char *path);
 
 
 #endif

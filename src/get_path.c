@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path_list.c                                    :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:17:51 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/19 23:20:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/21 13:08:58 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static char	**add_slash(char **path)
 	return (result);
 }
 
-char	**get_path_list(char *path)
+char	**get_path(void)
 {
 	char	**result;
 
-	result = ft_split(path, ":");
+	result = ft_split(getenv("PATH"), ":");
 	if (result == NULL)
 		return (NULL);
 	result = add_slash(result);

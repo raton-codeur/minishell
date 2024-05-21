@@ -215,8 +215,6 @@ int	main()
 {
 	char	*input;
 	t_list	*tokens;
-	// char	*path;
-	// char	**path_list;
 
 	// path = getenv("PATH");
 	// path_list = get_path_list(path);
@@ -231,8 +229,8 @@ int	main()
 				add_history(input);
 			tokens = get_tokens(input);
 			free(input);
-			// list_print(tokens, print_as_string);
-			run_commands(tokens);
+			list_print(tokens, print_as_string);
+			// run_commands(tokens);
 		}
 	}
 	rl_clear_history();
