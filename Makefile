@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -I . -I libft -g3
+CFLAGS = -Wall -Werror -Wextra -I inc -I libft -g3
 LFLAGS = -lreadline
 LIBFT = libft/libft.a
 SRCS = $(shell find src -type f)

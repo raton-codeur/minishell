@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 11:47:01 by qhauuy            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/21 13:30:06 by qhauuy           ###   ########.fr       */
-=======
-/*   Updated: 2024/05/21 13:08:45 by qhauuy           ###   ########.fr       */
->>>>>>> list_doublement_chainee
+/*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/05/21 16:22:45 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +14,8 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "lexer.h"
+
 # include <readline/readline.h>
 # include <readline/history.h>
 /* readline, rl_clear_history, rl_on_new_line
@@ -49,8 +47,12 @@
 /* tgetent, tgetflag, tgetnum, tgetstr
        tgoto, tputs */
 
+
 /* get_path.c */
 char	**get_path(void);
+
+
+
 
 
 

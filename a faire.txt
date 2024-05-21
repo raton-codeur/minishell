@@ -12,3 +12,8 @@ ok
 
 avec un over long long
 pas ok-
+-
+lexer
+
+une commande peut contenir
+\

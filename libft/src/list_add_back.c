@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:23 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/04/17 17:03:12 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/21 14:50:10 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 void	list_add_back(t_list **list, t_list	*node)
 {
-	if (list)
+	t_list	*tmp;
+
+	if (list == NULL || node == NULL)
+		return ;
+	if (*list == NULL)
 	{
-		if (*list)
-			list_last(*list)->next = node;
-		else
-			*list = node;
+		*list = node;
+		return ;
 	}
+	tmp = list_last(*list);
+	tmp->next = node;
+	node->previous = tmp;
 }
