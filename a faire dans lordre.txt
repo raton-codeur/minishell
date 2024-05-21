@@ -1,0 +1,37 @@
+avec le lexer
+
+trouver quoi faire des caracteres suivant
+~
+`
+!
+@
+#
+$
+%
+^
+&
+*
+(
+)
+-
+_
+=
++
+[
+]
+{
+}
+\
+,
+.
+/
+?
+:
+;
+
+verif syntaxe sur nom de fichier
+
+verif syntaxe sur nom de fichier
+
+une commande peut contenir
+\

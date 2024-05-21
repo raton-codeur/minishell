@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/21 16:22:45 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/21 18:38:28 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include "lexer.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -47,12 +46,7 @@
 /* tgetent, tgetflag, tgetnum, tgetstr
        tgoto, tputs */
 
-
-/* get_path.c */
-char	**get_path(void);
-
-
-
+# include "lexer.h"
 
 
 

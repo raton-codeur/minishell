@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/21 16:22:09 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/21 18:38:52 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,22 @@
 
 # include "minishell.h"
 
-typedef enum e_char_type_1
+enum	e_token_type
 {
-	C_WORD,
-	C_PIPE,
-	C_SIMPLE_CHEVRON_LEFT,
-	C_SIMPLE_CHEVRON_RIGHT,
-	C_WHITE_SPACE,
-	C_END_OF_STRING,
-	C_ERROR,
-}	t_char_type_1;
-
-typedef enum e_token_type_1
-{
-	T_WORD,
-	T_PIPE,
-	T_SIMPLE_CHEVRON_LEFT,
-	T_SIMPLE_CHEVRON_RIGHT
-}	t_token_type_1;
+	TOKEN_PIPE,
+	TOKEN_CHEVRON_LEFT,
+	TOKEN_CHEVRON_RIGHT,
+	TOKEN_WHITE_SPACE,
+	TOKEN_WORD,
+	TOKEN_ERROR,
+	TOKEN_COMMAND,
+	TOKEN_FILE,
+	TOKEN_DELIMITER,
+	TOKEN_DOUBLE_CHEVRON_LEFT,
+	TOKEN_DOUBLE_CHEVRON_RIGHT,
+	TOKEN_QUOTE,
+	TOKEN_DOUBLE_QUOTE
+};
 
 typedef struct s_token
 {
@@ -40,40 +38,28 @@ typedef struct s_token
 	int		type;
 }	t_token;
 
-/* lexer.c */
-void	print_token(void *p);
-int		get_char_type(char c);
-t_list	*get_tokens(char *input);
+typedef struct s_get_tokens_utils
+{
+	int		start;
+	int		end;
+	int		current_token_type;
+}	t_get_tokens_utils;
 
+/* get_tokens.c */
+int		get_tokens(t_list **tokens, char *input);
+void	free_token(void *p);
 
+/*
+etats pour parcourir un mot
+base
+simple quote
+double quote
 
-
-
-
-
-
-// T_SIMPLE_QUOTE_LEFT,
-// T_SIMPLE_QUOTE_RIGHT,
-// T_DOUBLE_QUOTE_LEFT,
-// T_DOUBLE_QUOTE_RIGHT,
-
-// typedef enum e_token_type_2
-// {
-// 	T_COMMAND,
-// 	T_FILE,
-// 	T_PIPE,
-// 	T_DELIMITER,
-// 	T_SIMPLE_CHEVRON_LEFT,
-// 	T_SIMPLE_CHEVRON_RIGHT,
-// 	T_DOUBLE_CHEVRON_LEFT,
-// 	T_DOUBLE_CHEVRON_RIGHT
-// }	t_token_type;
-
-// typedef enum e_state
-// {
-// 	S_GENERAL_FINISHED,
-// 	S_GENERAL_UNFINISHED,
-// 	S_,
-// }	t_state;
+etats pour parcourir les tokens
+chevron left
+chevron right
+double chevron left
+double chevron right
+*/
 
 #endif
