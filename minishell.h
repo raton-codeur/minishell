@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:47:01 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/19 23:29:21 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/21 13:30:06 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,5 @@
 /* get_path_list.c */
 char	**get_path_list(char *path);
 
-# define WORD
-# define LEFT_SIMPLE_QUOTE
-# define RIGHT_SIMPLE_QUOTE
-# define LEFT_DOUBLE_QUOTE
-# define RIGHT_DOUBLE_QUOTE
-# define PIPE
-# define LEFT_SIMPLE_CHEVRON
-# define RIGHT_SIMPLE_CHEVRON
-# define LEFT_DOUBLE_CHEVRON
-# define RIGHT_DOUBLE_CHEVRON
 
 #endif

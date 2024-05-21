@@ -23,18 +23,83 @@ contenu
 
 type de token
 commande
-
-
-
 */
+
+
+// T_SIMPLE_QUOTE_LEFT,
+// T_SIMPLE_QUOTE_RIGHT,
+// T_DOUBLE_QUOTE_LEFT,
+// T_DOUBLE_QUOTE_RIGHT,
+
+
+typedef enum e_token_type_2
+{
+	T_COMMAND,
+	T_FILE,
+	T_PIPE,
+	T_DELIMITER,
+	T_SIMPLE_CHEVRON_LEFT,
+	T_SIMPLE_CHEVRON_RIGHT,
+	T_DOUBLE_CHEVRON_LEFT,
+	T_DOUBLE_CHEVRON_RIGHT
+}	t_token_type;
+
 
 // typedef enum e_state
 // {
-// 	STATE_GENERAL,
-// 	STATE_QUOTE_SIMPLE,
-// 	STATE_QUOTE_DOUBLE
+// 	S_GENERAL_FINISHED,
+// 	S_GENERAL_UNFINISHED,
+// 	S_,
 // }	t_state;
 
+typedef enum e_token_type_1
+{
+	T_WORD,
+	T_PIPE,
+	T_SIMPLE_CHEVRON_LEFT,
+	T_SIMPLE_CHEVRON_RIGHT,
+}	t_token_type;
+
+typedef struct s_token
+{
+	char			*content;
+	t_token_type	*type;
+}	t_token;
+
+/*
+
+i_start = 2
+i_end = 3
+
+ls | cat < fin
+
+["ls ", commande], ["| ", pipe], ["cat ", commande]
+
+
+
+
+
+get tokens (input : char *s) : liste chainee de tokens
+	etat courant = get token type (premier caractere de input)
+	i_start = 0
+	i_end = 0
+	result = NULL
+	tant que s[i_end] != '\0'
+		tant que get token type (s[i_end]) == etat courant
+			i_end++
+		ajouter a la fin de result le token de content substr de input de i_start a i_end et de type etat courant
+		i_start = i_end
+		
+*/
+
+/*
+ls|cat
+
+word pipe word
+
+< in ls -l "ls"
+
+*/
 
 
 t_list	*get_tokens(char *input)
