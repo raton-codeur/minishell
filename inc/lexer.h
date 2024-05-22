@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/21 18:38:52 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/22 13:03:31 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ typedef struct s_get_tokens_utils
 /* get_tokens.c */
 int		get_tokens(t_list **tokens, char *input);
 void	free_token(void *p);
+int		change_word_to_file(t_list **tokens);
+int		chevron_to_double_chevron(t_list **tokens);
+int		remove_white_space_tokens(t_list **tokens);
+int		list_remove(t_list **list, t_list *node);
 
 /*
 etats pour parcourir un mot

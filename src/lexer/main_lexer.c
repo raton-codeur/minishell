@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/21 18:37:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/22 12:54:19 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ int	main(void)
 				add_history(input);
 			if (get_tokens(&tokens, input))
 				ft_putendl_fd("lexer error", 2);
+			remove_white_space_tokens(&tokens);
+			chevron_to_double_chevron(&tokens);
+			change_word_to_file(&tokens);
 			free(input);
 			list_print(tokens, print_token);
 			list_clear(&tokens, free_token);
