@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/22 12:54:19 by jteste           ###   ########.fr       */
+/*   Updated: 2024/05/22 16:06:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	print_token(void *p)
 	printf("content : <%s>\n", token->content);
 	if (token->type == TOKEN_PIPE)
 		printf("type : TOKEN_PIPE\n");
-	else if (token->type == TOKEN_CHEVRON_LEFT)
-		printf("type : TOKEN_CHEVRON_LEFT\n");
-	else if (token->type == TOKEN_CHEVRON_RIGHT)
-		printf("type : TOKEN_CHEVRON_RIGHT\n");
+	else if (token->type == TOKEN_BROKET_LEFT)
+		printf("type : TOKEN_BROKET_LEFT\n");
+	else if (token->type == TOKEN_BROKET_RIGHT)
+		printf("type : TOKEN_BROKET_RIGHT\n");
 	else if (token->type == TOKEN_WHITE_SPACE)
 		printf("type : TOKEN_WHITE_SPACE\n");
 	else if (token->type == TOKEN_WORD)
@@ -40,10 +40,10 @@ void	print_token(void *p)
 		printf("type : TOKEN_FILE\n");
 	else if (token->type == TOKEN_DELIMITER)
 		printf("type : TOKEN_DELIMITER\n");
-	else if (token->type == TOKEN_DOUBLE_CHEVRON_LEFT)
-		printf("type : TOKEN_DOUBLE_CHEVRON_LEFT\n");
-	else if (token->type == TOKEN_DOUBLE_CHEVRON_RIGHT)
-		printf("type : TOKEN_DOUBLE_CHEVRON_RIGHT\n");
+	else if (token->type == TOKEN_DOUBLE_BROKET_LEFT)
+		printf("type : TOKEN_DOUBLE_BROKET_LEFT\n");
+	else if (token->type == TOKEN_DOUBLE_BROKET_RIGHT)
+		printf("type : TOKEN_DOUBLE_BROKET_RIGHT\n");
 	else if (token->type == TOKEN_QUOTE)
 		printf("type : TOKEN_QUOTE\n");
 	else if (token->type == TOKEN_DOUBLE_QUOTE)
@@ -65,11 +65,8 @@ int	main(void)
 		{
 			if (input[0] != '\0' && !ft_strisspace(input))
 				add_history(input);
-			if (get_tokens(&tokens, input))
-				ft_putendl_fd("lexer error", 2);
-			remove_white_space_tokens(&tokens);
-			chevron_to_double_chevron(&tokens);
-			change_word_to_file(&tokens);
+			if (get_tokens(&tokens, input) || lexing(&tokens))
+				ft_putendl_fd("lexing error", 2);
 			free(input);
 			list_print(tokens, print_token);
 			list_clear(&tokens, free_token);

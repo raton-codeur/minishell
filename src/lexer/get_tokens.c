@@ -19,9 +19,9 @@ static int	get_char_type(char c)
 	else if (c == '|')
 		return (TOKEN_PIPE);
 	else if (c == '>')
-		return (TOKEN_CHEVRON_RIGHT);
+		return (TOKEN_BROKET_RIGHT);
 	else if (c == '<')
-		return (TOKEN_CHEVRON_LEFT);
+		return (TOKEN_BROKET_LEFT);
 	else if (ft_isprint(c))
 		return (TOKEN_WORD);
 	else
@@ -56,10 +56,7 @@ static int	add_token(t_list **tokens, char *input, t_get_tokens_utils *u)
 	return (0);
 }
 
-
-
-
-int	go_to_token_end(char *input, t_get_tokens_utils *u)
+static int	go_to_token_end(char *input, t_get_tokens_utils *u)
 {
 	if (u->current_token_type == TOKEN_WORD)
 	{
@@ -91,114 +88,9 @@ int	get_tokens(t_list **tokens, char *input)
 	while (input[u.end])
 	{
 		if (go_to_token_end(input, &u) || add_token(tokens, input, &u))
-			return (list_clear(tokens, free_token), 1); // afficher message erreur
+			return (list_clear(tokens, free_token), 1);
 		u.current_token_type = get_char_type(input[u.end]);
 		u.start = u.end;
 	}
-	return (0);
-}
-
-int	chevron_to_double_chevron(t_list **tokens)
-{
-	t_list	*current;
-
-	current = *tokens;
-	while (current)
-	{
-		if (((t_token *)current->content)->type == TOKEN_CHEVRON_RIGHT)
-		{
-			if (ft_strlen(((t_token *)current->content)->content) == 2)
-				((t_token *)current->content)->type = TOKEN_DOUBLE_CHEVRON_RIGHT;
-			else if (ft_strlen(((t_token *)current->content)->content) > 2)
-			{
-				((t_token *)current->content)->type = TOKEN_ERROR;
-				return (1);
-			}
-		}
-		else if (((t_token *)current->content)->type == TOKEN_CHEVRON_LEFT)
-		{
-			if (ft_strlen(((t_token *)current->content)->content) == 2)
-				((t_token *)current->content)->type = TOKEN_DOUBLE_CHEVRON_LEFT;
-			else if (ft_strlen(((t_token *)current->content)->content) > 2)
-			{
-				((t_token *)current->content)->type = TOKEN_ERROR;
-				return (1);
-			}
-		}
-		current = current->next;
-	}
-	return (0);
-}
-
-int	change_word_to_file(t_list **tokens)
-{
-	t_list	*current;
-
-	current = *tokens;
-	while (current)
-	{
-		if (((t_token *)current->content)->type == TOKEN_CHEVRON_RIGHT)
-		{
-			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
-				((t_token *)current->next->content)->type = TOKEN_FILE;
-		}
-		else if (((t_token *)current->content)->type == TOKEN_CHEVRON_LEFT)
-		{
-			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
-				((t_token *)current->next->content)->type = TOKEN_FILE;
-		}
-		else if (((t_token *)current->content)->type == TOKEN_DOUBLE_CHEVRON_RIGHT)
-		{
-			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
-				((t_token *)current->next->content)->type = TOKEN_FILE;
-		}
-		else if (((t_token *)current->content)->type == TOKEN_DOUBLE_CHEVRON_LEFT)
-		{
-			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
-				((t_token *)current->next->content)->type = TOKEN_DELIMITER;
-		}
-		current = current->next;
-	}
-	return (0);
-}
-int	remove_white_space_tokens(t_list **tokens)
-{
-	t_list	*current;
-	t_list	*tmp;
-
-	current = *tokens;
-	while (current)
-	{
-		if (((t_token *)current->content)->type == TOKEN_WHITE_SPACE)
-		{
-			tmp = current;
-			current = current->next;
-			list_remove(tokens, tmp);
-		}
-		else
-			current = current->next;
-	}
-	return (0);
-}
-
-int	list_remove(t_list **list, t_list *node)
-{
-	t_list	*current;
-	t_list	*tmp;
-
-	if (*list == node)
-	{
-		*list = node->next;
-		free_token(node->content);
-		free(node);
-		return (0);
-	}
-	current = *list;
-	while (current->next != node)
-		current = current->next;
-	tmp = current->next;
-	current->next = current->next->next;
-	free_token(tmp->content);
-	free(tmp);
 	return (0);
 }
