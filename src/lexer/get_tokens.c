@@ -56,6 +56,30 @@ static int	add_token(t_list **tokens, char *input, t_get_tokens_utils *u)
 	return (0);
 }
 
+
+
+
+int	go_to_token_end(char *input, t_get_tokens_utils *u)
+{
+	if (u->current_token_type == TOKEN_WORD)
+	{
+		while (get_char_type(input[u->end]) == u->current_token_type
+			|| get_char_type(input[u->end]) == TOKEN_WHITE_SPACE)
+		{
+			if (get_char_type(input[u->end]) == TOKEN_ERROR)
+				return (1);
+			u->end++;
+		}
+	}
+	else
+	{
+		if (get_char_type(input[u->end]) == TOKEN_ERROR)
+			return (1);
+		u->end++;
+	}
+	return (0);
+}
+
 int	get_tokens(t_list **tokens, char *input)
 {
 	t_get_tokens_utils	u;
@@ -66,14 +90,8 @@ int	get_tokens(t_list **tokens, char *input)
 	u.current_token_type = get_char_type(input[u.end]);
 	while (input[u.end])
 	{
-		while (get_char_type(input[u.end]) == u.current_token_type)
-		{
-			if (get_char_type(input[u.end]) == TOKEN_ERROR)
-				return (list_clear(tokens, free_token), 1);
-			u.end++;
-		}
-		if (add_token(tokens, input, &u))
-			return (list_clear(tokens, free_token), 1);
+		if (go_to_token_end(input, &u) || add_token(tokens, input, &u))
+			return (list_clear(tokens, free_token), 1); // afficher message erreur
 		u.current_token_type = get_char_type(input[u.end]);
 		u.start = u.end;
 	}
