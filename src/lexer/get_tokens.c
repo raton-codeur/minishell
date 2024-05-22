@@ -124,10 +124,20 @@ int	change_word_to_file(t_list **tokens)
 			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
 				((t_token *)current->next->content)->type = TOKEN_FILE;
 		}
+		else if (((t_token *)current->content)->type == TOKEN_CHEVRON_LEFT)
+		{
+			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
+				((t_token *)current->next->content)->type = TOKEN_FILE;
+		}
 		else if (((t_token *)current->content)->type == TOKEN_DOUBLE_CHEVRON_RIGHT)
 		{
 			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
 				((t_token *)current->next->content)->type = TOKEN_FILE;
+		}
+		else if (((t_token *)current->content)->type == TOKEN_DOUBLE_CHEVRON_LEFT)
+		{
+			if (current->next && ((t_token *)current->next->content)->type == TOKEN_WORD)
+				((t_token *)current->next->content)->type = TOKEN_DELIMITER;
 		}
 		current = current->next;
 	}
