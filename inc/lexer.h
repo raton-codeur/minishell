@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/22 16:06:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/22 18:04:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,26 @@ typedef struct s_get_tokens_utils
 	int		current_token_type;
 }	t_get_tokens_utils;
 
+// a supp
+void	print_type(int type);
+
 /* get_tokens.c */
 int		get_tokens(t_list **tokens, char *input);
 void	free_token(void *p);
+
+/* add_token.c */
+int		add_token(t_list **tokens, char *input, t_get_tokens_utils *u);
 
 /* lexing.c */
 int		lexing(t_list **tokens);
 int		list_remove(t_list **list, t_list *node);
 
-/* chevron_to_double_chevron.c */
-int		chevron_to_double_chevron(t_list **tokens);
+/* broket_to_double_broket.c */
+int		broket_to_double_broket(t_list **tokens);
+
+/* analyze_brokets.c */
+int		analyze_brokets(t_list **tokens);
+
 
 /*
 etats pour parcourir un mot

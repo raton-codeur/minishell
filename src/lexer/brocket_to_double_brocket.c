@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:38:46 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/22 16:06:34 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/22 17:50:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	double_right_is_possible(t_list *node)
 		token_2 = node->next->content;
 	else
 		return (0);
-	return (token_1->type == TOKEN_BROCKET_RIGHT
-		&& token_2->type == TOKEN_BROCKET_RIGHT);
+	return (token_1->type == TOKEN_BROKET_RIGHT
+		&& token_2->type == TOKEN_BROKET_RIGHT);
 }
 
 static int	double_left_is_possible(t_list *node)
@@ -36,8 +36,8 @@ static int	double_left_is_possible(t_list *node)
 		token_2 = node->next->content;
 	else
 		return (0);
-	return (token_1->type == TOKEN_BROCKET_LEFT
-		&& token_2->type == TOKEN_BROCKET_LEFT);
+	return (token_1->type == TOKEN_BROKET_LEFT
+		&& token_2->type == TOKEN_BROKET_LEFT);
 }
 
 int	broket_to_double_broket(t_list **tokens)
@@ -49,12 +49,12 @@ int	broket_to_double_broket(t_list **tokens)
 	{
 		if (double_right_is_possible(current))
 		{
-			((t_token *)current->content)->type = TOKEN_DOUBLE_BROCKET_RIGHT;
+			((t_token *)current->content)->type = TOKEN_DOUBLE_BROKET_RIGHT;
 			list_remove(tokens, current->next);
 		}
 		else if (double_left_is_possible(current))
 		{
-			((t_token *)current->content)->type = TOKEN_DOUBLE_BROCKET_LEFT;
+			((t_token *)current->content)->type = TOKEN_DOUBLE_BROKET_LEFT;
 			list_remove(tokens, current->next);
 		}
 		current = current->next;
