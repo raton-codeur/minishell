@@ -12,81 +12,106 @@
 
 #include "lexer.h"
 
-int	list_remove(t_list **list, t_list *node)
+static int	remove_white_space(t_list **tokens)
 {
 	t_list	*current;
 	t_list	*tmp;
 
-	if (*list == node)
+	current = *tokens;
+	while (current)
 	{
-		*list = node->next;
-		(*list)->previous = NULL;
-		free_token(node->content);
-		free(node);
-		return (0);
+		if (((t_token *)current->content)->type == TOKEN_WHITE_SPACE)
+		{
+			tmp = current;
+			current = current->next;
+			list_remove_node(tokens, tmp, free_token);
+		}
+		else
+			current = current->next;
 	}
-	current = *list;
-	while (current->next != node)
-		current = current->next;
-	tmp = current->next;
-	current->next = current->next->next;
-	if (current->next)
-		current->next->previous = current;
-	free_token(tmp->content);
-	free(tmp);
 	return (0);
 }
 
+static	void	words_to_commands(t_list **tokens)
+{
+	t_list	*current;
+	t_token	*token;
 
+	current = *tokens;
+	while (current)
+	{
+		token = current->content;
+		if (token->type == TOKEN_WORD)
+			token->type = TOKEN_COMMAND;
+		current = current->next;
+	}
+}
 
-
-
-
-// void	find_delimiters(t_list **tokens)
-// {}
-
-// void	fill_commands(t_list **tokens)
-// {}
-
-// /* token word -> nom de fichier / commande / delimiter*/
-// static	void	words_to_commands(t_list **tokens)
-// {
-// 	t_list	*current;
-// 	t_token	*token;
-
-// 	current = *tokens;
-// 	while (current)
-// 	{
-// 		token = current->content;
-// 		if (token->type == TOKEN_WORD)
-// 			token->type = TOKEN_COMMAND;
-// 		current = current->next;
-// 	}
-// }
 static void	specialize_words(t_list **tokens)
 {
 	analyze_brokets(tokens);
-	// find_delimiters(tokens);
-	// fill_commands(tokens);
+	words_to_commands(tokens);
 }
 
-/*
-check words (ps tokens) : 1 si erreur, 0 sinon
-verifier quun nom de fichier suit < > et >>
-verifier quun delimiter suit <<
 
-si on  a deux brokets de meme type qui se suivent il faut supprmer la premiere
+
+/*
+
+si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere
+gestion double << a la suite a voir 
+
+
+
+si on a un pipe il faut deux expression avant et apres
+
 */
+
+void	brokets_remove_if_double(t_list **tokens)
+{
+	t_list *current;
+	t_token *token;
+	int brockets_find;
+
+	current = *tokens;
+	brockets_find = 0;
+	while (current)
+	{
+		token = current->content;
+		if (token->type == TOKEN_BROKET_LEFT || token->type == TOKEN_BROKET_RIGHT || token->type == TOKEN_BROKET_DOUBLE_LEFT || token->type == TOKEN_BROKET_DOUBLE_RIGHT)
+		{
+			if (brockets_find == 1)
+			{
+				brockets_find = 0;
+				list_remove_node(tokens, current, free_token);
+			}
+			else
+				brockets_find = 1;
+		}
+		else
+			brockets_find = 0;
+		{
+			/* code */
+		}
+		
+		current = current->next;
+	}
+	
+}
 
 int	lexing(t_list **tokens)
 {
 	broket_to_double_broket(tokens);
-	specialize_words(tokens); // word -> nom de fichier / commande / delimiter
-	// a ce niveau ya plus de token word
-	// if (check_words(tokens))
-		// return (1);
+	remove_white_space(tokens);
+	specialize_words(tokens); // word -> nom de fichier / commande / delimiter ==> plus de token WORD
+	split_file_tokens(tokens);
 
-	// supprimer les quotes et etendre les variables
+	expand_variables(tokens);
+	remove_quotes(tokens);
+
+
+	if (check_syntax(*tokens))
+		return (1);
+
 
 	return (0);
 }

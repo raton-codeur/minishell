@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/23 13:20:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:08:39 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ enum	e_token_type
 	TOKEN_WHITE_SPACE,
 	TOKEN_WORD,
 	TOKEN_ERROR,
-	TOKEN_EOL,
 	TOKEN_COMMAND,
 	TOKEN_FILE,
 	TOKEN_DELIMITER,
@@ -46,21 +45,19 @@ typedef struct s_get_tokens_utils
 	int		current_token_type;
 }	t_get_tokens_utils;
 
-// a supp
+// dans le main donc a supp
 void	print_type(int type);
 void	print_token(void *p);
 
-
 /* get_tokens.c */
 int		get_tokens(t_list **tokens, char *input);
-void	free_token(void *p);
-
-/* add_token.c */
-int		add_token(t_list **tokens, char *input, t_get_tokens_utils *u);
 
 /* lexing.c */
 int		lexing(t_list **tokens);
-int		list_remove(t_list **list, t_list *node);
+
+/* lexing_utils.c */
+void	free_token(void *p);
+int		go_to_quote_end(char *input, t_get_tokens_utils *u);
 
 /* broket_to_double_broket.c */
 int		broket_to_double_broket(t_list **tokens);
@@ -68,18 +65,13 @@ int		broket_to_double_broket(t_list **tokens);
 /* analyze_brokets.c */
 int		analyze_brokets(t_list **tokens);
 
+/* split_file_tokens.c */
+int		split_file_tokens(t_list **tokens);
 
-/*
-etats pour parcourir un mot
-base
-simple quote
-double quote
+/* check_syntax.c */
+int		check_syntax(t_list *tokens);
 
-etats pour parcourir les tokens
-chevron left
-chevron right
-double chevron left
-double chevron right
-*/
+/* expand_variables.c */
+void	expand_variables(t_list **tokens);
 
 #endif

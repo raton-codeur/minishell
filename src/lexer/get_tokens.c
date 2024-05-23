@@ -12,15 +12,6 @@
 
 #include "lexer.h"
 
-void	free_token(void *p)
-{
-	t_token	*token;
-
-	token = p;
-	free(token->content);
-	free(token);
-}
-
 static int	get_char_type(char c)
 {
 	if (ft_isspace(c))
@@ -33,25 +24,8 @@ static int	get_char_type(char c)
 		return (TOKEN_BROKET_LEFT);
 	else if (ft_isprint(c))
 		return (TOKEN_WORD);
-	else if (c == '\0')
-		return (TOKEN_EOL);
 	else
 		return (TOKEN_ERROR);
-}
-
-static int	go_to_quote_end(char *input, t_get_tokens_utils *u)
-{
-	char	quote;
-
-	quote = input[u->end];
-	u->end++;
-	while (input[u->end] && input[u->end] != quote)
-		u->end++;
-	if (input[u->end] == quote)
-		u->end++;
-	else
-		return (1);
-	return (0);
 }
 
 static int	go_to_token_end(char *input, t_get_tokens_utils *u)
@@ -65,24 +39,39 @@ static int	go_to_token_end(char *input, t_get_tokens_utils *u)
 	{
 		u->current_token_type = char_type;
 		u->end++;
-		// while (get_char_type(input[u->end]) == TOKEN_WHITE_SPACE)
-		// 	u->end++;
 	}
 	else
 	{
 		u->current_token_type = TOKEN_WORD;
 		while (char_type == TOKEN_WORD || char_type == TOKEN_WHITE_SPACE)
 		{
-			if ((input[u->end] == '\'' || input[u->end] == '"'))
-			{
-				if (go_to_quote_end(input, u))
-					return (1);
-			}
-			else
-				u->end++;
+			if ((input[u->end] == '\'' || input[u->end] == '"')
+				&& go_to_quote_end(input, u))
+				return (1);
+			u->end++;
 			char_type = get_char_type(input[u->end]);
 		}
 	}
+	return (0);
+}
+
+static int	add_token(t_list **tokens, char *input, t_get_tokens_utils *u)
+{
+	t_token	*token;
+	t_list	*node;
+
+	token = malloc(sizeof(t_token));
+	if (token == NULL)
+		return (1);
+	token->content = ft_substr(input, u->start, u->end - u->start);
+	u->start = u->end;
+	if (token->content == NULL)
+		return (free(token), 1);
+	token->type = u->current_token_type;
+	node = list_new(token);
+	if (node == NULL)
+		return (free_token(token), 1);
+	list_add_back(tokens, node);
 	return (0);
 }
 

@@ -6,13 +6,12 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/22 18:07:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/23 15:17:47 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-/* a supp */
 void	print_type(int type)
 {
 	if (type == TOKEN_PIPE)
@@ -43,10 +42,6 @@ void	print_type(int type)
 		printf("type : TOKEN_DOUBLE_QUOTE\n");
 }
 
-/*
-a supprimer
-pour list print
-*/
 void	print_token(void *p)
 {
 	t_token	*token;

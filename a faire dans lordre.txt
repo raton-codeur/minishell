@@ -35,3 +35,5 @@ verif syntaxe sur nom de fichier
 
 une commande peut contenir
 \
+
+gestion double << a la suite a voir 

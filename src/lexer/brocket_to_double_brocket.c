@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:38:46 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/23 13:02:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/23 15:27:24 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	broket_to_double_broket(t_list **tokens)
 		if (double_right_is_possible(current))
 		{
 			((t_token *)current->content)->type = TOKEN_DOUBLE_BROKET_RIGHT;
-			list_remove(tokens, current->next);
+			list_remove_node(tokens, current->next, free_token);
 		}
 		else if (double_left_is_possible(current))
 		{
 			((t_token *)current->content)->type = TOKEN_DOUBLE_BROKET_LEFT;
-			list_remove(tokens, current->next);
+			list_remove_node(tokens, current->next, free_token);
 		}
 		current = current->next;
 	}
