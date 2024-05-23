@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/22 18:04:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/23 13:20:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ enum	e_token_type
 	TOKEN_WHITE_SPACE,
 	TOKEN_WORD,
 	TOKEN_ERROR,
+	TOKEN_EOL,
 	TOKEN_COMMAND,
 	TOKEN_FILE,
 	TOKEN_DELIMITER,
@@ -47,6 +48,8 @@ typedef struct s_get_tokens_utils
 
 // a supp
 void	print_type(int type);
+void	print_token(void *p);
+
 
 /* get_tokens.c */
 int		get_tokens(t_list **tokens, char *input);

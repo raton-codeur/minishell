@@ -49,6 +49,20 @@ int	list_remove(t_list **list, t_list *node)
 // {}
 
 // /* token word -> nom de fichier / commande / delimiter*/
+// static	void	words_to_commands(t_list **tokens)
+// {
+// 	t_list	*current;
+// 	t_token	*token;
+
+// 	current = *tokens;
+// 	while (current)
+// 	{
+// 		token = current->content;
+// 		if (token->type == TOKEN_WORD)
+// 			token->type = TOKEN_COMMAND;
+// 		current = current->next;
+// 	}
+// }
 static void	specialize_words(t_list **tokens)
 {
 	analyze_brokets(tokens);

@@ -33,6 +33,8 @@ static int	get_char_type(char c)
 		return (TOKEN_BROKET_LEFT);
 	else if (ft_isprint(c))
 		return (TOKEN_WORD);
+	else if (c == '\0')
+		return (TOKEN_EOL);
 	else
 		return (TOKEN_ERROR);
 }
@@ -63,15 +65,23 @@ static int	go_to_token_end(char *input, t_get_tokens_utils *u)
 	{
 		u->current_token_type = char_type;
 		u->end++;
+		// while (get_char_type(input[u->end]) == TOKEN_WHITE_SPACE)
+		// 	u->end++;
 	}
-	while (char_type == TOKEN_WORD || char_type == TOKEN_WHITE_SPACE)
+	else
 	{
 		u->current_token_type = TOKEN_WORD;
-		if (input[u->end] == '\'' || input[u->end] == '"')
-			go_to_quote_end(input, u);
-		else
-			u->end++;
-		char_type = get_char_type(input[u->end]);
+		while (char_type == TOKEN_WORD || char_type == TOKEN_WHITE_SPACE)
+		{
+			if ((input[u->end] == '\'' || input[u->end] == '"'))
+			{
+				if (go_to_quote_end(input, u))
+					return (1);
+			}
+			else
+				u->end++;
+			char_type = get_char_type(input[u->end]);
+		}
 	}
 	return (0);
 }
