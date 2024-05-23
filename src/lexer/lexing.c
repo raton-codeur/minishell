@@ -66,37 +66,6 @@ si on a un pipe il faut deux expression avant et apres
 
 */
 
-void	brokets_remove_if_double(t_list **tokens)
-{
-	t_list *current;
-	t_token *token;
-	int brockets_find;
-
-	current = *tokens;
-	brockets_find = 0;
-	while (current)
-	{
-		token = current->content;
-		if (token->type == TOKEN_BROKET_LEFT || token->type == TOKEN_BROKET_RIGHT || token->type == TOKEN_BROKET_DOUBLE_LEFT || token->type == TOKEN_BROKET_DOUBLE_RIGHT)
-		{
-			if (brockets_find == 1)
-			{
-				brockets_find = 0;
-				list_remove_node(tokens, current, free_token);
-			}
-			else
-				brockets_find = 1;
-		}
-		else
-			brockets_find = 0;
-		{
-			/* code */
-		}
-		
-		current = current->next;
-	}
-	
-}
 
 int	lexing(t_list **tokens)
 {
@@ -104,9 +73,8 @@ int	lexing(t_list **tokens)
 	remove_white_space(tokens);
 	specialize_words(tokens); // word -> nom de fichier / commande / delimiter ==> plus de token WORD
 	split_file_tokens(tokens);
-
-	expand_variables(tokens);
-	remove_quotes(tokens);
+	// expand_variables(tokens);
+	// remove_quotes(tokens);
 
 
 	if (check_syntax(*tokens))
