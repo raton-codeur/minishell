@@ -6,126 +6,91 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:37 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/23 16:51:111 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/24 13:47:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-/*
-
-get value (c : un content de token de node a partir dune variable correcte ) : la valeur de la variable avec getenv
-	faire get env de c
-	si 
-
-
-int	expand_variables(t_list **tokens) : 1 si erreur 0 sinon
-	node = *tokens
-	while (node)
-		token = node->content
-		content = token->content
-		si ((token->type == FILE ou COMMAND) et (expand_variables_token(pointeur sur content))
-			return 1
-		node = node->next
-	return 0
-*/
-
-
-
-
-
-
-int	find_dollar(char *s)
+static int	insert_value(t_list **node, int i)
 {
-	int	i;
-	
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '$' && s[i + 1] && !ft_isspace(s[i + 1]))
-			return (i + 1);
-		i++;
-	}
-	return (-1);
+	t_token	*token;
+	char	*key;
+	char	*new_content;
+	int		len;
+
+	token = (*node)->content;
+	key = ft_substr(token->content, i, get_key_length(token, i));
+	if (key == NULL)
+		return (1);
+	len = ft_strlen(token->content) + ft_strlen(getenv(key)) - ft_strlen(key);
+	new_content = ft_calloc(len, sizeof(char));
+	if (new_content == NULL)
+		return (free(key), 1);
+	ft_strncpy(new_content, token->content, i - 1);
+	ft_strcpy(new_content + i - 1, getenv(key));
+	ft_strcpy(new_content + i - 1 + ft_strlen(getenv(key)),
+		token->content + i + ft_strlen(key));
+	free(token->content);
+	token->content = new_content;
+	free(key);
+	return (0);
 }
 
-int	is_good_variable(char *s)
+static int	remove_bad_variable(t_list **node, int i)
 {
-	return (ft_isalpha(*s) || *s == '_');
+	t_token	*token;
+	char	*new_content;
+
+	token = (*node)->content;
+	new_content = ft_calloc(ft_strlen(token->content) - 1, sizeof(char));
+	if (new_content == NULL)
+		return (1);
+	ft_strncpy(new_content, token->content, i - 1);
+	ft_strcpy(new_content + i - 1, token->content + i + 1);
+	free(token->content);
+	token->content = new_content;
+	return (0);
 }
 
-int	get_key_length(char *s)
+static int	expand_variables_token(t_list **node, int *in_double_quote)
 {
-	int	i;
+	int		i;
 
-	i = 0;
-	while (ft_isalnum(s[i]) || s[i] == '_')
-		i++;
-	return (i);
-}
-
-/*
-
-insert value (c : un pointeur sur content de token de node) : 1 si erreur 0 sinon
-	new content de expand = get value (c + i)
-	si new content est null
-		return 1
-	new content = calloc dune chaine de taille strlen de c + len value (c + i ) - key length (c + i) -1 + 1
-	strncpy dans new content de c jusqua i - 1 - 1 
-	strcpy dans new content + i - 1 de get value (c + i)
-	strcpy dans new content + i - 1 + get value length(c + i) de c + i + get key length (c + i)
-	return 0
-
-remove bad key(c : un pointeur sur content de token de node) : 1 si erreur 0 sinon
-	new content = calloc dune chaine de taille strlen de c - 2 + 1
-	si new content est null
-		return 1
-	strncpy dans new content de c jusqua i - 1 - 1
-	strcpy dans new content + i - 1 de c + i + 1 
-	return 0
-
-expand_variables_token (c : un pointeur sur content de token de node) : 1 si erreur 0 sinon
-remplace le content par un content dont les variables sont expanded
-si apres le dollar on a une variable corrcte ie qui commence par un caractere alpha ou underscore suivi de alpha numerique ou underscore -> chercher la valeur de cette variable et la remplacer
-si apres le dollar on a une variable incorrecte on retire tout ce qui est incorrect du content
-si apres le dollar on a un white space on fait rien
-	i = 0
-	tant que (has interresting dollar (c + i)
-		si is good variable (c + i) et insert value (c + i, pointeur sur i)
-			return 1
-		sinon si remove bad variable (c + i, pointeur sur i)
-			return 1
-
-*/
-
-
-
-int	expand_variables_token(char **token)
-{
-	int	i;
-
-	i = find_dollar(token);
+	i = find_dollar((*node)->content, in_double_quote);
 	while (i != -1)
 	{
-		if (is_good_variable(token + i) && insert_value(&token, i))
+		if (is_good_variable((*node)->content, i))
+		{
+			if (insert_value(node, i))
+				return (1);
+		}
+		else if (remove_bad_variable(node, i))
 			return (1);
-		else if (remove_bad_variable(&token, i))
-			return (1);
-		i = find_dollar(token);
+		i = find_dollar((*node)->content, in_double_quote);
 	}
+	return (0);
 }
 
 int	expand_variables(t_list **tokens)
 {
-	t_current_token	current;
+	t_list	*node;
+	t_token	*token;
+	int		type;
+	int		in_double_quote;
 
-	init_current_token(&current, *tokens);
-	while (current.node)
+	node = *tokens;
+	while (node)
 	{
-		if ((current.type == TOKEN_FILE || current.type == TOKEN_COMMAND)
-			&& expand_variables_token(&current.content))
+		in_double_quote = 0;
+		token = node->content;
+		type = token->type;
+
+		if ((type == TOKEN_FILE || type == TOKEN_COMMAND)
+			&& expand_variables_token(&node, &in_double_quote))
 			return (1);
-		init_current_token(&current, current.node->next);
+
+		node = node->next;
 	}
 	return (0);
 }

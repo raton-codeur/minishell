@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/22 15:56:110 by jteste           ###   ########.fr       */
+/*   Updated: 2024/05/24 13:42:34 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static int	remove_white_space(t_list **tokens)
+static void	remove_white_space(t_list **tokens)
 {
 	t_list	*current;
 	t_list	*tmp;
@@ -29,7 +29,6 @@ static int	remove_white_space(t_list **tokens)
 		else
 			current = current->next;
 	}
-	return (0);
 }
 
 static	void	words_to_commands(t_list **tokens)
@@ -53,33 +52,16 @@ static void	specialize_words(t_list **tokens)
 	words_to_commands(tokens);
 }
 
-
-
-/*
-
-si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere
-gestion double << a la suite a voir 
-
-
-
-si on a un pipe il faut deux expression avant et apres
-
-*/
-
-
 int	lexing(t_list **tokens)
 {
 	broket_to_double_broket(tokens);
 	remove_white_space(tokens);
-	specialize_words(tokens); // word -> nom de fichier / commande / delimiter ==> plus de token WORD
-	split_file_tokens(tokens);
-	// expand_variables(tokens);
-	// remove_quotes(tokens);
-
-
+	specialize_words(tokens);
+	if (split_file_tokens(tokens)
+		|| expand_variables(tokens)
+		|| remove_quotes(tokens))
+		return (1);
 	if (check_syntax(*tokens))
 		return (1);
-
-
 	return (0);
 }

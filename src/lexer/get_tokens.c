@@ -28,6 +28,19 @@ static int	get_char_type(char c)
 		return (TOKEN_ERROR);
 }
 
+static int	go_to_quote_end(char *input, t_get_tokens_utils *u)
+{
+	char	quote;
+
+	quote = input[u->end];
+	u->end++;
+	while (input[u->end] && input[u->end] != quote)
+		u->end++;
+	if (input[u->end] != quote)
+		return (1);
+	return (0);
+}
+
 static int	go_to_token_end(char *input, t_get_tokens_utils *u)
 {
 	int	char_type;

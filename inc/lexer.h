@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/23 18:49:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/05/24 13:42:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,12 @@ int		lexing(t_list **tokens);
 
 /* lexing_utils.c */
 void	free_token(void *p);
-int		go_to_quote_end(char *input, t_get_tokens_utils *u);
-void 	init_current_token(t_list **current_node_info, t_list *node);
-
 
 /* broket_to_double_broket.c */
-int		broket_to_double_broket(t_list **tokens);
+void	broket_to_double_broket(t_list **tokens);
 
 /* analyze_brokets.c */
-int		analyze_brokets(t_list **tokens);
+void	analyze_brokets(t_list **tokens);
 
 /* split_file_tokens.c */
 int		split_file_tokens(t_list **tokens);
@@ -82,11 +79,14 @@ int		split_file_tokens(t_list **tokens);
 int		check_syntax(t_list *tokens);
 
 /* expand_variables.c */
-void	expand_variables(t_list **tokens);
-int		has_interresting_dollar(char *s)
+int		expand_variables(t_list **tokens);
 
+/* expand_variables_utils.c */
+int		find_dollar(t_token *token, int *in_double_quote);
+int		is_good_variable(t_token *token, int i);
+int		get_key_length(t_token *token, int i);
 
-/* expand_variables_token.c */
-int		expand_variables_token(char **token);
+/* remove_quotes.c */
+int		remove_quotes(t_list **tokens);
 
 #endif
