@@ -46,16 +46,11 @@ static int	go_to_token_end(char *input, t_get_tokens_utils *u)
 	int	char_type;
 
 	char_type = get_char_type(input[u->end]);
+	u->current_token_type = char_type;
 	if (char_type == TOKEN_ERROR)
 		return (1);
-	else if (char_type != TOKEN_WORD)
+	else if (char_type == TOKEN_WORD)
 	{
-		u->current_token_type = char_type;
-		u->end++;
-	}
-	else
-	{
-		u->current_token_type = TOKEN_WORD;
 		while (char_type == TOKEN_WORD || char_type == TOKEN_WHITE_SPACE)
 		{
 			if ((input[u->end] == '\'' || input[u->end] == '"')
@@ -65,6 +60,8 @@ static int	go_to_token_end(char *input, t_get_tokens_utils *u)
 			char_type = get_char_type(input[u->end]);
 		}
 	}
+	else
+		u->end++;
 	return (0);
 }
 
@@ -93,8 +90,6 @@ int	get_tokens(t_list **tokens, char *input)
 	t_get_tokens_utils	u;
 
 	ft_bzero(&u, sizeof(t_get_tokens_utils));
-	while (input[u.end] && get_char_type(input[u.end]) == TOKEN_WHITE_SPACE)
-		u.end++;
 	while (input[u.end])
 	{
 		if (go_to_token_end(input, &u) || add_token(tokens, input, &u))

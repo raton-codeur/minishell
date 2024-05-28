@@ -12,12 +12,16 @@
 
 #include "lexer.h"
 
-static int	has_white_space(char *token_content)
+static int	has_separator(char *token_content)
 {
 	while (*token_content)
 	{
 		if (ft_isspace(*token_content))
-			return (1);
+		{
+			while (ft_isspace(*token_content))
+				token_content++;
+			return (*token_content && !ft_isspace(*token_content));
+		}
 		token_content++;
 	}
 	return (0);
@@ -77,7 +81,7 @@ int	split_file_tokens(t_list **tokens)
 	while (current)
 	{
 		token = current->content;
-		if (token->type == TOKEN_FILE && has_white_space(token->content))
+		if (token->type == TOKEN_FILE && has_separator(token->content))
 		{
 			new_tokens = split_file_token(token->content);
 			if (new_tokens == NULL)

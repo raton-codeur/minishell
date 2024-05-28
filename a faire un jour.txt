@@ -13,23 +13,3 @@ ok
 avec un over long long
 pas ok-
 -
-gestion double << a la suite a voir 
-
-
--
-qhauuy@k1r2p3:~/Desktop$ export VAR='"$USER"'
-qhauuy@k1r2p3:~/Desktop$ $VAR
-"$USER": command not found
-qhauuy@k1r2p3:~/Desktop$ echo "$USER"
-qhauuy
-qhauuy@k1r2p3:~/Desktop$ echo "$VAR"
-"$USER"
-qhauuy@k1r2p3:~/Desktop$ 
--
-
-
--
-si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere
--
-gestion double << a la suite a voir 
--

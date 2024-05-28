@@ -85,11 +85,9 @@ int	expand_variables(t_list **tokens)
 		in_double_quote = 0;
 		token = node->content;
 		type = token->type;
-
 		if ((type == TOKEN_FILE || type == TOKEN_COMMAND)
 			&& expand_variables_token(&node, &in_double_quote))
 			return (1);
-
 		node = node->next;
 	}
 	return (0);

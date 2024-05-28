@@ -1,0 +1,30 @@
+
+les caracteres suivants
+~
+`
+!
+@
+#
+$
+%
+^
+&
+*
+(
+)
+-
+_
+=
++
+[
+]
+{
+}
+\
+,
+.
+/
+?
+:
+;
+peuvent etre utilises dans des fichiers et commandes

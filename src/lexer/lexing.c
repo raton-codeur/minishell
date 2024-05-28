@@ -59,7 +59,8 @@ int	lexing(t_list **tokens)
 	specialize_words(tokens);
 	if (split_file_tokens(tokens)
 		|| expand_variables(tokens)
-		|| remove_quotes(tokens))
+		|| remove_quotes(tokens)
+		)
 		return (1);
 	if (check_syntax(*tokens))
 		return (1);

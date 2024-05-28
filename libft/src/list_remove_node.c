@@ -18,11 +18,13 @@ void	list_remove_node(\
 	t_list	*current;
 	t_list	*tmp;
 
+	if (!list || !*list || !node)
+		return ;
 	if (*list == node)
 	{
 		*list = node->next;
-		(*list)->previous = NULL;
 		ft_free(node);
+		return ;
 	}
 	current = *list;
 	while (current->next != node)

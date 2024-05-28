@@ -1,0 +1,92 @@
+si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere
+-
+split un token commande en token fichier et token commande sur 'fichier     ' -> fichier et que des whitespace en commande
+-
+parsing error near ... message derreur precis sur le token derreur
+-
+expand une variable qui contient dautres variables
+
+notre programme expand alors quil ne faut pas
+
+export test='$USER'
+√ repo - main % ./minishell 
+minishell> $test
+content : <qhauuy>
+type : TOKEN_COMMAND
+
+alors que
+
+qhauuy@k1r4p7:~/Desktop/repo$ export test='$USER'
+qhauuy@k1r4p7:~/Desktop/repo$ $test
+$USER: command not found
+-
+minishell> "$test '$test'"
+content : <bonjour '$test'>
+
+alors quil devrait expand les deux
+-
+exemple de ulrich
+
+qhauuy@k1r2p3:~/Desktop$ export VAR='"$USER"'
+qhauuy@k1r2p3:~/Desktop$ $VAR
+"$USER": command not found
+qhauuy@k1r2p3:~/Desktop$ echo "$USER"
+qhauuy
+qhauuy@k1r2p3:~/Desktop$ echo "$VAR"
+"$USER"
+qhauuy@k1r2p3:~/Desktop$ 
+-
+verif syntaxe sur nom de fichier
+-
+verif syntaxe sur nom de fichier
+-
+plusieurs heredoc
+mettre les heredoc dans une liste chainee et arreter linput quand toutes les lignes apparaissent dans le bon ordre
+-
+
+
+
+/**
+ *
+        <list>                      ::=     '(' <command line> ')'   '||'     <list>
+                                            |   '(' <command line> ')'  '&&'    <list>
+                                            |   '(' <command line> ')'   '<'     <list>
+                                            |   '(' <command line> ')'   '>'     <list>
+                                            |   '(' <command line> ')'  '>>'    <list>
+                                            |   '(' <command line> ')'  '<<'    <list>
+                                            |   '(' <command line> ')'    '|'     <list>
+                                            |   '(' <command line> ')'
+                                            |   <command line>
+    
+    <command line>             ::=      <job>        '||'       <command line>
+                                            |   <job>       '&&'      <command line>
+                                                <job>
+ 
+        <job>                 ::=       <command>   '|'     <job>
+                                            |   <command>   '||'    <job>
+                                            |   <command>  '&&'   <job>
+                                            |   <command>
+ 
+        <command>           ::= <simple command>   '<'    <filename>
+                                            |   <simple command>   '>'    <filename>
+                                            |   <simple command>  '>>'   <filename>
+                                            |   <simple command>  '<<'   <EOF>
+                                            |   <simple command>
+ 
+        <simple command>::=     <pathname> <token list>
+ 
+        <token list>         ::=        <token> <token list>
+                                            |   (EMPTY)
+ *
+**/
+
+input :
+    process TOKEN_PIPE input
+    process
+
+process :
+    TOKEN_BROKET_LEFT TOKEN_FILE process
+    TOKEN_BROKET_RIGHT TOKEN_FILE process
+    TOKEN_DOUBLE_BROKET_RIGHT TOKEN_FILE process
+    TOKEN_DOUBLE_BROKET_LEFT TOKEN_DELIMITER process
+    TOKEN_COMMAND
