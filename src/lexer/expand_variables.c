@@ -12,63 +12,75 @@
 
 #include "lexer.h"
 
-static int	insert_value(t_list **node, int i)
+
+// char	*replace_keys(char *content, t_list *keys_position)
+// {
+// 	char	*result;
+// 	int		i;
+// 	int		j;
+// 	int		k;
+// 	int		*position;
+
+// 	result = ft_calloc(1, sizeof(char));
+
+
+// 	free(content);
+// 	list_clear(&keys_position, free);
+// 	return (result);
+// }
+
+
+
+t_list	*get_keys(t_token *token)
 {
-	t_token	*token;
-	char	*key;
-	char	*new_content;
-	int		len;
+	char	*content;
+	t_list	*result;
+	t_list	*node;
 
-	token = (*node)->content;
-	key = ft_substr(token->content, i, get_key_length(token, i));
-	if (key == NULL)
-		return (1);
-	len = ft_strlen(token->content) + ft_strlen(getenv(key)) - ft_strlen(key);
-	new_content = ft_calloc(len, sizeof(char));
-	if (new_content == NULL)
-		return (free(key), 1);
-	ft_strncpy(new_content, token->content, i - 1);
-	ft_strcpy(new_content + i - 1, getenv(key));
-	ft_strcpy(new_content + i - 1 + ft_strlen(getenv(key)),
-		token->content + i + ft_strlen(key));
-	free(token->content);
-	token->content = new_content;
-	free(key);
-	return (0);
-}
-
-static int	remove_bad_variable(t_list **node, int i)
-{
-	t_token	*token;
-	char	*new_content;
-
-	token = (*node)->content;
-	new_content = ft_calloc(ft_strlen(token->content) - 1, sizeof(char));
-	if (new_content == NULL)
-		return (1);
-	ft_strncpy(new_content, token->content, i - 1);
-	ft_strcpy(new_content + i - 1, token->content + i + 1);
-	free(token->content);
-	token->content = new_content;
-	return (0);
-}
-
-static int	expand_variables_token(t_list **node, int *in_double_quote)
-{
-	int		i;
-
-	i = find_dollar((*node)->content, in_double_quote);
-	while (i != -1)
+	content = token->content;
+	result = NULL;
+	while (*content)
 	{
-		if (is_good_variable((*node)->content, i))
+		if (*content == '$' && *(content + 1) && !ft_isspace(*(content + 1)))
 		{
-			if (insert_value(node, i))
-				return (1);
+			if (ft_isalpha(*(content + 1) || *(content + 1) == '_'))
+			{
+				node = list_new(content + 1);
+				if (node == NULL)
+				{
+					list_clear(&result, NULL);
+					return (NULL);
+				}
+				list_add_back(&result, node);
+			}
 		}
-		else if (remove_bad_variable(node, i))
-			return (1);
-		i = find_dollar((*node)->content, in_double_quote);
+		content++;
 	}
+	return (result);
+}
+
+void print_keys(void *p)
+{
+	char *content;
+
+	content = p;
+	printf("key found : <%s>\n", content);
+}
+
+
+int	expand_variables_token(t_list **node)
+{
+	t_token	*token;
+	t_list	*keys;
+
+	token = (*node)->content;
+	keys = get_keys(token);
+	if (keys == NULL)
+		return (1);
+	list_print(keys, print_keys);
+	// token->content = replace_keys(token->content, keys);
+	// if (token->content == NULL)
+	// 	return (1);
 	return (0);
 }
 
@@ -77,16 +89,14 @@ int	expand_variables(t_list **tokens)
 	t_list	*node;
 	t_token	*token;
 	int		type;
-	int		in_double_quote;
 
 	node = *tokens;
 	while (node)
 	{
-		in_double_quote = 0;
 		token = node->content;
 		type = token->type;
 		if ((type == TOKEN_FILE || type == TOKEN_COMMAND)
-			&& expand_variables_token(&node, &in_double_quote))
+			&& expand_variables_token(&node))
 			return (1);
 		node = node->next;
 	}

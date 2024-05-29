@@ -51,7 +51,7 @@ typedef struct s_current_token
 	t_token	*token;
 	char	*content;
 	int		type;
-}	t_current_token;	
+}	t_current_token;
 
 // dans le main donc a supp
 void	print_type(int type);
@@ -80,11 +80,6 @@ int		check_syntax(t_list *tokens);
 
 /* expand_variables.c */
 int		expand_variables(t_list **tokens);
-
-/* expand_variables_utils.c */
-int		find_dollar(t_token *token, int *in_double_quote);
-int		is_good_variable(t_token *token, int i);
-int		get_key_length(t_token *token, int i);
 
 /* remove_quotes.c */
 int		remove_quotes(t_list **tokens);

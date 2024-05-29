@@ -24,7 +24,8 @@ void	list_clear(t_list **list, void (*ft_free)(void *content))
 	while (node)
 	{
 		next_node = node->next;
-		(*ft_free)(node->content);
+		if (ft_free != NULL)
+			(*ft_free)(node->content);
 		free(node);
 		node = next_node;
 	}

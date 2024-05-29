@@ -1,3 +1,14 @@
+check syntaxe
+regarder le token dapres
+on peut pas finir sur autre chose quune commande ou nom de fichier
+
+-
+ls < f1 -a > f2
+-
+> f | > f2
+-
+
+
 si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere
 -
 split un token commande en token fichier et token commande sur 'fichier     ' -> fichier et que des whitespace en commande
