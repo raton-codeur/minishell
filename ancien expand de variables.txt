@@ -110,3 +110,49 @@ int	get_key_length(t_token *token, int i)
 		j++;
 	return (j);
 }
+
+
+
+-----------------------------
+
+
+// char	*replace_keys(char *content, t_list *keys)
+// {
+// 	char	*result;
+// 	t_list	*node;
+// 	char	*key;
+
+// 	node = *keys;
+// 	result = NULL;
+// 	while (node)
+// 	{
+// 		key = node->content;
+// 		if (ft_isalpha(*(content + 1) || *(content + 1) == '_'))
+// 		{
+
+// 		}
+// 		node = node->next;
+// 	}
+// 	return (result);
+// }
+
+// int	find_keys(t_list **keys, t_token *token)
+// {
+// 	char	*content;
+// 	t_list	*node;
+
+// 	content = token->content;
+// 	*keys = NULL;
+// 	while (*content)
+// 	{
+// 		if (*content == '$' && *(content + 1) && !ft_isspace(*(content + 1)))
+// 		{
+// 			node = list_new(content + 1);
+// 			if (node == NULL)
+// 				return (list_clear(keys, NULL), 1);
+// 			list_add_back(keys, node);
+// 		}
+// 		content++;
+// 	}
+// 	return (0);
+// }

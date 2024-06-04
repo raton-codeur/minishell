@@ -1,33 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 18:45:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/04/15 17:41:17 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/06/04 15:37:00 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/06/04 15:37:24 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *str)
+static int	get_length_result(t_list *list)
 {
-	char	*result;
-	int		i;
+	int		lenght;
+	t_list	*current;
 
-	if (str == NULL)
-		return (NULL);
-	result = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	lenght = 0;
+	current = list;
+	while (current)
+	{
+		lenght += ft_strlen(current->content);
+		current = current->next;
+	}
+	return (lenght);
+}
+
+char	*ft_strjoin_list(t_list *list)
+{
+	int		length;
+	char	*result;
+
+	length = get_length_result(list);
+	result = ft_calloc(length + 1, sizeof(char));
 	if (result == NULL)
 		return (NULL);
-	i = 0;
-	while (str[i])
+	while (list)
 	{
-		result[i] = str[i];
-		i++;
+		ft_strlcat(result, list->content, length + 1);
+		list = list->next;
 	}
-	result[i] = '\0';
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/24 13:42:34 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/04 18:03:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int	lexing(t_list **tokens)
 {
 	broket_to_double_broket(tokens);
 	remove_white_space(tokens);
+	if (expand_variables(tokens)
+		|| remove_quotes(tokens))
+		return (1);
 	specialize_words(tokens);
 	if (split_file_tokens(tokens)
-		|| expand_variables(tokens)
 		// || remove_quotes(tokens)
 		)
 		return (1);

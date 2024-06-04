@@ -66,6 +66,7 @@ SRCS = $(addprefix src/, \
 	ft_strisspace.c \
 	ft_isspace.c \
 	list_remove_node.c \
+	ft_strjoin_list.c \
 )
 
 $(NAME) : $(OBJS)
