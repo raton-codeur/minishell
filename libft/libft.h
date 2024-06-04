@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 15:47:08 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/04 19:50:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_calloc(size_t count, size_t size);
-int		save_malloc(void *p, t_list **l, void (*ft_free)(void *content));
-void	*ft_calloc_list(\
-	size_t count, size_t size, t_list **l, void (*ft_free)(void *content));
-char	*ft_strdup_list(\
-	const char *s, t_list **l, void (*ft_free)(void *content));
-void	ft_free(void *p, t_list **l, void (*ft_free)(void *content));
-void	deep_free(char **a, size_t i);
-void	deep_free_int(int **a, size_t i);
+void	deep_free(void **p, size_t i);
+int		save_add(void *p, t_list **l);
 
 /* print */
 void	ft_putchar_fd(char c, int fd);

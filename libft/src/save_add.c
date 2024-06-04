@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   save_add.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 13:12:59 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/04/18 16:44:40 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/06/04 19:49:45 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/06/04 19:50:03 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free(void *p, t_list **l, void (*ft_free)(void *content))
+int	save_add(void *p, t_list **l)
 {
 	t_list	*node;
 
-	node = *l;
-	while (node)
-	{
-		if (node->content == p)
-		{
-			ft_free(node->content);
-			node->content = NULL;
-			return ;
-		}
-		node = node->next;
-	}
+	node = list_new(p);
+	if (node == NULL)
+		return (list_clear(l, free), 1);
+	list_add_back(l, node);
+	return (0);
 }

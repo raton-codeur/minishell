@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/24 13:42:35 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/04 21:31:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,56 @@
 
 # include "minishell.h"
 
-enum	e_token_type
-{
-	TOKEN_PIPE,
-	TOKEN_BROKET_LEFT,
-	TOKEN_BROKET_RIGHT,
-	TOKEN_WHITE_SPACE,
-	TOKEN_WORD,
-	TOKEN_ERROR,
-	TOKEN_COMMAND,
-	TOKEN_FILE,
-	TOKEN_DELIMITER,
-	TOKEN_DOUBLE_BROKET_LEFT,
-	TOKEN_DOUBLE_BROKET_RIGHT,
-	TOKEN_QUOTE,
-	TOKEN_DOUBLE_QUOTE
-};
-
 typedef struct s_token
 {
 	char	*content;
 	int		type;
 }	t_token;
 
-typedef struct s_get_tokens_utils
+typedef struct s_data
 {
-	int		start;
-	int		end;
-	int		current_token_type;
-}	t_get_tokens_utils;
+	t_list	*to_free;
+	char	*input;
+	t_list	*tokens;
+	t_token	*t;
+	char	*s;
+}	t_data;
 
-typedef struct s_current_token
+enum
 {
-	t_list	*node;
-	t_token	*token;
-	char	*content;
-	int		type;
-}	t_current_token;
+	TYPE_PIPE,
+	TYPE_BROKET_LEFT,
+	TYPE_BROKET_RIGHT,
+	TYPE_SIMPLE_QUOTE,
+	TYPE_DOUBLE_QUOTE,
+	TYPE_WHITE_SPACE,
+	TYPE_CHARACTER,
+	TYPE_ERROR,
+	TYPE_WORD,
+	TYPE_COMMAND,
+	TYPE_FILE,
+	TYPE_DELIMITER,
+	TYPE_DOUBLE_BROKET_LEFT,
+	TYPE_DOUBLE_BROKET_RIGHT,
+};
 
-// dans le main donc a supp
+// dans le main
+// a supp
 void	print_type(int type);
 void	print_token(void *p);
 
+/* utils.c */
+void	*save(void *p, t_data *data);
+void	free_node(void *node_address);
+void	free_token(void *p);
+void	free_save(void *p, t_data *data);
+void	free_all(t_data *data);
+
 /* get_tokens.c */
-int		get_tokens(t_list **tokens, char *input);
+int		get_tokens(t_data *data);
 
 /* lexing.c */
 int		lexing(t_list **tokens);
-
-/* lexing_utils.c */
-void	free_token(void *p);
 
 /* broket_to_double_broket.c */
 void	broket_to_double_broket(t_list **tokens);
