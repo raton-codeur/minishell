@@ -1,0 +1,20 @@
+notre programme expand alors quil ne faut pas
+
+export test='$USER'
+√ repo - main % ./minishell
+minishell> $test
+content : <qhauuy>
+type : TOKEN_COMMAND
+
+alors que
+
+qhauuy@k1r4p7:~/Desktop/repo$ export test='$USER'
+qhauuy@k1r4p7:~/Desktop/repo$ $test
+$USER: command not found
+
+-
+
+minishell> "$test '$test'"
+content : <bonjour '$test'>
+
+alors quil devrait expand les deux

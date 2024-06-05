@@ -1,0 +1,38 @@
+
+// static	void	words_to_commands(t_list **tokens)
+// {
+// 	t_list	*current;
+// 	t_token	*token;
+
+// 	current = *tokens;
+// 	while (current)
+// 	{
+// 		token = current->content;
+// 		if (token->type == TOKEN_WORD)
+// 			token->type = TOKEN_COMMAND;
+// 		current = current->next;
+// 	}
+// }
+
+// static void	specialize_words(t_list **tokens)
+// {
+// 	analyze_brokets(tokens);
+// 	words_to_commands(tokens);
+// }
+
+// int	lexing(t_list **tokens)
+// {
+// 	broket_to_double_broket(tokens);
+// 	remove_white_space(tokens);
+// 	if (expand_variables(tokens)
+// 		|| remove_quotes(tokens))
+// 		return (1);
+// 	specialize_words(tokens);
+// 	if (split_file_tokens(tokens)
+// 		// || remove_quotes(tokens)
+// 		)
+// 		return (1);
+// 	// if (check_syntax(*tokens))
+// 	// 	return (1);
+// 	return (0);
+// }

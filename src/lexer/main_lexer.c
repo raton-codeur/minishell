@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 21:32:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/05 16:02:20 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,35 @@
 
 void	print_type(int type)
 {
-	if (type == TYPE_PIPE)
+	if (type == T_PIPE)
 		printf("type : PIPE\n");
-	else if (type == TYPE_BROKET_LEFT)
+	else if (type == T_BROKET_LEFT)
 		printf("type : BROKET_LEFT\n");
-	else if (type == TYPE_BROKET_RIGHT)
+	else if (type == T_BROKET_RIGHT)
 		printf("type : BROKET_RIGHT\n");
-	else if (type == TYPE_SIMPLE_QUOTE)
+	else if (type == T_SIMPLE_QUOTE)
 		printf("type : SIMPLE_QUOTE\n");
-	else if (type == TYPE_DOUBLE_QUOTE)
+	else if (type == T_DOUBLE_QUOTE)
 		printf("type : DOUBLE_QUOTE\n");
-	else if (type == TYPE_WHITE_SPACE)
+	else if (type == T_DOLLAR)
+		printf("type : DOLLAR\n");
+	else if (type == T_WHITE_SPACE)
 		printf("type : WHITE_SPACE\n");
-	else if (type == TYPE_CHARACTER)
+	else if (type == T_CHARACTER)
 		printf("type : CHARACTER\n");
-	else if (type == TYPE_ERROR)
+	else if (type == T_ERROR)
 		printf("type : ERROR\n");
-	else if (type == TYPE_WORD)
+	else if (type == T_WORD)
 		printf("type : WORD\n");
-	else if (type == TYPE_COMMAND)
+	else if (type == T_COMMAND)
 		printf("type : COMMAND\n");
-	else if (type == TYPE_FILE)
+	else if (type == T_FILE)
 		printf("type : FILE\n");
-	else if (type == TYPE_DELIMITER)
+	else if (type == T_DELIMITER)
 		printf("type : DELIMITER\n");
-	else if (type == TYPE_DOUBLE_BROKET_LEFT)
+	else if (type == T_DOUBLE_BROKET_LEFT)
 		printf("type : DOUBLE_BROKET_LEFT\n");
-	else if (type == TYPE_DOUBLE_BROKET_RIGHT)
+	else if (type == T_DOUBLE_BROKET_RIGHT)
 		printf("type : DOUBLE_BROKET_RIGHT\n");
 }
 
@@ -74,10 +76,10 @@ int	main(void)
 				break ;
 			if (data.input[0] != '\0' && !ft_strisspace(data.input))
 				add_history(data.input);
-			if (get_tokens(&data))
-			// if (get_tokens(&data) || lexing(&data))
-				ft_putendl_fd("lexing error", 2);
+			get_tokens(&data);
 			free(data.input);
+			if (lexing(&data))
+				ft_putendl_fd("lexing error", 2);
 			list_print(data.tokens, print_token);
 			list_clear(&data.tokens, free_node);
 		}

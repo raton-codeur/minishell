@@ -63,6 +63,7 @@ SRCS = $(addprefix src/, \
 	ft_strjoin_list.c \
 	deep_free.c \
 	save_add.c \
+	isword.c \
 )
 
 $(NAME) : $(OBJS)

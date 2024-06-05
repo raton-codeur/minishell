@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:37 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 21:21:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/05 18:09:16 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,7 @@
 // 	printf("key : <%s>\n", (char *)p);
 // }
 
-// int	ft_isword_start(int c)
-// {
-// 	return (ft_isalpha(c) || c == '_');
-// }
 
-// int	ft_isword_content(int c)
-// {
-// 	return (ft_isalnum(c) || c == '_');
-// }
-
-// int	ft_strisword(char *s)
-// {
-// 	if (!ft_isword_start(*s))
-// 		return (0);
-// 	s++;
-// 	while (*s)
-// 	{
-// 		if (!ft_isword_content(*s))
-// 			return (0);
-// 		s++;
-// 	}
-// 	return (1);
-// }
 
 
 // int expand_is_possible(int in_double_quote, int in_simple_quote)

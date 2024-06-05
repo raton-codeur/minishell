@@ -1,6 +1,33 @@
-check syntaxe
-regarder le token dapres
-on peut pas finir sur autre chose quune commande ou nom de fichier
+-
+
+on a encore les quotes
+les dollar dans les doubles quotes sont bien des dollars
+les dollets dans les simples quotes sont bien des characteres
+-
+trouver les dollars pour expand
+ok
+si pas bon dollar, le type du token est a catactere
+-
+regrouper les cles de variables en un token
+
+
+-
+analyser les double brokets left pour trouver les tokens delimiteur. les dollar dans un delimiteur sont des caracteres
+
+supprimer les quotes
+empty string -> nouveau token
+
+expand les variables
+
+regrouper les caracteres en words
+
+trouver les fichiers parmi les words
+
+supprimer les white space
+
+regarder les erreurs de syntaxe
+
+
 
 -
 ls < f1 -a > f2
@@ -8,33 +35,18 @@ ls < f1 -a > f2
 > f | > f2
 -
 
-
-si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere
--
-split un token commande en token fichier et token commande sur 'fichier     ' -> fichier et que des whitespace en commande
+si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere ?
 -
 parsing error near ... message derreur precis sur le token derreur
 -
 expand une variable qui contient dautres variables
-
-notre programme expand alors quil ne faut pas
-
-export test='$USER'
-√ repo - main % ./minishell 
-minishell> $test
-content : <qhauuy>
-type : TOKEN_COMMAND
-
-alors que
 
 qhauuy@k1r4p7:~/Desktop/repo$ export test='$USER'
 qhauuy@k1r4p7:~/Desktop/repo$ $test
 $USER: command not found
 -
 minishell> "$test '$test'"
-content : <bonjour '$test'>
-
-alors quil devrait expand les deux
+content : <bonjour 'bonjour'>
 -
 exemple de ulrich
 
@@ -45,9 +57,6 @@ qhauuy@k1r2p3:~/Desktop$ echo "$USER"
 qhauuy
 qhauuy@k1r2p3:~/Desktop$ echo "$VAR"
 "$USER"
-qhauuy@k1r2p3:~/Desktop$ 
--
-verif syntaxe sur nom de fichier
 -
 verif syntaxe sur nom de fichier
 -
@@ -58,13 +67,16 @@ mettre les heredoc dans une liste chainee et arreter linput quand toutes les lig
 
 
 
-input :
-    process TOKEN_PIPE input
-    process
+a :
+    b T_PIPE a
+    b
 
-process :
-    TOKEN_BROKET_LEFT TOKEN_FILE process
-    TOKEN_BROKET_RIGHT TOKEN_FILE process
-    TOKEN_DOUBLE_BROKET_RIGHT TOKEN_FILE process
-    TOKEN_DOUBLE_BROKET_LEFT TOKEN_DELIMITER process
-    TOKEN_COMMAND
+b :
+    [b] T_BROKET_LEFT T_FILE [b]
+    [b] T_BROKET_RIGHT T_FILE [b]
+    [b] T_DOUBLE_BROKET_RIGHT T_FILE [b]
+    [b] T_DOUBLE_BROKET_LEFT T_DELIMITER [b]
+    T_WORD
+    vide
+
+

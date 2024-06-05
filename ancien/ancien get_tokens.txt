@@ -1,0 +1,57 @@
+
+// static int	go_to_quote_end(char *input, t_get_tokens_utils *u)
+// {
+// 	char	quote;
+
+// 	quote = input[u->end];
+// 	u->end++;
+// 	while (input[u->end] && input[u->end] != quote)
+// 		u->end++;
+// 	if (input[u->end] != quote)
+// 		return (1);
+// 	return (0);
+// }
+
+// static int	go_to_token_end(char *input, t_get_tokens_utils *u)
+// {
+// 	int	char_type;
+
+// 	char_type = get_char_type(input[u->end]);
+// 	u->current_token_type = char_type;
+// 	if (char_type == ERROR)
+// 		return (1);
+// 	else if (char_type == WORD)
+// 	{
+// 		while (char_type == WORD || char_type == WHITE_SPACE)
+// 		{
+// 			if ((input[u->end] == '\'' || input[u->end] == '"')
+// 				&& go_to_quote_end(input, u))
+// 				return (1);
+// 			u->end++;
+// 			char_type = get_char_type(input[u->end]);
+// 		}
+// 	}
+// 	else
+// 		u->end++;
+// 	return (0);
+// }
+
+// static int	add_token(t_list **tokens, char *input, t_get_tokens_utils *u)
+// {
+// 	t_token	*token;
+// 	t_list	*node;
+
+// 	token = malloc(sizeof(t_token));
+// 	if (token == NULL)
+// 		return (1);
+// 	token->content = ft_substr(input, u->start, u->end - u->start);
+// 	u->start = u->end;
+// 	if (token->content == NULL)
+// 		return (free(token), 1);
+// 	token->type = u->current_token_type;
+// 	node = list_new(token);
+// 	if (node == NULL)
+// 		return (free_token(token), 1);
+// 	list_add_back(tokens, node);
+// 	return (0);
+// }

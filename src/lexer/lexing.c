@@ -6,65 +6,101 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 21:05:24 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/05 18:30:29 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-// static void	remove_white_space(t_list **tokens)
-// {
-// 	t_list	*current;
-// 	t_list	*tmp;
 
-// 	current = *tokens;
-// 	while (current)
-// 	{
-// 		if (((t_token *)current->content)->type == TOKEN_WHITE_SPACE)
-// 		{
-// 			tmp = current;
-// 			current = current->next;
-// 			list_remove_node(tokens, tmp, free_token);
-// 		}
-// 		else
-// 			current = current->next;
-// 	}
-// }
 
-// static	void	words_to_commands(t_list **tokens)
-// {
-// 	t_list	*current;
-// 	t_token	*token;
 
-// 	current = *tokens;
-// 	while (current)
-// 	{
-// 		token = current->content;
-// 		if (token->type == TOKEN_WORD)
-// 			token->type = TOKEN_COMMAND;
-// 		current = current->next;
-// 	}
-// }
 
-// static void	specialize_words(t_list **tokens)
-// {
-// 	analyze_brokets(tokens);
-// 	words_to_commands(tokens);
-// }
 
-// int	lexing(t_list **tokens)
-// {
-// 	broket_to_double_broket(tokens);
-// 	remove_white_space(tokens);
-// 	if (expand_variables(tokens)
-// 		|| remove_quotes(tokens))
-// 		return (1);
-// 	specialize_words(tokens);
-// 	if (split_file_tokens(tokens)
-// 		// || remove_quotes(tokens)
-// 		)
-// 		return (1);
-// 	// if (check_syntax(*tokens))
-// 	// 	return (1);
-// 	return (0);
-// }
+
+
+
+
+
+void	remove_token_type(t_data *data, int type)
+{
+	t_list	*tmp;
+	char	quote;
+
+	set_token(data, data->tokens);
+	quote = 0;
+	while (data->l)
+	{
+		if (data->t->type == type)
+		{
+			tmp = data->l;
+			data->l = data->l->next;
+			list_remove_node(&data->tokens, tmp, free_node);
+		}
+		else
+			data->l = data->l->next;
+		set_token(data, data->l);
+	}
+}
+
+
+int	analyse_quotes(t_data *data)
+{
+	char	quote;
+
+	quote = 0;
+	set_token(data, data->tokens);
+	while (data->l)
+	{
+		if (quote == 0)
+		{
+			if (data->s[0] == '\'' || data->s[0] == '"')
+				quote = data->s[0];
+		}
+		else
+		{
+			if (data->s[0] == quote)
+				quote = 0;
+			else if (!(data->s[0] == '$' && quote == '"'))
+				data->t->type = T_CHARACTER;
+		}
+		set_token(data, data->l->next);
+	}
+	return (quote != 0);
+}
+
+
+void	find_dollar(t_data *data)
+{
+	t_token	*next;
+
+	set_token(data, data->tokens);
+	while (data->l)
+	{
+		if (data->l->next)
+		{
+			next = data->l->next->content;
+			if (data->t->type == T_DOLLAR)
+			{
+				if (next->type == T_CHARACTER
+					&& ft_isword_content(next->content[0]))
+					printf("trouve\n");
+				else
+					data->t->type = T_CHARACTER;
+			}
+		}
+		else if (data->t->type == T_DOLLAR)
+			data->t->type = T_CHARACTER;
+		set_token(data, data->l->next);
+	}
+}
+
+int	lexing(t_data *data)
+{
+	if (analyse_quotes(data))
+		return (1);
+	broket_to_double_broket(data);
+	find_dollar(data);
+	// remove_token_type(data, T_DOUBLE_QUOTE);
+	return (0);
+}

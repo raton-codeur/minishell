@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_add.c                                         :+:      :+:    :+:   */
+/*   isword.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 19:49:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/05 16:40:35 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/06/05 18:09:00 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/06/05 18:09:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	save_add(void *p, t_list **l)
+int	ft_isword_start(int c)
 {
-	t_list	*node;
+	return (ft_isalpha(c) || c == '_');
+}
 
-	node = list_new(p);
-	if (node == NULL)
-		return (list_clear(l, free), 1);
-	list_add_back(l, node);
-	return (0);
+int	ft_isword_content(int c)
+{
+	return (ft_isalnum(c) || c == '_');
+}
+
+int	ft_strisword(char *s)
+{
+	if (!ft_isword_start(*s))
+		return (0);
+	s++;
+	while (*s)
+	{
+		if (!ft_isword_content(*s))
+			return (0);
+		s++;
+	}
+	return (1);
 }

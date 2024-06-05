@@ -6,57 +6,51 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:38:46 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 21:05:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/05 16:23:38 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-// static int	double_right_is_possible(t_list *node)
-// {
-// 	t_token	*token_1;
-// 	t_token	*token_2;
+static int	double_right_is_possible(t_data *data, t_list *node)
+{
+	t_token	*next;
 
-// 	token_1 = node->content;
-// 	if (node->next)
-// 		token_2 = node->next->content;
-// 	else
-// 		return (0);
-// 	return (token_1->type == TOKEN_BROKET_RIGHT
-// 		&& token_2->type == TOKEN_BROKET_RIGHT);
-// }
+	set_token(data, node);
+	if (data->l->next)
+		next = data->l->next->content;
+	else
+		return (0);
+	return (data->t->type == T_BROKET_RIGHT && next->type == T_BROKET_RIGHT);
+}
 
-// static int	double_left_is_possible(t_list *node)
-// {
-// 	t_token	*token_1;
-// 	t_token	*token_2;
+static int	double_left_is_possible(t_data *data, t_list *node)
+{
+	t_token	*next;
 
-// 	token_1 = node->content;
-// 	if (node->next)
-// 		token_2 = node->next->content;
-// 	else
-// 		return (0);
-// 	return (token_1->type == TOKEN_BROKET_LEFT
-// 		&& token_2->type == TOKEN_BROKET_LEFT);
-// }
+	set_token(data, node);
+	if (data->l->next)
+		next = data->l->next->content;
+	else
+		return (0);
+	return (data->t->type == T_BROKET_LEFT && next->type == T_BROKET_LEFT);
+}
 
-// void	broket_to_double_broket(t_list **tokens)
-// {
-// 	t_list	*current;
-
-// 	current = *tokens;
-// 	while (current)
-// 	{
-// 		if (double_right_is_possible(current))
-// 		{
-// 			((t_token *)current->content)->type = TOKEN_DOUBLE_BROKET_RIGHT;
-// 			list_remove_node(tokens, current->next, free_token);
-// 		}
-// 		else if (double_left_is_possible(current))
-// 		{
-// 			((t_token *)current->content)->type = TOKEN_DOUBLE_BROKET_LEFT;
-// 			list_remove_node(tokens, current->next, free_token);
-// 		}
-// 		current = current->next;
-// 	}
-// }
+void	broket_to_double_broket(t_data *data)
+{
+	set_token(data, data->tokens);
+	while (data->l)
+	{
+		if (double_right_is_possible(data, data->l))
+		{
+			data->t->type = T_DOUBLE_BROKET_RIGHT;
+			list_remove_node(&data->tokens, data->l->next, free_node);
+		}
+		else if (double_left_is_possible(data, data->l))
+		{
+			data->t->type = T_DOUBLE_BROKET_LEFT;
+			list_remove_node(&data->tokens, data->l->next, free_node);
+		}
+		set_token(data, data->l->next);
+	}
+}
