@@ -94,6 +94,97 @@ static int	get_type(char c)
 // 	data->t = node->content;
 // 	data->s = data->t->content;
 // }
+static void	remove_double_quotes(t_data *data)
+{
+	t_list	*current;
+	t_list	*tmp;
+	t_token	*current_token;
+	char	quote;
+
+	current = data->tokens;
+	quote = 0;
+	while(current)
+	{
+		current_token = current->content;
+		if (quote == 0)
+		{
+			if (current_token->type == TYPE_DOUBLE_QUOTE)
+			{
+				quote = current_token->content[0];
+				tmp = current;
+				current = current->next;
+				list_remove_node(&data->tokens, tmp, free_node);
+			}
+		}
+		else
+		{
+			if (current_token->content[0] == quote)
+			{
+				quote = 0;
+				tmp = current;
+				current = current->next;
+				list_remove_node(&data->tokens, tmp, free_node);
+			}
+			else
+				current = current->next;
+		}
+	}
+}
+
+static void	quoted_chars(t_data *data)
+{
+	t_list	*current;
+	t_token	*current_token;
+	char	quote;
+
+	current = data->tokens;
+	quote = 0;
+	while (current)
+	{
+		current_token = current->content;
+		if (quote == 0)
+		{
+			if (current_token->type == TYPE_SIMPLE_QUOTE
+				|| current_token->type == TYPE_DOUBLE_QUOTE)
+				quote = current_token->content[0];
+		}
+		else
+		{
+			if (current_token->content[0] == quote)
+				quote = 0;
+			else
+				current_token->type = TYPE_CHARACTER;
+		}
+		current = current->next;
+	}
+}
+
+static int	quotes_closed(t_data *data)
+{
+	t_list	*current;
+	char	quote;
+	t_token	*current_token;
+
+	current = data->tokens;
+	quote = 0;
+	while (current)
+	{
+		current_token = current->content;
+		if (quote == 0)
+		{
+			if (current_token->type == TYPE_SIMPLE_QUOTE
+				|| current_token->type == TYPE_DOUBLE_QUOTE)
+				quote = current_token->content[0];
+		}
+		else
+		{
+			if (current_token->content[0] == quote)
+				quote = 0;
+		}
+		current = current->next;
+	}
+	return (quote == 0);
+}
 
 static void	split_char(t_data *data)
 {
@@ -123,6 +214,9 @@ static void	split_char(t_data *data)
 int	get_tokens(t_data *data)
 {
 	split_char(data);
-	
+	if (!quotes_closed(data))
+		return (1);
+	quoted_chars(data);
+	remove_double_quotes(data);
 	return (0);
 }
