@@ -6,101 +6,106 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/05 18:30:29 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/06 18:10:22 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-
-
-
-
-
-
-
-
-
-
-void	remove_token_type(t_data *data, int type)
-{
-	t_list	*tmp;
-	char	quote;
-
-	set_token(data, data->tokens);
-	quote = 0;
-	while (data->l)
-	{
-		if (data->t->type == type)
-		{
-			tmp = data->l;
-			data->l = data->l->next;
-			list_remove_node(&data->tokens, tmp, free_node);
-		}
-		else
-			data->l = data->l->next;
-		set_token(data, data->l);
-	}
-}
-
-
 int	analyse_quotes(t_data *data)
 {
-	char	quote;
+	char		quote;
+	t_iterable	i;
 
 	quote = 0;
-	set_token(data, data->tokens);
-	while (data->l)
+	set_iterable(&i, data->tokens);
+	while (i.node)
 	{
 		if (quote == 0)
 		{
-			if (data->s[0] == '\'' || data->s[0] == '"')
-				quote = data->s[0];
+			if (i.content[0] == '\'' || i.content[0] == '"')
+				quote = i.content[0];
 		}
 		else
 		{
-			if (data->s[0] == quote)
+			if (i.content[0] == quote)
 				quote = 0;
-			else if (!(data->s[0] == '$' && quote == '"'))
-				data->t->type = T_CHARACTER;
+			else if (!(i.content[0] == '$' && quote == '"'))
+				i.token->type = T_CHARACTER;
 		}
-		set_token(data, data->l->next);
+		set_iterable(&i, i.node->next);
 	}
 	return (quote != 0);
 }
 
-
-void	find_dollar(t_data *data)
+void	expand_variables(t_data *data)
 {
-	t_token	*next;
+	t_iterable	current;
+	char		*new_content;
 
-	set_token(data, data->tokens);
-	while (data->l)
+	set_iterable(&current, data->tokens);
+	while (current.node)
 	{
-		if (data->l->next)
+		if (current.type == T_VARIABLE)
 		{
-			next = data->l->next->content;
-			if (data->t->type == T_DOLLAR)
-			{
-				if (next->type == T_CHARACTER
-					&& ft_isword_content(next->content[0]))
-					printf("trouve\n");
-				else
-					data->t->type = T_CHARACTER;
-			}
+			new_content = ft_strdup(getenv(current.content));
+			if (!new_content)
+				error_exit(MALLOC, data);
+			free(current.content);
+			current.token->content = new_content;
+			current.token->type = T_CHARACTER;
 		}
-		else if (data->t->type == T_DOLLAR)
-			data->t->type = T_CHARACTER;
-		set_token(data, data->l->next);
+		set_iterable(&current, current.node->next);
 	}
 }
+
+
+// void	find_delimiters(t_data *data)
+// {
+// 	t_iterable	current;
+// 	t_iterable	next;
+
+// 	set_iterables(&current, &next, data->tokens);
+// 	while (current.node)
+// 	{
+// 		if (current.type == T_DOUBLE_BROKET_LEFT)
+// 		{
+// 			while (current.node && current.type == T_WHITE_SPACE)
+// 				set_iterables(&current, &next, current.node->next);
+// 		}
+// 		else
+// 			set_iterables(&current, &next, next.node->next);
+// 	}
+
+// 	// if (next.node && current.type == T_DOUBLE_BROKET_LEFT)
+// 	// 	{
+// 	// 		while (next.node && )
+// 	// 		{
+// 	// 			next.token->type = T_DELIMITER;
+// 	// 			set_iterables(&current, &next, next.node->next);
+// 	// 		}
+// 	// 	}
+// }
+
 
 int	lexing(t_data *data)
 {
 	if (analyse_quotes(data))
 		return (1);
-	broket_to_double_broket(data);
-	find_dollar(data);
-	// remove_token_type(data, T_DOUBLE_QUOTE);
+	change_double_type(data, T_BROKET_LEFT, "<<", T_DOUBLE_BROKET_LEFT);
+	change_double_type(data, T_BROKET_RIGHT, ">>", T_DOUBLE_BROKET_RIGHT);
+	change_double_type(data, T_SIMPLE_QUOTE, "", T_CHARACTER);
+	change_double_type(data, T_DOUBLE_QUOTE, "", T_CHARACTER);
+	// find_delimiters(data);
+	// merge_type(data, T_DELIMITER);
+	find_variables(data);
+	merge_type(data, T_VARIABLE);
+	expand_variables(data);
+	merge_type(data, T_CHARACTER);
+	change_type(data, T_CHARACTER, T_WORD);
+	remove_type(data, T_DOUBLE_QUOTE);
+	remove_type(data, T_SIMPLE_QUOTE);
+	remove_type(data, T_WHITE_SPACE);
+	// check_syntax(data);
 	return (0);
 }

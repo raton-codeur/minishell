@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:52:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/05 16:41:26 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:02:40 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,4 @@ void	error_exit(int code, t_data *data)
 		ft_putendl_fd(MALLOC_MSG, 2);
 	free_all(data);
 	exit(code);
-}
-
-void	set_token(t_data *data, t_list *node)
-{
-	if (node == NULL)
-	{
-		data->l = NULL;
-		return ;
-	}
-	data->l = node;
-	data->t = data->l->content;
-	data->s = data->t->content;
 }

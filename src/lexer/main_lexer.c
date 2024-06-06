@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/05 16:02:20 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:49:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	print_type(int type)
 		printf("type : CHARACTER\n");
 	else if (type == T_ERROR)
 		printf("type : ERROR\n");
+	else if (type == T_VARIABLE)
+		printf("type : VARIABLE\n");
 	else if (type == T_WORD)
 		printf("type : WORD\n");
 	else if (type == T_COMMAND)
@@ -54,10 +56,6 @@ void	print_token(void *p)
 	printf("content : <%s>\n", token->content);
 	print_type(token->type);
 }
-
-
-
-
 
 
 int	main(void)

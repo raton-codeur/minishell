@@ -36,25 +36,29 @@ static int	get_type(char c)
 
 void	get_tokens(t_data *data)
 {
-	int		i;
-	t_list	*node;
+	int			i;
+	t_iterable	new;
 
 	i = 0;
 	while (data->input[i])
 	{
-		data->s = ft_calloc(2, sizeof(char));
-		if (data->s == NULL)
+		new.content = ft_calloc(2, sizeof(char));
+		if (new.content == NULL)
 			error_exit(MALLOC, data);
-		data->s[0] = data->input[i];
-		data->t = ft_calloc(1, sizeof(t_token));
-		if (data->t == NULL)
+		new.content[0] = data->input[i];
+		new.token = ft_calloc(1, sizeof(t_token));
+		if (new.token == NULL)
+			return (free(new.content), error_exit(MALLOC, data));
+		new.token->content = new.content;
+		new.token->type = get_type(new.content[0]);
+		new.node = list_new(new.token);
+		if (new.node == NULL)
+		{
+			free(new.content);
+			free(new.token);
 			error_exit(MALLOC, data);
-		data->t->content = data->s;
-		data->t->type = get_type(data->input[i]);
-		node = list_new(data->t);
-		if (data->s == NULL)
-			error_exit(MALLOC, data);
-		list_add_back(&data->tokens, node);
+		}
+		list_add_back(&data->tokens, new.node);
 		i++;
 	}
 }

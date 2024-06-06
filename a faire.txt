@@ -1,16 +1,4 @@
 -
-
-on a encore les quotes
-les dollar dans les doubles quotes sont bien des dollars
-les dollets dans les simples quotes sont bien des characteres
--
-trouver les dollars pour expand
-ok
-si pas bon dollar, le type du token est a catactere
--
-regrouper les cles de variables en un token
-
-
 -
 analyser les double brokets left pour trouver les tokens delimiteur. les dollar dans un delimiteur sont des caracteres
 
