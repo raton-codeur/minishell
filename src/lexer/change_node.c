@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   change_type.c                                      :+:      :+:    :+:   */
+/*   change_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/06 17:49:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/11 15:56:18 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,44 @@ void	change_type(t_data *data, int type, int new_type)
 	}
 }
 
-void	remove_type(t_data *data, int type)
+void	remove_by_type(t_data *data, int type)
 {
 	t_list		*tmp;
-	char		quote;
-	t_iterable	i;
+	t_iterable	current;
 
-	set_iterable(&i, data->tokens);
-	quote = 0;
-	while (i.node)
+	set_iterable(&current, data->tokens);
+	while (current.node)
 	{
-		if (i.type == type)
+		if (current.type == type)
 		{
-			tmp = i.node;
-			set_iterable(&i, i.node->next);
+			tmp = current.node;
+			set_iterable(&current, current.node->next);
 			list_remove_node(&data->tokens, tmp, free_node);
 		}
 		else
-			set_iterable(&i, i.node->next);
+			set_iterable(&current, current.node->next);
 	}
 }
+
+void	remove_by_type_content(t_data *data, int type, char *content)
+{
+	t_list		*tmp;
+	t_iterable	current;
+
+	set_iterable(&current, data->tokens);
+	while (current.node)
+	{
+		if (current.type == type && ft_strcmp(current.content, content) == 0)
+		{
+			tmp = current.node;
+			set_iterable(&current, current.node->next);
+			list_remove_node(&data->tokens, tmp, free_node);
+		}
+		else
+			set_iterable(&current, current.node->next);
+	}
+}
+
 
 void	merge_type(t_data *data, int type)
 {
@@ -94,3 +112,4 @@ void	change_double_type(\
 		set_iterables(&current, &next, current.node->next);
 	}
 }
+

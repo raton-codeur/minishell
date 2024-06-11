@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:52:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/06 17:02:40 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/11 15:10:11 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	free_all(t_data *data)
 	list_clear(&data->to_free, free);
 	list_clear(&data->tokens, free_node);
 	free(data->input);
-	rl_clear_history();
+	clear_history();
 }
 
 void	error_exit(int code, t_data *data)

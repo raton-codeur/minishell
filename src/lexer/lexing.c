@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/06 18:10:22 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:06:01 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,31 @@ void	expand_variables(t_data *data)
 	}
 }
 
+void	find_delimiters(t_data *data)
+{
+	t_iterable	current;
 
-// void	find_delimiters(t_data *data)
-// {
-// 	t_iterable	current;
-// 	t_iterable	next;
-
-// 	set_iterables(&current, &next, data->tokens);
-// 	while (current.node)
-// 	{
-// 		if (current.type == T_DOUBLE_BROKET_LEFT)
-// 		{
-// 			while (current.node && current.type == T_WHITE_SPACE)
-// 				set_iterables(&current, &next, current.node->next);
-// 		}
-// 		else
-// 			set_iterables(&current, &next, next.node->next);
-// 	}
-
-// 	// if (next.node && current.type == T_DOUBLE_BROKET_LEFT)
-// 	// 	{
-// 	// 		while (next.node && )
-// 	// 		{
-// 	// 			next.token->type = T_DELIMITER;
-// 	// 			set_iterables(&current, &next, next.node->next);
-// 	// 		}
-// 	// 	}
-// }
-
+	set_iterable(&current, data->tokens);
+	while (current.node)
+	{
+		if (current.type == T_DOUBLE_BROKET_LEFT)
+		{
+			set_iterable(&current, current.node->next);
+			while (current.type == T_WHITE_SPACE)
+				set_iterable(&current, current.node->next);
+			while (current.type == T_CHARACTER
+				|| current.type == T_DOUBLE_QUOTE
+				|| current.type == T_SIMPLE_QUOTE
+				|| current.type == T_DOLLAR)
+			{
+				current.token->type = T_DELIMITER;
+				set_iterable(&current, current.node->next);
+			}
+		}
+		else
+			set_iterable(&current, current.node->next);
+	}
+}
 
 int	lexing(t_data *data)
 {
@@ -96,16 +93,17 @@ int	lexing(t_data *data)
 	change_double_type(data, T_BROKET_RIGHT, ">>", T_DOUBLE_BROKET_RIGHT);
 	change_double_type(data, T_SIMPLE_QUOTE, "", T_CHARACTER);
 	change_double_type(data, T_DOUBLE_QUOTE, "", T_CHARACTER);
-	// find_delimiters(data);
-	// merge_type(data, T_DELIMITER);
+	find_delimiters(data);
+	remove_by_type_content(data, T_DELIMITER, "'");
+	remove_by_type_content(data, T_DELIMITER, "\"");
+	merge_type(data, T_DELIMITER);
 	find_variables(data);
 	merge_type(data, T_VARIABLE);
 	expand_variables(data);
 	merge_type(data, T_CHARACTER);
 	change_type(data, T_CHARACTER, T_WORD);
-	remove_type(data, T_DOUBLE_QUOTE);
-	remove_type(data, T_SIMPLE_QUOTE);
-	remove_type(data, T_WHITE_SPACE);
-	// check_syntax(data);
+	remove_by_type(data, T_DOUBLE_QUOTE);
+	remove_by_type(data, T_SIMPLE_QUOTE);
+	remove_by_type(data, T_WHITE_SPACE);
 	return (0);
 }

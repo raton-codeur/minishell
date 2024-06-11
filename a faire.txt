@@ -1,21 +1,12 @@
 -
--
-analyser les double brokets left pour trouver les tokens delimiteur. les dollar dans un delimiteur sont des caracteres
-
-supprimer les quotes
-empty string -> nouveau token
-
-expand les variables
-
-regrouper les caracteres en words
-
-trouver les fichiers parmi les words
-
-supprimer les white space
-
-regarder les erreurs de syntaxe
 
 
+erreurs de syntaxe
+il doit y avoir un word apres une broket
+il doit y avoir des tokens a côté d'un pipe
+
+message derreur <-> token où on trouve l'erreur syntaxique
+"parsing error near token ..."
 
 -
 ls < f1 -a > f2
@@ -23,30 +14,7 @@ ls < f1 -a > f2
 > f | > f2
 -
 
-si on  a deux brokets de meme type qui se suivent dans une expression il faut supprmer la premiere ?
--
-parsing error near ... message derreur precis sur le token derreur
--
-expand une variable qui contient dautres variables
-
-qhauuy@k1r4p7:~/Desktop/repo$ export test='$USER'
-qhauuy@k1r4p7:~/Desktop/repo$ $test
-$USER: command not found
--
-minishell> "$test '$test'"
-content : <bonjour 'bonjour'>
--
-exemple de ulrich
-
-qhauuy@k1r2p3:~/Desktop$ export VAR='"$USER"'
-qhauuy@k1r2p3:~/Desktop$ $VAR
-"$USER": command not found
-qhauuy@k1r2p3:~/Desktop$ echo "$USER"
-qhauuy
-qhauuy@k1r2p3:~/Desktop$ echo "$VAR"
-"$USER"
--
-verif syntaxe sur nom de fichier
+verif nom de fichier
 -
 plusieurs heredoc
 mettre les heredoc dans une liste chainee et arreter linput quand toutes les lignes apparaissent dans le bon ordre
