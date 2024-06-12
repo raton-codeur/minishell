@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/06 17:49:57 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/12 17:47:07 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(void)
 			if (lexing(&data))
 				ft_putendl_fd("lexing error", 2);
 			list_print(data.tokens, print_token);
-			list_clear(&data.tokens, free_node);
+			list_clear(&data.tokens, free_token);
 		}
 	}
 	return (free_all(&data), 0);

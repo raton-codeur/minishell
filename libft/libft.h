@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/05 18:08:29 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/12 16:11:36 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	list_add_back(t_list **list, t_list	*node);
 void	list_remove_node(\
 	t_list **list, t_list *node, void (*ft_free)(void *node));
 char	*ft_strjoin_list(t_list *list);
+t_list	*sub_list(t_list *lst, t_list *node, int list_size);
 
 /* memory */
 void	*ft_memset(void *s, int c, size_t n);

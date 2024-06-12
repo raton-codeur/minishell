@@ -36,3 +36,9 @@ b :
     vide
 
 
+
+
+expression T_PIPE expression
+
+expression
+    

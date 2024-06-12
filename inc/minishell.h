@@ -6,14 +6,12 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/05/21 18:38:28 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/12 16:51:06 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# include "libft.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -46,8 +44,57 @@
 /* tgetent, tgetflag, tgetnum, tgetstr
        tgoto, tputs */
 
-# include "lexer.h"
+# include "libft.h"
+# include "parser.h"
 
+typedef struct s_token
+{
+	char	*content;
+	int		type;
+}	t_token;
 
+enum
+{
+	T_PIPE,
+	T_BROKET_LEFT,
+	T_BROKET_RIGHT,
+	T_SIMPLE_QUOTE,
+	T_DOUBLE_QUOTE,
+	T_DOLLAR,
+	T_WHITE_SPACE,
+	T_CHARACTER,
+	T_ERROR,
+	T_VARIABLE,
+	T_WORD,
+	T_COMMAND,
+	T_FILE,
+	T_DELIMITER,
+	T_DOUBLE_BROKET_LEFT,
+	T_DOUBLE_BROKET_RIGHT,
+};
+
+typedef struct s_iterable
+{
+	t_list	*node;
+	t_token	*token;
+	char	*content;
+	int		type;
+}	t_iterable;
+
+typedef	struct s_tree t_tree;
+struct s_tree
+{
+	void	*content;
+	t_tree	*left;
+	t_tree	*right;
+};
+
+typedef struct s_data
+{
+	t_list		*to_free;
+	char		*input;
+	t_list		*tokens;
+	t_tree		*ast;
+}	t_data;
 
 #endif

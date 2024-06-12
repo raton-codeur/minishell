@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:03 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/11 15:22:23 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/12 16:42:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	set_iterable(t_iterable *i, t_list *node)
 void	set_iterables(t_iterable *current, t_iterable *next, t_list *node)
 {
 	set_iterable(current, node);
-	if (node)
+	if (node && next)
 		set_iterable(next, node->next);
 }
 
@@ -38,6 +38,6 @@ void	remove_node_and_update(\
 	t_list		*tmp;
 
 	tmp = current->node;
-	set_iterables(current, next, next->node);
-	list_remove_node(&data->tokens, tmp, free_node);
+	set_iterables(current, next, current->node->next);
+	list_remove_node(&data->tokens, tmp, free_token);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:52:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/11 15:10:11 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/12 16:41:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	*save(void *p, t_data *data)
 	return (p);
 }
 
-void	free_node(void *node_address)
+void	free_token(void *p)
 {
 	t_list	*node;
 
-	node = node_address;
+	node = p;
 	free(node->content);
 	free(node);
 }
@@ -40,7 +40,7 @@ void	free_save(void *p, t_data *data)
 	{
 		if (node->content == p)
 		{
-			list_remove_node(&data->to_free, node, free_node);
+			list_remove_node(&data->to_free, node, free_token);
 			return ;
 		}
 		node = node->next;
@@ -50,9 +50,9 @@ void	free_save(void *p, t_data *data)
 void	free_all(t_data *data)
 {
 	list_clear(&data->to_free, free);
-	list_clear(&data->tokens, free_node);
+	list_clear(&data->tokens, free_token);
 	free(data->input);
-	clear_history();
+	rl_clear_history();
 }
 
 void	error_exit(int code, t_data *data)

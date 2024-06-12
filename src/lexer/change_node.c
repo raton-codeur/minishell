@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/11 15:56:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/12 16:42:13 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	remove_by_type(t_data *data, int type)
 		{
 			tmp = current.node;
 			set_iterable(&current, current.node->next);
-			list_remove_node(&data->tokens, tmp, free_node);
+			list_remove_node(&data->tokens, tmp, free_token);
 		}
 		else
 			set_iterable(&current, current.node->next);
@@ -56,7 +56,7 @@ void	remove_by_type_content(t_data *data, int type, char *content)
 		{
 			tmp = current.node;
 			set_iterable(&current, current.node->next);
-			list_remove_node(&data->tokens, tmp, free_node);
+			list_remove_node(&data->tokens, tmp, free_token);
 		}
 		else
 			set_iterable(&current, current.node->next);
@@ -81,7 +81,7 @@ void	merge_type(t_data *data, int type)
 				if (!new_content)
 					error_exit(MALLOC, data);
 				free(current.content);
-				list_remove_node(&data->tokens, next.node, free_node);
+				list_remove_node(&data->tokens, next.node, free_token);
 				current.token->content = new_content;
 				set_iterables(&current, &next, current.node);
 			}
@@ -107,7 +107,7 @@ void	change_double_type(\
 			free(current.content);
 			current.token->content = new_content;
 			current.token->type = new_type;
-			list_remove_node(&data->tokens, next.node, free_node);
+			list_remove_node(&data->tokens, next.node, free_token);
 		}
 		set_iterables(&current, &next, current.node->next);
 	}

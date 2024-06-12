@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/11 16:06:01 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/12 14:37:52 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,22 @@ void	expand_variables(t_data *data)
 	{
 		if (current.type == T_VARIABLE)
 		{
-			new_content = ft_strdup(getenv(current.content));
+			if (getenv(current.content) == NULL)
+				new_content = ft_strdup("");
+			else
+				new_content = ft_strdup(getenv(current.content));
 			if (!new_content)
 				error_exit(MALLOC, data);
 			free(current.content);
 			current.token->content = new_content;
 			current.token->type = T_CHARACTER;
+			if (ft_strcmp(current.token->content, "") == 0)
+				remove_node_and_update(data, &current, NULL);
+			else
+				set_iterable(&current, current.node->next);
 		}
-		set_iterable(&current, current.node->next);
+		else
+			set_iterable(&current, current.node->next);
 	}
 }
 
