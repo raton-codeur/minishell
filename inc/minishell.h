@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 10:26:43 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 14:07:51 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ struct s_tree
 
 typedef struct s_data
 {
-	t_list		*to_free;
+	// t_list		*to_free;
 	char		*input;
 	t_list		*tokens;
 	t_tree		*ast;
+	t_tree		*tree;
 }	t_data;
 
 /* print.c */
@@ -107,9 +108,9 @@ void	tree_print(t_tree *tree);
 void	print_token_line(void *content);
 
 /* utils_1.c */
-void	*save(void *p, t_data *data);
+// void	*save(void *p, t_data *data);
 void	free_token(void *p);
-void	free_save(void *p, t_data *data);
+// void	free_save(void *p, t_data *data);
 void	free_all(t_data *data);
 void	error_exit(int code, t_data *data);
 
