@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 10:18:24 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 15:19:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static void	tree_print_rec(t_tree *tree, int *tab_count)
 	list_print(tree->content, print_token_line);
 	printf("\n");
 	(*tab_count)++;
-	tree_print_rec(tree->left, tab_count);
 	tree_print_rec(tree->right, tab_count);
+	tree_print_rec(tree->left, tab_count);
 	(*tab_count)--;
 }
 

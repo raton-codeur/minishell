@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 10:16:31 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 15:16:36 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // 		else
 // 		{
 // 			if (ft_strcmp(data.input, "exit") == 0)
-// 				break ;
+// 				return (free_all(&data), 0);
 // 			if (data.input[0] != '\0' && !ft_strisspace(data.input))
 // 				add_history(data.input);
 // 			get_tokens(&data);

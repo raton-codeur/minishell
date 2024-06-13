@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/12 16:42:13 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 15:15:41 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	remove_by_type_content(t_data *data, int type, char *content)
 	}
 }
 
-
 void	merge_type(t_data *data, int type)
 {
 	t_iterable	current;
@@ -112,4 +111,3 @@ void	change_double_type(\
 		set_iterables(&current, &next, current.node->next);
 	}
 }
-

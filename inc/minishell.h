@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 14:07:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 15:28:50 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ void	print_token_line(void *content);
 
 /* utils_1.c */
 // void	*save(void *p, t_data *data);
-void	free_token(void *p);
 // void	free_save(void *p, t_data *data);
+void	free_token(void *p);
 void	free_all(t_data *data);
 void	error_exit(int code, t_data *data);
 
 /* utils_2.c */
-void	tree_clear(t_tree *tree);
+void	tree_clear(t_tree **tree);
 
 #endif

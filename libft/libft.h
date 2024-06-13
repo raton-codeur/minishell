@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 12:23:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 14:29:39 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include <stdarg.h>
 # include <fcntl.h>
 # include <string.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/wait.h>
 
 /* char */
 int		ft_isalpha(int c);
@@ -77,8 +74,7 @@ void	list_add_back(t_list **list, t_list	*node);
 void	list_remove_node(\
 	t_list **list, t_list *node, void (*ft_free)(void *node));
 char	*ft_strjoin_list(t_list *list);
-t_list	*sub_list(t_list *lst, t_list *node, int list_size);
-int		node_position(t_list *list, t_list *node);
+int		list_node_index(t_list *list, t_list *node);
 
 /* memory */
 void	*ft_memset(void *s, int c, size_t n);
