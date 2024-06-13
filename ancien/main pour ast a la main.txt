@@ -1,0 +1,54 @@
+// int main()
+// {
+// 	// les nodes de l'aarbre
+// 	t_tree *node_1 = malloc(sizeof(t_tree));
+// 	t_tree *node_2 = malloc(sizeof(t_tree));
+// 	t_tree *node_3 = malloc(sizeof(t_tree));
+
+// 	// les content des nodes de l'arbre
+// 	t_list	*list_1 = NULL;
+// 	t_list	*list_2 = NULL;
+// 	t_list	*list_3 = NULL;
+
+// 	// les content des nodes des listes
+// 	t_token	*token_1 = malloc(sizeof(t_token));
+// 	t_token	*token_2 = malloc(sizeof(t_token));
+// 	t_token	*token_3 = malloc(sizeof(t_token));
+// 	t_token	*token_4 = malloc(sizeof(t_token));
+// 	t_token	*token_5 = malloc(sizeof(t_token));
+// 	t_token	*token_6 = malloc(sizeof(t_token));
+
+// 	token_1->content = "|";
+// 	token_1->type = T_PIPE;
+// 	token_2->content = "ls";
+// 	token_2->type = T_WORD;
+// 	token_3->content = "<";
+// 	token_3->type = T_BROKET_LEFT;
+// 	token_4->content = "f";
+// 	token_4->type = T_WORD;
+// 	token_5->content = "-a";
+// 	token_5->type = T_WORD;
+// 	token_6->content = "cat";
+// 	token_6->type = T_WORD;
+
+// 	list_1 = list_new(token_1);
+// 	list_2 = list_new(token_2);
+// 	list_add_back(&list_2, list_new(token_3));
+// 	list_add_back(&list_2, list_new(token_4));
+// 	list_add_back(&list_2, list_new(token_5));
+// 	list_3 = list_new(token_6);
+
+// 	node_1->content = list_1;
+// 	node_2->content = list_2;
+// 	node_3->content = list_3;
+
+// 	node_1->left = node_2;
+// 	node_1->right = node_3;
+// 	node_2->left = NULL;
+// 	node_2->right = NULL;
+// 	node_3->left = NULL;
+// 	node_3->right = NULL;
+
+
+// }
+

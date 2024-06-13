@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/12 14:37:52 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 10:22:34 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	analyse_quotes(t_data *data)
+static int	analyse_quotes(t_data *data)
 {
 	char		quote;
 	t_iterable	i;
@@ -38,7 +38,7 @@ int	analyse_quotes(t_data *data)
 	return (quote != 0);
 }
 
-void	expand_variables(t_data *data)
+static void	expand_variables(t_data *data)
 {
 	t_iterable	current;
 	char		*new_content;
@@ -67,7 +67,7 @@ void	expand_variables(t_data *data)
 	}
 }
 
-void	find_delimiters(t_data *data)
+static void	find_delimiters(t_data *data)
 {
 	t_iterable	current;
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_lexer.c                                       :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 16:09:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/12 17:47:07 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/06/13 10:18:24 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 
 void	print_type(int type)
 {
@@ -57,30 +57,38 @@ void	print_token(void *p)
 	print_type(token->type);
 }
 
-
-int	main(void)
+static void	tree_print_rec(t_tree *tree, int *tab_count)
 {
-	t_data	data;
+	int	i;
 
-	ft_bzero(&data, sizeof(t_data));
-	while (1)
+	if (tree == NULL)
+		return ;
+	i = 0;
+	while (i < *tab_count)
 	{
-		data.input = readline("minishell> ");
-		if (data.input == NULL)
-			ft_putendl_fd("readline error", 2);
-		else
-		{
-			if (ft_strcmp(data.input, "exit") == 0)
-				break ;
-			if (data.input[0] != '\0' && !ft_strisspace(data.input))
-				add_history(data.input);
-			get_tokens(&data);
-			free(data.input);
-			if (lexing(&data))
-				ft_putendl_fd("lexing error", 2);
-			list_print(data.tokens, print_token);
-			list_clear(&data.tokens, free_token);
-		}
+		ft_putchar_fd('\t', 1);
+		i++;
 	}
-	return (free_all(&data), 0);
+	list_print(tree->content, print_token_line);
+	printf("\n");
+	(*tab_count)++;
+	tree_print_rec(tree->left, tab_count);
+	tree_print_rec(tree->right, tab_count);
+	(*tab_count)--;
+}
+
+void	tree_print(t_tree *tree)
+{
+	int	tab_count;
+
+	tab_count = 0;
+	tree_print_rec(tree, &tab_count);
+}
+
+void	print_token_line(void *content)
+{
+	t_token	*token;
+
+	token = content;
+	printf("%s ", token->content);
 }

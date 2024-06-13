@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/12 16:51:06 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/13 10:26:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@
        tgoto, tputs */
 
 # include "libft.h"
-# include "parser.h"
+
+# define MALLOC_MSG "malloc error"
+# define MALLOC 426
 
 typedef struct s_token
 {
@@ -81,7 +83,7 @@ typedef struct s_iterable
 	int		type;
 }	t_iterable;
 
-typedef	struct s_tree t_tree;
+typedef struct s_tree	t_tree;
 struct s_tree
 {
 	void	*content;
@@ -96,5 +98,22 @@ typedef struct s_data
 	t_list		*tokens;
 	t_tree		*ast;
 }	t_data;
+
+/* print.c */
+// a supp
+void	print_type(int type);
+void	print_token(void *p);
+void	tree_print(t_tree *tree);
+void	print_token_line(void *content);
+
+/* utils_1.c */
+void	*save(void *p, t_data *data);
+void	free_token(void *p);
+void	free_save(void *p, t_data *data);
+void	free_all(t_data *data);
+void	error_exit(int code, t_data *data);
+
+/* utils_2.c */
+void	tree_clear(t_tree *tree);
 
 #endif
