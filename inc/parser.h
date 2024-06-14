@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:41:33 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 13:37:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:45:12 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,12 @@ void	init_ast(t_data *data);
 t_list	*copy_tokens(t_list *tokens, int size, t_data *data);
 t_tree	*tree_new(t_list *tokens, t_data *data);
 
+/* build_tree.c */
+void	build_tree(t_tree **tree, t_data *data);
+
+/* build_tree_utils.c */
+t_list	*find_pipe(t_list *tokens);
+t_list	*find_brokets(t_list *tokens);
+void	new_tree(t_data *data);
 
 #endif

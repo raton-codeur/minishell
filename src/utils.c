@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:52:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:29:47 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/14 16:34:27 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,17 @@ void	free_token(void *p)
 	free(token);
 }
 
+void	tree_clear(t_tree **tree)
+{
+	if (*tree == NULL)
+		return ;
+	tree_clear(&(*tree)->left);
+	tree_clear(&(*tree)->right);
+	list_clear((t_list **)&(*tree)->content, free_token);
+	free(*tree);
+	*tree = NULL;
+}
+
 void	free_all(t_data *data)
 {
 	// list_clear(&data->to_free, free);
@@ -75,4 +86,37 @@ void	error_exit(int code, t_data *data)
 		ft_putendl_fd(MALLOC_MSG, 2);
 	free_all_error(data);
 	exit(code);
+}
+
+
+
+// void set_error(t_data *data, int code, char *message)
+// {
+// 	data->error.code = code;
+// 	data->error.message = message;
+// }
+
+void	syntax_error(t_data *data, int code, char *token)
+{
+	char	*message;
+	char	*to_free;
+
+	message = ft_strjoin("syntax error near unexpected token `", token);
+	if (!message)
+		error_exit(MALLOC, data);
+	to_free = message;
+	message = ft_strjoin(message, "'");
+	free(to_free);
+	if (!message)
+		error_exit(MALLOC, data);
+	free(data->error.message);
+	data->error.message = message;
+	data->error.code = code;
+}
+
+void	reset_error(t_data *data)
+{
+	data->error.code = 0;
+	free(data->error.message);
+	data->error.message = NULL;
 }

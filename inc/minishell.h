@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:28:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:05:13 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@
 
 # include "libft.h"
 
+# define MALLOC 1
+# define SYNTAX 2
 # define MALLOC_MSG "malloc error"
-# define MALLOC 426
 
 typedef struct s_token
 {
@@ -91,6 +92,12 @@ struct s_tree
 	t_tree	*right;
 };
 
+typedef struct s_error
+{
+	int		code;
+	char	*message;	
+}	t_error;
+
 typedef struct s_data
 {
 	// t_list		*to_free;
@@ -98,6 +105,7 @@ typedef struct s_data
 	t_list		*tokens;
 	t_tree		*ast;
 	t_tree		*tree;
+	t_error		error;
 }	t_data;
 
 /* print.c */
@@ -105,14 +113,16 @@ typedef struct s_data
 void	print_type(int type);
 void	print_token(void *p);
 void	tree_print(t_tree *tree);
-void	print_token_line(void *content);
 
-/* utils_1.c */
+/* utils.c */
 // void	*save(void *p, t_data *data);
 // void	free_save(void *p, t_data *data);
 void	free_token(void *p);
+void	tree_clear(t_tree **tree);
 void	free_all(t_data *data);
 void	error_exit(int code, t_data *data);
+void	reset_error(t_data *data);
+void	syntax_error(t_data *data, int code, char *token);
 
 /* utils_2.c */
 void	tree_clear(t_tree **tree);

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:01:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:37:22 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	lexing(t_data *data)
 	remove_by_type_content(data, T_DELIMITER, "\"");
 	merge_type(data, T_DELIMITER);
 	find_variables(data);
+	change_type(data, T_DELIMITER, T_WORD);
 	merge_type(data, T_VARIABLE);
 	expand_variables(data);
 	merge_type(data, T_CHARACTER);

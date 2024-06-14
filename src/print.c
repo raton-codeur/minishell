@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:19:46 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:27:18 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,43 @@ void	print_token(void *p)
 	print_type(token->type);
 }
 
+static void	print_token_line(void *content)
+{
+	t_token	*token;
+
+	token = content;
+	if (token->type == T_PIPE)
+		printf("\033[97;41m");
+	else if (token->type == T_BROKET_LEFT
+		|| token->type == T_BROKET_RIGHT
+		|| token->type == T_DOUBLE_BROKET_RIGHT)
+		printf("\033[97;45m");
+	else if (token->type == T_DOUBLE_BROKET_LEFT)
+		printf("\033[30;44m");
+	else if (token->type == T_WORD || token->type == T_DELIMITER)
+		printf("\033[97;40m");
+	printf(" %s ", token->content);
+}
+
 static void	tree_print_rec(t_tree *tree, int *tab_count)
 {
 	int	i;
 
 	if (tree == NULL)
 		return ;
+	(*tab_count)++;
+	tree_print_rec(tree->right, tab_count);
+	(*tab_count)--;
 	i = 0;
 	while (i < *tab_count)
 	{
-		ft_putchar_fd('\t', 1);
+		printf("\t");
 		i++;
 	}
 	list_print(tree->content, print_token_line);
+	printf("\033[0m");
 	printf("\n");
 	(*tab_count)++;
-	tree_print_rec(tree->right, tab_count);
 	tree_print_rec(tree->left, tab_count);
 	(*tab_count)--;
 }
@@ -83,12 +104,4 @@ void	tree_print(t_tree *tree)
 
 	tab_count = 0;
 	tree_print_rec(tree, &tab_count);
-}
-
-void	print_token_line(void *content)
-{
-	t_token	*token;
-
-	token = content;
-	printf("%s ", token->content);
 }

@@ -1,44 +1,10 @@
 -
 
 
-erreurs de syntaxe
-il doit y avoir un word apres une broket
-il doit y avoir des tokens a côté d'un pipe
 
-message derreur <-> token où on trouve l'erreur syntaxique
-"parsing error near token ..."
 
--
-ls < f1 -a > f2
--
-> f | > f2
--
-
-verif nom de fichier
 -
 plusieurs heredoc
 mettre les heredoc dans une liste chainee et arreter linput quand toutes les lignes apparaissent dans le bon ordre
 -
 
-
-
-
-a :
-    b T_PIPE a
-    b
-
-b :
-    [b] T_BROKET_LEFT T_FILE [b]
-    [b] T_BROKET_RIGHT T_FILE [b]
-    [b] T_DOUBLE_BROKET_RIGHT T_FILE [b]
-    [b] T_DOUBLE_BROKET_LEFT T_DELIMITER [b]
-    T_WORD
-    vide
-
-
-
-
-expression T_PIPE expression
-
-expression
-    
