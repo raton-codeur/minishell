@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/14 19:27:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/15 14:57:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	print_token_line(void *content)
 		|| token->type == T_DOUBLE_BROKET_RIGHT)
 		printf("\033[97;45m");
 	else if (token->type == T_DOUBLE_BROKET_LEFT)
-		printf("\033[30;44m");
+		printf("\033[97;44m");
 	else if (token->type == T_WORD || token->type == T_DELIMITER)
 		printf("\033[97;40m");
 	printf(" %s ", token->content);
