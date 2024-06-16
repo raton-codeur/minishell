@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 17:13:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:28:31 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static int	analyse_quotes(t_data *data)
+static void	analyse_quotes(t_data *data)
 {
 	char		quote;
 	t_iterable	i;
@@ -35,7 +35,8 @@ static int	analyse_quotes(t_data *data)
 		}
 		set_iterable(&i, i.node->next);
 	}
-	return (quote != 0);
+	if (quote != 0)
+		return (print_error(QUOTE), reset_input(data));
 }
 
 static void	expand_variables(t_data *data)
@@ -93,7 +94,7 @@ static void	find_delimiters(t_data *data)
 	}
 }
 
-static int	analyse_brokets(t_data *data)
+static void	analyse_brokets(t_data *data)
 {
 	t_iterable	current;
 	t_iterable	next;
@@ -107,19 +108,17 @@ static int	analyse_brokets(t_data *data)
 			|| current.type == T_DOUBLE_BROKET_RIGHT)
 		{
 			if (next.node == NULL)
-				return (syntax_error("newline", data), 1);
+				return (syntax_error("newline", data), reset_input(data));
 			else if (next.type != T_WORD)
-				return (syntax_error(next.content, data), 1);
+				return (syntax_error(next.content, data), reset_input(data));
 		}
 		set_iterables(&current, &next, current.node->next);
 	}
-	return (0);
 }
 
-int	lexing(t_data *data)
+void	lexing(t_data *data)
 {
-	if (analyse_quotes(data))
-		return (ft_putendl_fd("quote error", 2), 0);
+	analyse_quotes(data);
 	change_double_type(data, T_BROKET_LEFT, "<<", T_DOUBLE_BROKET_LEFT);
 	change_double_type(data, T_BROKET_RIGHT, ">>", T_DOUBLE_BROKET_RIGHT);
 	change_double_type(data, T_SIMPLE_QUOTE, "", T_CHARACTER);
@@ -137,7 +136,5 @@ int	lexing(t_data *data)
 	remove_by_type(data, T_DOUBLE_QUOTE);
 	remove_by_type(data, T_SIMPLE_QUOTE);
 	remove_by_type(data, T_WHITE_SPACE);
-	if (analyse_brokets(data))
-		return (0);
-	return (1);
+	analyse_brokets(data);
 }

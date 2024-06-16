@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 15:53:11 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 21:32:51 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,18 @@ void	tree_print(t_tree *tree)
 	int	tab_count;
 
 	tab_count = 0;
+	if (tree == NULL || list_size(tree->content) == 0)
+		return ;
 	tree_print_rec(tree, &tab_count);
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	int	i;
+
+	printf("pathname : <%s>\n", cmd->pathname);
+	printf("argv :\n");
+	i = 0;
+	while (cmd->argv[i])
+		printf("<%s>\n", cmd->argv[i++]);
 }

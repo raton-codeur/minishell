@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 16:43:10 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:27:32 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,26 @@ void	reset_input(t_data *data)
 	data->input = NULL;
 	free(data->error.message);
 	data->error.message = NULL;
-	data->fd_in = 0;
-	data->fd_out = 1;
 	data->error.code = 0;
+	get_path(data);
+	if (data->in != 0)
+		close(data->in);
+	if (data->out != 1)
+		close(data->out);
+	data->in = 0;
+	data->out = 1;
+	if (data->cmd)
+	{
+		free(data->cmd->pathname);
+		free(data->cmd->argv);
+		free(data->cmd);
+		data->cmd = NULL;
+	}
 }
 
 void	free_all(t_data *data)
 {
 	reset_input(data);
+	deep_free((void **)data->path, get_length(data->path));
 	rl_clear_history();
 }

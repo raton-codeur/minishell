@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 16:27:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:03:36 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,11 @@ enum e_error
 {
 	MALLOC,
 	READ_LINE,
-	PIPE,
-	FORK
+	QUOTE,
+	FORK,
+	DUP,
+	EXEC,
+	PIPE
 };
 
 typedef struct s_error
@@ -99,6 +102,20 @@ typedef struct s_error
 	char	*message;
 }	t_error;
 
+typedef struct s_cmd
+{
+	char	*pathname;
+	char	**argv;
+}	t_cmd;
+
+typedef struct s_pipe
+{
+	int		in;
+	int		out;
+	int		read_write[2];
+	t_cmd	*cmd[2];
+}	t_pipe;
+
 typedef struct s_data
 {
 	char		*input;
@@ -106,8 +123,10 @@ typedef struct s_data
 	t_tree		*ast;
 	t_tree		*tree;
 	t_error		error;
-	int			fd_in;
-	int			fd_out;
+	char		**path;
+	int			in;
+	int			out;
+	t_cmd		*cmd;
 }	t_data;
 
 /* print.c */
@@ -115,6 +134,7 @@ typedef struct s_data
 void	print_type(int type);
 void	print_token(void *p);
 void	tree_print(t_tree *tree);
+void	print_cmd(t_cmd *cmd);
 
 /* free.c */
 void	free_token(void *p);
@@ -123,12 +143,14 @@ void	reset_input(t_data *data);
 void	free_all(t_data *data);
 
 /* error.c */
-void	error_exit(int error, t_data *data);
+void	print_error(int code);
+void	error_exit(int code, t_data *data);
 void	reset_input_error(t_data *data);
 void	free_all_error(t_data *data);
 void	syntax_error(char *token, t_data *data);
 
-/* utils.c */
+/* init_data.c */
 void	init_data(t_data *data);
+void	get_path(t_data *data);
 
 #endif

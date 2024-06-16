@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:19:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 14:58:20 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:22:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ t_list	*copy_tokens(t_list *tokens, int size, t_data *data)
 
 void	init_ast(t_data *data)
 {
+	if (data->tokens == NULL)
+		return ;
 	data->ast = malloc(sizeof(t_tree));
 	if (data->ast == NULL)
 		error_exit(MALLOC, data);

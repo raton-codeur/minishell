@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 17:04:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 19:39:20 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	get_tokens(t_data *data);
 
 /* lexing.c */
-int		lexing(t_data *data);
+void	lexing(t_data *data);
 
 /* find_variables.c */
 void	find_variables(t_data *data);

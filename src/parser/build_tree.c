@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:44:09 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 16:58:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 19:58:13 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static int	build_tree_pipe(t_tree **tree, t_list *node, t_data *data)
 	left = data->tree->left;
 	right = data->tree->right;
 	if (list_node_index(tokens, node) == 0)
-		return (syntax_error("|", data), 1);
+		return (syntax_error("|", data), reset_input_error(data), 1);
 	left->content = copy_tokens(tokens, list_node_index(tokens, node), data);
 	data->tree->content = copy_tokens(node, 1, data);
 	if (list_size(node->next) == 0)
-		return (syntax_error("|", data), 1);
+		return (syntax_error("|", data), reset_input_error(data), 1);
 	right->content = copy_tokens(node->next, list_size(node->next), data);
 	if (data->tree->content == NULL
 		|| left->content == NULL || right->content == NULL)
@@ -83,17 +83,17 @@ static void	build_tree_split(t_tree **tree, t_data *data)
 	build_tree_split(&(*tree)->left, data);
 }
 
-int	build_tree(t_tree **tree, t_data *data)
+void	build_tree(t_tree **tree, t_data *data)
 {
 	t_list	*node;
 
 	if (*tree == NULL)
-		return (1);
+		return ;
 	node = find_pipe((*tree)->content);
 	if (node)
 	{
 		if (build_tree_pipe(tree, node, data))
-			return (0);
+			return ;
 	}
 	else
 	{
@@ -102,6 +102,6 @@ int	build_tree(t_tree **tree, t_data *data)
 			build_tree_broket(tree, node, data);
 		build_tree_split(tree, data);
 	}
-	return (build_tree(&(*tree)->left, data)
-		&& build_tree(&(*tree)->right, data));
+	build_tree(&(*tree)->left, data);
+	build_tree(&(*tree)->right, data);
 }
