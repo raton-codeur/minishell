@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/15 14:57:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/16 15:53:11 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	print_type(int type)
 		printf("type : BROKET_LEFT\n");
 	else if (type == T_BROKET_RIGHT)
 		printf("type : BROKET_RIGHT\n");
+	else if (type == T_DOUBLE_BROKET_LEFT)
+		printf("type : DOUBLE_BROKET_LEFT\n");
+	else if (type == T_DOUBLE_BROKET_RIGHT)
+		printf("type : DOUBLE_BROKET_RIGHT\n");
 	else if (type == T_SIMPLE_QUOTE)
 		printf("type : SIMPLE_QUOTE\n");
 	else if (type == T_DOUBLE_QUOTE)
@@ -30,22 +34,12 @@ void	print_type(int type)
 		printf("type : WHITE_SPACE\n");
 	else if (type == T_CHARACTER)
 		printf("type : CHARACTER\n");
-	else if (type == T_ERROR)
-		printf("type : ERROR\n");
 	else if (type == T_VARIABLE)
 		printf("type : VARIABLE\n");
-	else if (type == T_WORD)
-		printf("type : WORD\n");
-	else if (type == T_COMMAND)
-		printf("type : COMMAND\n");
-	else if (type == T_FILE)
-		printf("type : FILE\n");
 	else if (type == T_DELIMITER)
 		printf("type : DELIMITER\n");
-	else if (type == T_DOUBLE_BROKET_LEFT)
-		printf("type : DOUBLE_BROKET_LEFT\n");
-	else if (type == T_DOUBLE_BROKET_RIGHT)
-		printf("type : DOUBLE_BROKET_RIGHT\n");
+	else if (type == T_ERROR)
+		printf("type : ERROR\n");
 }
 
 void	print_token(void *p)
