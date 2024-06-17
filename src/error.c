@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 22:28:03 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/17 15:21:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	print_error(int code)
 		ft_putendl_fd("cannot run command", 2);
 	else if (code == PIPE)
 		ft_putendl_fd("pipe error", 2);
+}
+
+void	fd_error(char *file, t_data *data)
+{
+	perror(file);
+	reset_input(data);
 }
 
 void	error_exit(int code, t_data *data)

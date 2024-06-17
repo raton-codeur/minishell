@@ -31,5 +31,5 @@ re : clean all
 .PHONY : all clean fclean re
 
 test :
-	make re
+	make 
 	./minishell

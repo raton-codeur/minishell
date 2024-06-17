@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 22:03:36 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/17 17:05:39 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_token
 {
 	int		type;
 	char	*content;
+	int		read_write[2];
 }	t_token;
 
 typedef struct s_iterable
@@ -93,6 +94,8 @@ enum e_error
 	FORK,
 	DUP,
 	EXEC,
+	IN,
+	OUT,
 	PIPE
 };
 
@@ -127,6 +130,7 @@ typedef struct s_data
 	int			in;
 	int			out;
 	t_cmd		*cmd;
+
 }	t_data;
 
 /* print.c */
@@ -148,6 +152,7 @@ void	error_exit(int code, t_data *data);
 void	reset_input_error(t_data *data);
 void	free_all_error(t_data *data);
 void	syntax_error(char *token, t_data *data);
+void	fd_error(char *file, t_data *data);
 
 /* init_data.c */
 void	init_data(t_data *data);

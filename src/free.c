@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 22:27:32 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/17 14:17:10 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_token(void *p)
 
 void	tree_clear(t_tree **tree)
 {
-	if (*tree == NULL)
+	if (tree == NULL || *tree == NULL)
 		return ;
 	tree_clear(&(*tree)->left);
 	tree_clear(&(*tree)->right);

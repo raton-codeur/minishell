@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:44:09 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 19:58:13 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/17 13:47:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ void	build_tree(t_tree **tree, t_data *data)
 		build_tree_split(tree, data);
 	}
 	build_tree(&(*tree)->left, data);
-	build_tree(&(*tree)->right, data);
+	if (*tree != NULL)
+		build_tree(&(*tree)->right, data);
 }
