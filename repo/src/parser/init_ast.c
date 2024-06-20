@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:19:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 22:22:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:53:22 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,11 @@ void	init_ast(t_data *data)
 {
 	if (data->tokens == NULL)
 		return ;
-	data->ast = malloc(sizeof(t_tree));
+	data->ast = ft_calloc(1, sizeof(t_tree));
 	if (data->ast == NULL)
 		error_exit(MALLOC, data);
 	data->ast->content = copy_tokens(\
 		data->tokens, list_size(data->tokens), data);
-	data->ast->left = NULL;
-	data->ast->right = NULL;
 }
 
 t_tree	*tree_new(t_list *tokens, t_data *data)
@@ -79,7 +77,5 @@ t_tree	*tree_new(t_list *tokens, t_data *data)
 	if (result == NULL)
 		error_exit(MALLOC, data);
 	result->content = tokens;
-	result->left = NULL;
-	result->right = NULL;
 	return (result);
 }

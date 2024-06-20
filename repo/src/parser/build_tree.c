@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:44:09 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/17 13:47:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:58:08 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@ static int	build_tree_pipe(t_tree **tree, t_list *node, t_data *data)
 	left = data->tree->left;
 	right = data->tree->right;
 	if (list_node_index(tokens, node) == 0)
-		return (syntax_error("|", data), reset_input_error(data), 1);
+		return (syntax_error("|", data), 1);
 	left->content = copy_tokens(tokens, list_node_index(tokens, node), data);
 	data->tree->content = copy_tokens(node, 1, data);
 	if (list_size(node->next) == 0)
-		return (syntax_error("|", data), reset_input_error(data), 1);
+		return (syntax_error("|", data), 1);
 	right->content = copy_tokens(node->next, list_size(node->next), data);
 	if (data->tree->content == NULL
 		|| left->content == NULL || right->content == NULL)
 		error_exit(MALLOC, data);
 	tree_clear(tree);
 	*tree = data->tree;
+	data->tree = NULL;
 	return (0);
 }
 
@@ -57,6 +58,7 @@ static void	build_tree_broket(t_tree **tree, t_list *node, t_data *data)
 		error_exit(MALLOC, data);
 	tree_clear(tree);
 	*tree = data->tree;
+	data->tree = NULL;
 }
 
 static void	build_tree_split(t_tree **tree, t_data *data)
@@ -80,6 +82,7 @@ static void	build_tree_split(t_tree **tree, t_data *data)
 		error_exit(MALLOC, data);
 	tree_clear(tree);
 	*tree = data->tree;
+	data->tree = NULL;
 	build_tree_split(&(*tree)->left, data);
 }
 
