@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:03 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 14:58:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 16:12:47 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	set_iterable(t_iterable *i, t_list *node)
 	i->token = node->content;
 	i->content = i->token->content;
 	i->type = i->token->type;
+	i->here_doc = i->token->here_doc;
 }
 
 void	set_iterables(t_iterable *current, t_iterable *next, t_list *node)

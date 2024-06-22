@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:27:35 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 16:49:58 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 18:47:55 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_token(void *p)
 
 	token = p;
 	free(token->content);
+	if (token->here_doc != 0)
+		close(token->here_doc);
 	free(token);
 }
 

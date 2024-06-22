@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 14:51:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 16:13:21 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_token
 {
 	int		type;
 	char	*content;
-	int		read_write[2];
+	int		here_doc;
 }	t_token;
 
 typedef struct s_iterable
@@ -77,6 +77,7 @@ typedef struct s_iterable
 	t_token	*token;
 	char	*content;
 	int		type;
+	int		here_doc;
 }	t_iterable;
 
 typedef struct s_tree

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirections.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:47 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 17:37:34 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 16:47:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	is_broket(t_tree **tree)
 {
 	return (get_type(*tree) == T_BROKET_LEFT
 		|| get_type(*tree) == T_BROKET_RIGHT
-		|| get_type(*tree) == T_DOUBLE_BROKET_RIGHT);
+		|| get_type(*tree) == T_DOUBLE_BROKET_RIGHT
+		|| get_type(*tree) == T_DOUBLE_BROKET_LEFT);
 }
 
 static int	set_in(t_tree **tree, t_data *data)
@@ -51,9 +52,16 @@ static int	set_append(t_tree **tree, t_data *data)
 	return (0);
 }
 
+static void	set_here_doc(t_tree **tree, t_data *data)
+{
+	if (data->in != 0)
+		close(data->in);
+	data->in = get_here_doc((*tree)->right);
+}
+
 int	set_redirections(t_tree **tree, t_data *data)
 {
-	if (!is_broket(tree))
+	if (*tree == NULL || !is_broket(tree))
 		return (0);
 	if (get_type(*tree) == T_BROKET_LEFT
 		&& set_in(tree, data))
@@ -64,6 +72,8 @@ int	set_redirections(t_tree **tree, t_data *data)
 	else if (get_type(*tree) == T_DOUBLE_BROKET_RIGHT
 		&& set_append(tree, data))
 		return (1);
+	else if (get_type(*tree) == T_DOUBLE_BROKET_LEFT)
+		set_here_doc(tree, data);
 	*tree = (*tree)->right;
 	return (set_redirections(tree, data));
 }
