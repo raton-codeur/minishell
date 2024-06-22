@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 17:38:58 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 15:05:11 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	run_cmd(t_data *data, int in, int out)
 	if (execve(data->cmd->pathname, data->cmd->argv, NULL) == -1)
 	{
 		perror("execve");
-		reset_input(data);
+		free_all(data);
 		exit(0);
 	}
 }
