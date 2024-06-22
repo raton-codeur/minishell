@@ -1,10 +1,10 @@
 -
+mettre le current working directory dans data
 
-
-
+gérer le free du current working directory
 
 -
-plusieurs heredoc
-mettre les heredoc dans une liste chainee et arreter linput quand toutes les lignes apparaissent dans le bon ordre
+modif le code d'erreur de $? à 2 dans syntax_error
 -
-
+remettre rl_ devant le clear history
+-

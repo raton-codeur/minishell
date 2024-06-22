@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/17 14:01:17 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:16:22 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	get_argc(t_tree *tree)
 	return (1 + get_argc(tree->left));
 }
 
-void	get_cmd(t_data *data, t_tree *tree)
+void	get_cmd(t_tree *tree, t_data *data)
 {
 	int		argc;
 	int		i;

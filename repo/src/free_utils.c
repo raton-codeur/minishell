@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/17 14:17:10 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/06/20 16:27:35 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/06/20 16:49:58 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_token(void *p)
 
 void	tree_clear(t_tree **tree)
 {
-	if (tree == NULL || *tree == NULL)
+	if (*tree == NULL)
 		return ;
 	tree_clear(&(*tree)->left);
 	tree_clear(&(*tree)->right);
@@ -32,22 +32,8 @@ void	tree_clear(t_tree **tree)
 	*tree = NULL;
 }
 
-void	reset_input(t_data *data)
+void	free_cmd(t_data *data)
 {
-	list_clear(&data->tokens, free_token);
-	tree_clear(&data->ast);
-	free(data->input);
-	data->input = NULL;
-	free(data->error.message);
-	data->error.message = NULL;
-	data->error.code = 0;
-	get_path(data);
-	if (data->in != 0)
-		close(data->in);
-	if (data->out != 1)
-		close(data->out);
-	data->in = 0;
-	data->out = 1;
 	if (data->cmd)
 	{
 		free(data->cmd->pathname);
@@ -55,11 +41,4 @@ void	reset_input(t_data *data)
 		free(data->cmd);
 		data->cmd = NULL;
 	}
-}
-
-void	free_all(t_data *data)
-{
-	reset_input(data);
-	deep_free((void **)data->path, get_length(data->path));
-	rl_clear_history();
 }

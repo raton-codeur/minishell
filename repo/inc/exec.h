@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:55:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 22:03:45 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:36:29 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include "parser.h"
 
 /* get_cmd.c */
-void	get_cmd(t_data *data, t_tree *tree);
+void	get_cmd(t_tree *tree, t_data *data);
+
+/* set_redirections.h */
+int	set_redirections(t_tree **tree, t_data *data);
 
 #endif

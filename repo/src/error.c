@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/17 15:21:43 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:39:21 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,45 @@
 void	print_error(int code)
 {
 	if (code == MALLOC)
-		ft_putendl_fd("malloc error", 2);
+		ft_putendl_fd("memory allocation error", 2);
 	else if (code == READ_LINE)
-		ft_putendl_fd("readline error", 2);
+		ft_putendl_fd("readline failed", 2);
 	else if (code == QUOTE)
-		ft_putendl_fd("quote error", 2);
-	else if (code == FORK)
-		ft_putendl_fd("fork error", 2);
-	else if (code == DUP)
-		ft_putendl_fd("dup error", 2);
-	else if (code == EXEC)
-		ft_putendl_fd("cannot run command", 2);
-	else if (code == PIPE)
-		ft_putendl_fd("pipe error", 2);
+		ft_putendl_fd("invalid quotes", 2);
 }
 
-void	fd_error(char *file, t_data *data)
+void	error(int code, t_data *data)
 {
-	perror(file);
+	print_error(code);
 	reset_input(data);
 }
 
 void	error_exit(int code, t_data *data)
 {
 	print_error(code);
-	free_all_error(data);
-	exit(1);
-}
-
-void	reset_input_error(t_data *data)
-{
-	reset_input(data);
-	tree_clear(&data->tree);
-}
-
-void	free_all_error(t_data *data)
-{
 	free_all(data);
-	tree_clear(&data->tree);
+	exit(1);
 }
 
 void	syntax_error(char *token, t_data *data)
 {
 	char	*message;
-	char	*to_free;
+	char	*message_join;
 
 	message = ft_strjoin("syntax error near unexpected token `", token);
 	if (!message)
 		error_exit(MALLOC, data);
-	to_free = message;
-	message = ft_strjoin(message, "'");
-	free(to_free);
-	if (!message)
+	message_join = ft_strjoin(message, "'");
+	free(message);
+	if (!message_join)
 		error_exit(MALLOC, data);
-	free(data->error.message);
-	data->error.message = message;
-	data->error.code = 2;
-	ft_putendl_fd(data->error.message, 2);
+	ft_putendl_fd(message_join, 2);
+	reset_input(data);
+	/* mettre le code d'erreur de $? à 2 */
+}
+
+void	fd_error(char *file, t_data *data)
+{
+	perror(file);
+	reset_input(data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 18:32:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:59:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ static char	**add_slash(char **path)
 
 void	get_path(t_data *data)
 {
-	deep_free((void **)data->path, get_length(data->path));
-	data->path = NULL;
 	if (getenv("PATH") == NULL)
+	{
+		data->path = NULL;
 		return ;
+	}
 	data->path = ft_split(getenv("PATH"), ":");
 	if (data->path == NULL)
 		error_exit(MALLOC, data);

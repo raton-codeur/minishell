@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/17 17:05:39 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 14:51:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,6 @@ enum e_error
 	PIPE
 };
 
-typedef struct s_error
-{
-	int		code;
-	char	*message;
-}	t_error;
-
 typedef struct s_cmd
 {
 	char	*pathname;
@@ -125,12 +119,11 @@ typedef struct s_data
 	t_list		*tokens;
 	t_tree		*ast;
 	t_tree		*tree;
-	t_error		error;
 	char		**path;
 	int			in;
 	int			out;
 	t_cmd		*cmd;
-
+	char		**envp;
 }	t_data;
 
 /* print.c */
@@ -140,17 +133,20 @@ void	print_token(void *p);
 void	tree_print(t_tree *tree);
 void	print_cmd(t_cmd *cmd);
 
-/* free.c */
+/* free_utils.c */
 void	free_token(void *p);
 void	tree_clear(t_tree **tree);
-void	reset_input(t_data *data);
+void	free_cmd(t_data *data);
+
+/* free.c */
+void	free_input(t_data *data);
 void	free_all(t_data *data);
+void	reset_input(t_data *data);
 
 /* error.c */
 void	print_error(int code);
+void	error(int code, t_data *data);
 void	error_exit(int code, t_data *data);
-void	reset_input_error(t_data *data);
-void	free_all_error(t_data *data);
 void	syntax_error(char *token, t_data *data);
 void	fd_error(char *file, t_data *data);
 

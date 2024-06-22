@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 22:28:31 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:49:01 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ static void	analyse_brokets(t_data *data)
 			|| current.type == T_DOUBLE_BROKET_RIGHT)
 		{
 			if (next.node == NULL)
-				return (syntax_error("newline", data), reset_input(data));
+				return (syntax_error("newline", data));
 			else if (next.type != T_WORD)
-				return (syntax_error(next.content, data), reset_input(data));
+				return (syntax_error(next.content, data));
 		}
 		set_iterables(&current, &next, current.node->next);
 	}
