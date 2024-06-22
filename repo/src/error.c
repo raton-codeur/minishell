@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 17:39:21 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 23:51:32 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ void	print_error(int code)
 {
 	if (code == MALLOC)
 		ft_putendl_fd("memory allocation error", 2);
-	else if (code == READ_LINE)
+	else if (code == READLINE)
 		ft_putendl_fd("readline failed", 2);
 	else if (code == QUOTE)
 		ft_putendl_fd("invalid quotes", 2);
+	else if (code == PIPE)
+		ft_putendl_fd("pipe failed", 2);
+	else if (code == FORK)
+		ft_putendl_fd("fork failed", 2);
 }
 
 void	error(int code, t_data *data)
@@ -48,6 +52,7 @@ void	syntax_error(char *token, t_data *data)
 	if (!message_join)
 		error_exit(MALLOC, data);
 	ft_putendl_fd(message_join, 2);
+	free(message_join);
 	reset_input(data);
 	/* mettre le code d'erreur de $? à 2 */
 }
@@ -56,4 +61,18 @@ void	fd_error(char *file, t_data *data)
 {
 	perror(file);
 	reset_input(data);
+}
+
+void	cmd_name_error(char *cmd, t_data *data)
+{
+	char	*message;
+
+	message = ft_strjoin(cmd, ": command not found");
+	if (!message)
+		error_exit(MALLOC, data);
+	ft_putendl_fd(message, 2);
+	free(message);
+	free_all(data);
+	exit(1);
+	/* mettre le code d'erreur de $? à 127 */
 }

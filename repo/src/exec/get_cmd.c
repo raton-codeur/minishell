@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 17:16:22 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 23:58:17 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ static char	*get_pathname(char *name, t_data *data)
 		free(result);
 		i++;
 	}
-	result = ft_strdup(name);
-	if (result == NULL)
-		error_exit(MALLOC, data);
-	return (result);
+	cmd_name_error(name, data);
+	return (NULL);
 }
 
 static int	get_argc(t_tree *tree)
@@ -49,6 +47,8 @@ void	get_cmd(t_tree *tree, t_data *data)
 	int		argc;
 	int		i;
 
+	if (tree == NULL)
+		return ;
 	data->cmd = ft_calloc(1, sizeof(t_cmd));
 	if (data->cmd == NULL)
 		error_exit(MALLOC, data);

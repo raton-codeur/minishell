@@ -5,4 +5,6 @@ modif le code d'erreur de $? à 2 dans syntax_error
 -
 
 
-here doc
+
+void les set redirections pour exit directement et pas remonter un code derreur
+il faut exit dans le cas dune commande comme < sdlkfjsldkfjsdlkj

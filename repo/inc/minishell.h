@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 16:13:21 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 23:37:26 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,10 @@ typedef struct s_tree
 enum e_error
 {
 	MALLOC,
-	READ_LINE,
+	READLINE,
 	QUOTE,
-	FORK,
-	DUP,
-	EXEC,
-	IN,
-	OUT,
-	PIPE
+	PIPE,
+	FORK
 };
 
 typedef struct s_cmd
@@ -143,6 +139,7 @@ void	free_cmd(t_data *data);
 void	free_input(t_data *data);
 void	free_all(t_data *data);
 void	reset_input(t_data *data);
+void	close_2(int pipe_[2]);
 
 /* error.c */
 void	print_error(int code);
@@ -150,6 +147,7 @@ void	error(int code, t_data *data);
 void	error_exit(int code, t_data *data);
 void	syntax_error(char *token, t_data *data);
 void	fd_error(char *file, t_data *data);
+void	cmd_name_error(char *cmd, t_data *data);
 
 /* init_data.c */
 void	init_data(t_data *data);

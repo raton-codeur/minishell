@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 14:43:09 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/22 23:03:18 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,10 @@ void	reset_input(t_data *data)
 {
 	free_input(data);
 	get_path(data);
+}
+
+void	close_2(int pipe_[2])
+{
+	close(pipe_[0]);
+	close(pipe_[1]);
 }
