@@ -1,10 +1,66 @@
 -
-mettre le current working directory dans data ? et gerer son free
--
-modif le code d'erreur de $? à 2 dans syntax_error
+gerer les noms de fichiers -vs- nom de commande
+
+un word qui contient un slash est un nom de fichier et pas une commande
 -
 
-
+voir syntax_error et cmd name error
+-
+voir get_pathname
+-
 
 void les set redirections pour exit directement et pas remonter un code derreur
 il faut exit dans le cas dune commande comme < sdlkfjsldkfjsdlkj
+
+-
+minishell> <<<<
+syntax error near unexpected token `<<'
+minishell> << <<
+syntax error near unexpected token `<<'
+
+alors que :
+
+[0] qhauuy@k1r2p2:~/Desktop/minishell$ << <<
+bash: syntax error near unexpected token `<<'
+[2] qhauuy@k1r2p2:~/Desktop/minishell$ <<<<
+bash: syntax error near unexpected token `<'
+-
+-
+exit
+
+avec pls arg non numeric
+erreur + exit
+
+avec pls arg numeric
+errur pas pas exit
+
+avec un overint < over long long
+ok
+
+avec un over long long
+pas ok
+
+exit ne sort pas du programme si on est dans un child / pipe
+-
+export
+
+invalid :
+export =
+export ''
+
+penser aux guillemets pour afficher le export
+-
+tableau des export
+export affiche toutes les variables
+-
+env n'affiche que les variables avec les =
+-
+
+
+-
+echo -nnnnnnnnnn
+
+echo -n -n
+
+echo -n -nbb bonjour
+-

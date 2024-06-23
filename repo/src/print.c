@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 15:38:58 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:44:49 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	print_type(int type)
 		printf("type : WHITE_SPACE\n");
 	else if (type == T_CHARACTER)
 		printf("type : CHARACTER\n");
+	else if (type == T_WORD)
+		printf("type : WORD\n");
 	else if (type == T_VARIABLE)
 		printf("type : VARIABLE\n");
 	else if (type == T_DELIMITER)
 		printf("type : DELIMITER\n");
-	else if (type == T_ERROR)
-		printf("type : ERROR\n");
 }
 
 void	print_token(void *p)

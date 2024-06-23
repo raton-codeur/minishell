@@ -12,26 +12,27 @@
 
 #include "lexer.h"
 
-static int	get_type(char c)
+static int	get_type(t_iterable *new)
 {
-	if (c == '|')
-		return (T_PIPE);
-	else if (c == '>')
-		return (T_BROKET_RIGHT);
-	else if (c == '<')
-		return (T_BROKET_LEFT);
-	else if (c == '\'')
-		return (T_SIMPLE_QUOTE);
-	else if (c == '"')
-		return (T_DOUBLE_QUOTE);
-	else if (c == '$')
-		return (T_DOLLAR);
-	else if (ft_isspace(c))
-		return (T_WHITE_SPACE);
-	else if (ft_isprint(c))
-		return (T_CHARACTER);
+	if (new->content[0] == '|')
+		new->token->type = T_PIPE;
+	else if (new->content[0] == '>')
+		new->token->type = T_BROKET_RIGHT;
+	else if (new->content[0] == '<')
+		new->token->type = T_BROKET_LEFT;
+	else if (new->content[0] == '\'')
+		new->token->type = T_SIMPLE_QUOTE;
+	else if (new->content[0] == '"')
+		new->token->type = T_DOUBLE_QUOTE;
+	else if (new->content[0] == '$')
+		new->token->type = T_DOLLAR;
+	else if (ft_isspace(new->content[0]))
+		new->token->type = T_WHITE_SPACE;
+	else if (ft_isprint(new->content[0]))
+		new->token->type = T_CHARACTER;
 	else
-		return (T_ERROR);
+		return (print_error(LEXING), 1);
+	return (0);
 }
 
 void	get_tokens(t_data *data)
@@ -50,14 +51,11 @@ void	get_tokens(t_data *data)
 		if (new.token == NULL)
 			return (free(new.content), error_exit(MALLOC, data));
 		new.token->content = new.content;
-		new.token->type = get_type(new.content[0]);
+		if (get_type(&new))
+			return (free_token(new.token), reset_input(data));
 		new.node = list_new(new.token);
 		if (new.node == NULL)
-		{
-			free(new.content);
-			free(new.token);
-			error_exit(MALLOC, data);
-		}
+			return (free_token(new.token), error_exit(MALLOC, data));
 		list_add_back(&data->tokens, new.node);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 23:37:26 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/23 17:06:45 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ enum e_token
 	T_CHARACTER,
 	T_WORD,
 	T_VARIABLE,
-	T_DELIMITER,
-	T_ERROR,
+	T_DELIMITER
 };
 
 typedef struct s_token
@@ -87,28 +86,21 @@ typedef struct s_tree
 	struct s_tree	*right;
 }	t_tree;
 
-enum e_error
-{
-	MALLOC,
-	READLINE,
-	QUOTE,
-	PIPE,
-	FORK
-};
-
 typedef struct s_cmd
 {
 	char	*pathname;
 	char	**argv;
 }	t_cmd;
 
-typedef struct s_pipe
+enum e_error
 {
-	int		in;
-	int		out;
-	int		read_write[2];
-	t_cmd	*cmd[2];
-}	t_pipe;
+	MALLOC,
+	READLINE,
+	LEXING,
+	QUOTE,
+	PIPE,
+	FORK
+};
 
 typedef struct s_data
 {
@@ -120,7 +112,7 @@ typedef struct s_data
 	int			in;
 	int			out;
 	t_cmd		*cmd;
-	char		**envp;
+	t_list		*envp;
 }	t_data;
 
 /* print.c */

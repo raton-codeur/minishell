@@ -6,12 +6,17 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 23:58:17 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/23 19:38:26 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
+/*
+si le fichier existe mais que le droit nest pas bon -> code 126
+
+si le name contient un slash -> regarder si le fichier existe directement sans regarder le path
+*/
 static char	*get_pathname(char *name, t_data *data)
 {
 	char	*result;

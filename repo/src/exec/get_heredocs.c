@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 23:04:06 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:06:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static void	get_heredoc_2(t_tree *current, int pipe_[2], t_data *data)
+static void	get_heredoc_readline(t_tree *current, int pipe_[2], t_data *data)
 {
 	char	*line;
 
@@ -31,7 +31,7 @@ static void	get_heredoc_2(t_tree *current, int pipe_[2], t_data *data)
 	free(line);
 }
 
-static void	get_heredoc_1(t_tree **tree, t_data *data)
+static void	get_heredoc(t_tree **tree, t_data *data)
 {
 	int		pipe_[2];
 	t_tree	*current;
@@ -42,7 +42,7 @@ static void	get_heredoc_1(t_tree **tree, t_data *data)
 	while (is_broket(current))
 	{
 		if (get_type(current) == T_DOUBLE_BROKET_LEFT)
-			get_heredoc_2(current, pipe_, data);
+			get_heredoc_readline(current, pipe_, data);
 		current = current->right;
 	}
 	close(pipe_[1]);
@@ -70,5 +70,5 @@ void	get_heredocs(t_tree **tree, t_data *data)
 		get_heredocs(&(*tree)->right, data);
 	}
 	else if (has_heredoc(*tree))
-		get_heredoc_1(tree, data);
+		get_heredoc(tree, data);
 }

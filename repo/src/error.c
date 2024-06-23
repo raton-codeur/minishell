@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 23:51:32 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/23 19:22:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	print_error(int code)
 {
+	ft_putstr_fd("minishell: ", 2);
 	if (code == MALLOC)
 		ft_putendl_fd("memory allocation error", 2);
 	else if (code == READLINE)
 		ft_putendl_fd("readline failed", 2);
+	else if (code == LEXING)
+		ft_putendl_fd("lexical error", 2);
 	else if (code == QUOTE)
 		ft_putendl_fd("invalid quotes", 2);
 	else if (code == PIPE)
@@ -59,8 +62,10 @@ void	syntax_error(char *token, t_data *data)
 
 void	fd_error(char *file, t_data *data)
 {
+	ft_putstr_fd("minishell: ", 2);
 	perror(file);
-	reset_input(data);
+	free_all(data);
+	exit(1);
 }
 
 void	cmd_name_error(char *cmd, t_data *data)
