@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:55:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 19:24:10 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 16:10:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 #include "parser.h"
 
-/* get_cmd.c */
-void	get_cmd(t_tree *tree, t_data *data);
+/* cmd.c */
+void	analyse_cmd(t_tree *tree, t_data *data);
 
 /* set_redirections.h */
 int	set_redirections(t_tree **tree, t_data *data);

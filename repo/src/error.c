@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 19:22:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 16:23:29 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	fd_error(char *file, t_data *data)
 	exit(1);
 }
 
-void	cmd_name_error(char *cmd, t_data *data)
+void	cmd_pathname_error(char *cmd, t_data *data)
 {
 	char	*message;
 
@@ -81,3 +81,4 @@ void	cmd_name_error(char *cmd, t_data *data)
 	exit(1);
 	/* mettre le code d'erreur de $? à 127 */
 }
+

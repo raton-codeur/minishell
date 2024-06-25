@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 19:38:26 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 16:24:55 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*get_pathname(char *name, t_data *data)
 		free(result);
 		i++;
 	}
-	cmd_name_error(name, data);
+	cmd_pathname_error(name, data);
 	return (NULL);
 }
 
@@ -47,7 +47,7 @@ static int	get_argc(t_tree *tree)
 	return (1 + get_argc(tree->left));
 }
 
-void	get_cmd(t_tree *tree, t_data *data)
+void	prepare_exec(t_tree *tree, t_data *data)
 {
 	int		argc;
 	int		i;
@@ -70,3 +70,45 @@ void	get_cmd(t_tree *tree, t_data *data)
 	data->cmd->argv[i] = NULL;
 	data->cmd->pathname = get_pathname(data->cmd->argv[0], data);
 }
+
+
+
+
+
+
+int	has_slash(char *s)
+{
+	while (*s)
+	{
+		if (*s == '/')
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
+
+
+void	analyse_file(char *name, t_data *data)
+{
+	(void)data;
+	if (access(name, F_OK) == -1)
+	{
+		printf("file not found\n");
+	}
+	else
+		printf("file found\n");
+}
+
+
+
+
+
+void	analyse_cmd(t_tree *tree, t_data *data)
+{
+	if (has_slash(get_content(tree)))
+		analyse_file(get_content(tree), data);
+	else
+		prepare_exec(tree, data);
+}
+

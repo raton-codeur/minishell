@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 17:06:45 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 16:23:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	error(int code, t_data *data);
 void	error_exit(int code, t_data *data);
 void	syntax_error(char *token, t_data *data);
 void	fd_error(char *file, t_data *data);
-void	cmd_name_error(char *cmd, t_data *data);
+void	cmd_pathname_error(char *cmd, t_data *data);
 
 /* init_data.c */
 void	init_data(t_data *data);
