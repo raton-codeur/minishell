@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 19:22:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:34:26 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@ void	syntax_error(char *token, t_data *data)
 	if (!message)
 		error_exit(MALLOC, data);
 	message_join = ft_strjoin(message, "'");
-	free(message);
+	mmm_free(message);
 	if (!message_join)
 		error_exit(MALLOC, data);
 	ft_putendl_fd(message_join, 2);
-	free(message_join);
+	mmm_free(message_join);
 	reset_input(data);
 	/* mettre le code d'erreur de $? à 2 */
 }
 
-void	fd_error(char *file, t_data *data)
+void	fd_error(char *file)
 {
 	ft_putstr_fd("minishell: ", 2);
 	perror(file);
-	free_all(data);
+	mmm_free_all();
 	exit(1);
 }
 
@@ -76,8 +76,8 @@ void	cmd_name_error(char *cmd, t_data *data)
 	if (!message)
 		error_exit(MALLOC, data);
 	ft_putendl_fd(message, 2);
-	free(message);
-	free_all(data);
+	mmm_free(message);
+	mmm_free_all();
 	exit(1);
 	/* mettre le code d'erreur de $? à 127 */
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 16:59:19 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:29:29 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	**add_slash(char **path)
 	int		n;
 
 	n = get_length(path);
-	result = ft_calloc(n + 1, sizeof(char *));
+	result = mmm_malloc((n + 1) * sizeof(char *));
 	if (result == NULL)
 		return (deep_free((void **)path, n), NULL);
 	i = 0;

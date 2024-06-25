@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deep_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:15:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 18:59:56 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:22:56 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	deep_free(void **p, size_t i)
 
 	j = 0;
 	while (j < i)
-		free(p[j++]);
-	free(p);
+		mmm_free(p[j++]);
+	mmm_free(p);
 }

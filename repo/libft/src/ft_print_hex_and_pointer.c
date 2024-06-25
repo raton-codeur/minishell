@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_hex_and_pointer.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:58:02 by qhauuy            #+#    #+#             */
-/*   Updated: 2023/12/05 17:19:30 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:23:21 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_print_unsigned_hex(unsigned long n, char format, int *error)
 		return (0);
 	}
 	result = ft_print_string(s, error);
-	free(s);
+	mmm_free(s);
 	return (result);
 }
 
@@ -35,7 +35,7 @@ char	*ft_itoa_unsigned_hex(unsigned long n, char format)
 	int		i;
 
 	length_n = ft_length_unsigned_hex(n);
-	result = ft_calloc(length_n + 1, sizeof(char));
+	result = mmm_malloc((length_n + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	i = length_n - 1;
@@ -82,12 +82,12 @@ int	ft_print_pointer(void *p, int *error)
 	s_join = ft_strjoin("0x", s);
 	if (s == NULL || s_join == NULL)
 	{
-		free(s);
+		mmm_free(s);
 		*error = 1;
 		return (0);
 	}
-	free(s);
+	mmm_free(s);
 	result = ft_print_string(s_join, error);
-	free(s_join);
+	mmm_free(s_join);
 	return (result);
 }

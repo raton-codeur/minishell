@@ -43,11 +43,11 @@ void	get_tokens(t_data *data)
 	i = 0;
 	while (data->input[i])
 	{
-		new.content = ft_calloc(2, sizeof(char));
+		new.content = mmm_malloc(2 * sizeof(char));
 		if (new.content == NULL)
 			error_exit(MALLOC, data);
 		new.content[0] = data->input[i];
-		new.token = ft_calloc(1, sizeof(t_token));
+		new.token = mmm_malloc(1 * sizeof(t_token));
 		if (new.token == NULL)
 			return (free(new.content), error_exit(MALLOC, data));
 		new.token->content = new.content;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:46:21 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/04/15 17:41:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:10:02 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	i_end = ft_strlen(s1);
 	while (i_start < i_end && ft_char_in_set(s1[i_end - 1], set))
 		i_end--;
-	result = malloc(sizeof(char) * (i_end - i_start + 1));
+	result = mmm_malloc(sizeof(char) * (i_end - i_start + 1));
 	if (result == NULL)
 		return (NULL);
 	i = 0;

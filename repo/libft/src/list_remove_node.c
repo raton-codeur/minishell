@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_remove_node.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:25:09 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:14:36 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:25:40 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	list_remove_node(\
 	{
 		*list = node->next;
 		ft_free(node->content);
-		free(node);
+		mmm_free(node);
 		return ;
 	}
 	current = *list;
@@ -33,5 +33,5 @@ void	list_remove_node(\
 	if (current->next)
 		current->next->previous = current;
 	ft_free(node->content);
-	free(node);
+	mmm_free(node);
 }

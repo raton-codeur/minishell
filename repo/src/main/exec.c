@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 19:29:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 14:14:57 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 		else
 		{
 			if (ft_strcmp(data.input, "exit") == 0)
-				return (free_all(&data), 0);
+				return (mmm_free_all(), rl_clear_history(), 0);
 			if (data.input[0] != '\0' && !ft_strisspace(data.input))
 				add_history(data.input);
 			get_tokens(&data);
@@ -38,5 +38,5 @@ int	main(void)
 			reset_input(&data);
 		}
 	}
-	return (free_all(&data), 0);
+	return (mmm_free_all(), rl_clear_history(), 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:19:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 16:53:22 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:33:49 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static int	copy_token_content(t_iterable current, t_iterable *current_copy)
 	current_copy->content = ft_strdup(current.content);
 	if (!current_copy->content)
 		return (1);
-	current_copy->token = ft_calloc(1, sizeof(t_token));
+	current_copy->token = mmm_malloc(1 * sizeof(t_token));
 	if (!current_copy->token)
-		return (free(current_copy->content), 1);
+		return (mmm_free(current_copy->content), 1);
 	current_copy->token->content = current_copy->content;
 	current_copy->token->type = current.type;
 	current_copy->node = list_new(current_copy->token);
 	if (!current_copy->node)
 	{
-		free(current_copy->content);
-		free(current_copy->token);
+		mmm_free(current_copy->content);
+		mmm_free(current_copy->token);
 		return (1);
 	}
 	return (0);
@@ -62,7 +62,7 @@ void	init_ast(t_data *data)
 {
 	if (data->tokens == NULL)
 		return ;
-	data->ast = ft_calloc(1, sizeof(t_tree));
+	data->ast = mmm_malloc(1 * sizeof(t_tree));
 	if (data->ast == NULL)
 		error_exit(MALLOC, data);
 	data->ast->content = copy_tokens(\
@@ -73,7 +73,7 @@ t_tree	*tree_new(t_list *tokens, t_data *data)
 {
 	t_tree	*result;
 
-	result = ft_calloc(1, sizeof(t_tree));
+	result = mmm_malloc(1 * sizeof(t_tree));
 	if (result == NULL)
 		error_exit(MALLOC, data);
 	result->content = tokens;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:15:41 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:31:09 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	merge_type(t_data *data, int type)
 				new_content = ft_strjoin(current.content, next.content);
 				if (!new_content)
 					error_exit(MALLOC, data);
-				free(current.content);
+				mmm_free(current.content);
 				list_remove_node(&data->tokens, next.node, free_token);
 				current.token->content = new_content;
 				set_iterables(&current, &next, current.node);
@@ -103,7 +103,7 @@ void	change_double_type(\
 			new_content = ft_strdup(new_content);
 			if (new_content == NULL)
 				error_exit(MALLOC, data);
-			free(current.content);
+			mmm_free(current.content);
 			current.token->content = new_content;
 			current.token->type = new_type;
 			list_remove_node(&data->tokens, next.node, free_token);

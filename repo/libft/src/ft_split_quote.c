@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:34:01 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 18:44:03 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:20:32 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_get_word(const char *s, char c)
 	int		n;
 
 	n = ft_word_size(s, c);
-	result = ft_calloc(n + 1, sizeof(char));
+	result = mmm_malloc((n + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	if (*s == '\'' || *s == '\"')
@@ -81,7 +81,7 @@ char	**ft_split_quote(const char *s, char c)
 
 	if (s == NULL || !ft_isprint(c) || ft_count_words(s, c) == -1)
 		return (NULL);
-	result = ft_calloc(ft_count_words(s, c) + 1, sizeof(char *));
+	result = mmm_malloc((ft_count_words(s, c) + 1) * sizeof(char *));
 	if (result == NULL)
 		return (NULL);
 	i = 0;

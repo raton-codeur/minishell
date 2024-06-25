@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredocs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 16:06:19 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:30:38 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	get_heredoc_readline(t_tree *current, int pipe_[2], t_data *data)
 	{
 		write(pipe_[1], line, ft_strlen(line));
 		write(pipe_[1], "\n", 1);
-		free(line);
+		mmm_free(line);
 		line = readline("heredoc> ");
 		if (line == NULL)
 			return (close_2(pipe_), error_exit(READLINE, data));
 	}
-	free(line);
+	mmm_free(line);
 }
 
 static void	get_heredoc(t_tree **tree, t_data *data)

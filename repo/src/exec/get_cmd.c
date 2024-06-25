@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 19:38:26 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:30:10 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_pathname(char *name, t_data *data)
 			error_exit(MALLOC, data);
 		if (access(result, X_OK) == 0)
 			return (result);
-		free(result);
+		mmm_free(result);
 		i++;
 	}
 	cmd_name_error(name, data);
@@ -54,11 +54,11 @@ void	get_cmd(t_tree *tree, t_data *data)
 
 	if (tree == NULL)
 		return ;
-	data->cmd = ft_calloc(1, sizeof(t_cmd));
+	data->cmd = mmm_malloc(1 * sizeof(t_cmd));
 	if (data->cmd == NULL)
 		error_exit(MALLOC, data);
 	argc = get_argc(tree);
-	data->cmd->argv = ft_calloc(argc + 1, sizeof(char *));
+	data->cmd->argv = mmm_malloc((argc + 1) * sizeof(char *));
 	if (data->cmd->argv == NULL)
 		error_exit(MALLOC, data);
 	i = 0;

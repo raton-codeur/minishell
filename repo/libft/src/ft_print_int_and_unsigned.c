@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_int_and_unsigned.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:39:23 by qhauuy            #+#    #+#             */
-/*   Updated: 2023/12/05 16:55:45 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:23:30 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_print_int(int n, int *error)
 		return (0);
 	}
 	result = ft_print_string(s, error);
-	free(s);
+	mmm_free(s);
 	return (result);
 }
 
@@ -40,7 +40,7 @@ int	ft_print_unsigned(unsigned int n, int *error)
 		return (0);
 	}
 	result = ft_print_string(s, error);
-	free(s);
+	mmm_free(s);
 	return (result);
 }
 
@@ -51,7 +51,7 @@ char	*ft_itoa_unsigned(unsigned int n)
 	int		i;
 
 	length_n = ft_length_unsigned(n);
-	result = ft_calloc(length_n + 1, sizeof(char));
+	result = mmm_malloc((length_n + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	i = length_n - 1;

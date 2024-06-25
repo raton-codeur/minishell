@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_add.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:49:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/05 16:40:35 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:26:15 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	save_add(void *p, t_list **l)
 
 	node = list_new(p);
 	if (node == NULL)
-		return (list_clear(l, free), 1);
+		return (list_clear(l, mmm_free), 1);
 	list_add_back(l, node);
 	return (0);
 }

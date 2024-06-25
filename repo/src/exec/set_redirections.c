@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirections.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:47 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 17:07:59 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 13:36:03 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	set_in(t_tree **tree, t_data *data)
 		close(data->in);
 	data->in = open(get_content((*tree)->left), O_RDONLY);
 	if (data->in == -1)
-		return (fd_error(get_content((*tree)->left), data));
+		return (fd_error(get_content((*tree)->left)));
 }
 
 static void	set_out(t_tree **tree, t_data *data)
@@ -28,7 +28,7 @@ static void	set_out(t_tree **tree, t_data *data)
 	data->out = open(\
 		get_content((*tree)->left), O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->out == -1)
-		return (fd_error(get_content((*tree)->left), data));
+		return (fd_error(get_content((*tree)->left)));
 }
 
 static void	set_append(t_tree **tree, t_data *data)
@@ -38,7 +38,7 @@ static void	set_append(t_tree **tree, t_data *data)
 	data->out = open(\
 		get_content((*tree)->left), O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (data->out == -1)
-		return (fd_error(get_content((*tree)->left), data));
+		return (fd_error(get_content((*tree)->left)));
 }
 
 static void	set_here_doc(t_tree **tree, t_data *data)
