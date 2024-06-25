@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 12:53:50 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/25 16:55:28 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(const char *s, const char *delimiter);
 char	**ft_split_quote(const char *s, char c);
+char	**ft_split_once(char const *s, char c);
 int		ft_size_inside_quotes(const char *s);
 size_t	get_length(char **s);
 int		ft_strisspace(char *s);

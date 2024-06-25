@@ -6,16 +6,18 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 14:14:57 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/25 16:46:34 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	main(void)
+int	main(int argc, char **argv, const char **envp)
 {
 	t_data	data;
 
+	(void)argc;
+	(void)argv;
 	init_data(&data);
 	while (1)
 	{
@@ -24,6 +26,9 @@ int	main(void)
 			return (error_exit(READLINE, &data), 1);
 		else
 		{
+			if (copy_env(&data, envp) == 0)
+				return (error_exit(ENV, &data), 1);
+			print_envp(&data.envp);
 			if (ft_strcmp(data.input, "exit") == 0)
 				return (mmm_free_all(), rl_clear_history(), 0);
 			if (data.input[0] != '\0' && !ft_strisspace(data.input))

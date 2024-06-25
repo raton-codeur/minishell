@@ -68,6 +68,7 @@ SRCS = $(addprefix src/, \
 	mmm.c \
 	mmm2.c \
 	mmm_utils.c \
+	ft_split_once.c \
 )
 
 $(NAME) : $(OBJS)

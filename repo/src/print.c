@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 16:44:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 17:09:07 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,22 @@ void	print_cmd(t_cmd *cmd)
 	i = 0;
 	while (cmd->argv[i])
 		printf("<%s>\n", cmd->argv[i++]);
+}
+
+void	print_envp(t_list **envp)
+{
+	t_list	*current;
+
+	current = *envp;
+	while (current)
+	{
+		printf("declare -x ");
+		printf("%s", ((t_envp *)current->content)->key);
+		printf("=");
+		printf("\"");
+		printf("%s", ((t_envp *)current->content)->value);
+		printf("\"");
+		printf("\n");
+		current = current->next;
+	}
 }

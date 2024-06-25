@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:35:03 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:27:55 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,15 @@ enum e_error
 	LEXING,
 	QUOTE,
 	PIPE,
-	FORK
+	FORK,
+	ENV
 };
+
+typedef struct envp
+{
+	char	*key;
+	char	*value;
+}	t_envp;
 
 typedef struct s_data
 {
@@ -121,6 +128,7 @@ void	print_type(int type);
 void	print_token(void *p);
 void	tree_print(t_tree *tree);
 void	print_cmd(t_cmd *cmd);
+void	print_envp(t_list **envp);
 
 /* free_utils.c */
 void	free_token(void *p);
