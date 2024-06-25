@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 16:24:55 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 19:38:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	get_argc(t_tree *tree)
 	return (1 + get_argc(tree->left));
 }
 
-void	prepare_exec(t_tree *tree, t_data *data)
+void	prepare_argv(t_tree *tree, t_data *data)
 {
 	int		argc;
 	int		i;
@@ -68,10 +68,19 @@ void	prepare_exec(t_tree *tree, t_data *data)
 		tree = tree->left;
 	}
 	data->cmd->argv[i] = NULL;
+}
+
+void	prepare_exec_absolute(t_tree *tree, t_data *data)
+{
+	prepare_argv(tree, data);
 	data->cmd->pathname = get_pathname(data->cmd->argv[0], data);
 }
 
-
+void	prepare_exec_relative(t_tree *tree, t_data *data)
+{
+	prepare_argv(tree, data);
+	data->cmd->pathname = data->cmd->argv[0];
+}
 
 
 
@@ -88,16 +97,40 @@ int	has_slash(char *s)
 }
 
 
-
-void	analyse_file(char *name, t_data *data)
+void	file_error(char *name, t_data *data)
 {
-	(void)data;
-	if (access(name, F_OK) == -1)
+	ft_putstr_fd("minishell: ", 2);
+	perror(name);
+	free_all(data);
+	exit(1);
+}
+
+void	analyse_file(t_tree *tree, t_data *data)
+{
+	struct stat	sb;
+	char		*name;
+
+	name = get_content(tree);
+	if (stat(name, &sb) == -1)
+		file_error(name, data);
+		/* mettre le code derreur a 127*/
+	if (S_ISDIR(sb.st_mode))
 	{
-		printf("file not found\n");
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(name, 2);
+		ft_putendl_fd(": Is a directory", 2);
+		free_all(data);
+		exit(1);
+		/* mettre le code derreur a 126 */
 	}
+	if (access(name, R_OK | X_OK) == -1)
+		file_error(name, data);
+		/* mettre le code derreur a 126 */
 	else
-		printf("file found\n");
+	{
+		prepare_exec_relative(tree, data);
+		// printf("file found et ok\n");
+	}
 }
 
 
@@ -107,8 +140,8 @@ void	analyse_file(char *name, t_data *data)
 void	analyse_cmd(t_tree *tree, t_data *data)
 {
 	if (has_slash(get_content(tree)))
-		analyse_file(get_content(tree), data);
+		analyse_file((tree), data);
 	else
-		prepare_exec(tree, data);
+		prepare_exec_absolute(tree, data);
 }
 

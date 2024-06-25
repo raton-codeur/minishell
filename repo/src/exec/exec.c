@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:22:08 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 16:09:28 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 19:31:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,12 @@ void	exec_child(t_tree *tree, t_data *data)
 			dup2(data->in, 0);
 			dup2(data->out, 1);
 			if (execve(data->cmd->pathname, data->cmd->argv, NULL) == -1)
-				perror(NULL);
+			{
+				// printf("echec de lexecutation avec la commande suivante :\n");
+				// print_cmd(data->cmd);
+				// printf("perror : ");
+				// perror(NULL);
+			}
 		}
 		free_all(data);
 		exit(0);

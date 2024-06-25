@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 16:23:33 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/25 18:48:06 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@
        getcwd, chdir, unlink, execve, dup, dup2
        pipe, isatty, ttyname, ttyslot */
 # include <sys/types.h>
-/* wait, waitpid, wait3, wait4, stat, lstat
-       fstat, kill */
+/* wait, waitpid, wait3, wait4, kill */
+# include <sys/stat.h>
+/* stat, lstat, fstat */
 # include <sys/wait.h>
 /* wait, waitpid, wait3, wait4 */
 # include <signal.h>
