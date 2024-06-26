@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 23:03:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:30:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	free_input(t_data *data)
 		close(data->out);
 	data->out = 1;
 	free_cmd(data);
+	ft_bzero(data, sizeof(t_data)); // test pour double free lors de lexecution dun script vide
 }
 
 void	free_all(t_data *data)
