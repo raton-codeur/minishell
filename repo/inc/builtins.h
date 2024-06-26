@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:59:19 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/25 15:03:42 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:36:14 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	update_pwd(t_data *data);
 int	pwd1(t_data *data);
 
 /* env.c */
-int	copy_env(t_data *data, const char **envp);
+int		copy_env(t_data *data, char **envp);
+void	print_envp_export(t_list **envp);
+void	print_envp_env(t_list **envp);
 
 #endif

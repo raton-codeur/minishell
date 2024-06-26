@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 17:09:07 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:39:30 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,21 +112,44 @@ void	print_cmd(t_cmd *cmd)
 	while (cmd->argv[i])
 		printf("<%s>\n", cmd->argv[i++]);
 }
+// Fonctions du dessous a securiser
 
-void	print_envp(t_list **envp)
+void	print_envp_export(t_list **envp)
 {
 	t_list	*current;
+	char	*buff;
+	char	*join;
 
 	current = *envp;
 	while (current)
 	{
-		printf("declare -x ");
-		printf("%s", ((t_envp *)current->content)->key);
-		printf("=");
-		printf("\"");
-		printf("%s", ((t_envp *)current->content)->value);
-		printf("\"");
-		printf("\n");
+		buff = ft_strjoin("declare -x ", ((t_envp *)current->content)->key);
+		join = ft_strjoin(buff, "=\"");
+		mmm_free(buff);
+		buff = ft_strjoin(join, ((t_envp *)current->content)->value);
+		mmm_free(join);
+		join = ft_strjoin(buff, "\"\n");
+		mmm_free(buff);
+		printf("%s", join);
+		mmm_free(join);
+		current = current->next;
+	}
+}
+void	print_envp_env(t_list **envp)
+{
+	t_list	*current;
+	char	*buff;
+	char	*join;
+
+	current = *envp;
+	while (current)
+	{
+		buff = ft_strjoin(((t_envp *)current->content)->key, "=");
+		join = ft_strjoin(buff, ((t_envp *)current->content)->value);
+		mmm_free(buff);
+		buff = ft_strjoin(join, "\n");
+		mmm_free(join);
+		printf("%s", buff);
 		current = current->next;
 	}
 }
