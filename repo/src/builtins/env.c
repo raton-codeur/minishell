@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/26 12:19:10 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:44:44 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	copy_env(t_data *data, char **envp)
 	{
 		new_content = copy_env_line(envp[i]);
 		if (new_content == NULL)
-			return (error_exit(MALLOC, data),1);
+			return (error_exit(MALLOC),1);
 		new_node = list_new(new_content);
 		if (new_node == NULL)
-			return (error_exit(MALLOC, data),1);
+			return (error_exit(MALLOC),1);
 		list_add_back(&data->envp, new_node);
 		i++;
 	}

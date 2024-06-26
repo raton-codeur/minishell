@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 15:12:02 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:47:57 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	error(int code, t_data *data)
 	reset_input(data);
 }
 
-void	error_exit(int code, t_data *data)
+void	error_exit(int code)
 {
 	print_error(code);
-	free_all(data);
+	mmm_free_all();
 	exit(1);
 }
 
@@ -51,11 +51,11 @@ void	syntax_error(char *token, t_data *data)
 
 	message = ft_strjoin("syntax error near unexpected token `", token);
 	if (!message)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	message_join = ft_strjoin(message, "'");
 	mmm_free(message);
 	if (!message_join)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	ft_putendl_fd(message_join, 2);
 	mmm_free(message_join);
 	reset_input(data);
@@ -70,13 +70,13 @@ void	fd_error(char *file)
 	exit(1);
 }
 
-void	cmd_name_error(char *cmd, t_data *data)
+void	cmd_name_error(char *cmd)
 {
 	char	*message;
 
 	message = ft_strjoin(cmd, ": command not found");
 	if (!message)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	ft_putendl_fd(message, 2);
 	mmm_free(message);
 	mmm_free_all();

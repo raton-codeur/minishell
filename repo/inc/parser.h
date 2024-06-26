@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:41:33 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 22:11:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:42:18 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 /* init_ast.c */
 void	init_ast(t_data *data);
-t_list	*copy_tokens(t_list *tokens, int size, t_data *data);
-t_tree	*tree_new(t_list *tokens, t_data *data);
+t_list	*copy_tokens(t_list *tokens, int size);
+t_tree	*tree_new(t_list *tokens);
 
 /* build_tree.c */
 void	build_tree(t_tree **tree, t_data *data);

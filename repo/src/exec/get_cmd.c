@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:30:10 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:48:46 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static char	*get_pathname(char *name, t_data *data)
 	{
 		result = ft_strjoin(data->path[i], name);
 		if (result == NULL)
-			error_exit(MALLOC, data);
+			error_exit(MALLOC);
 		if (access(result, X_OK) == 0)
 			return (result);
 		mmm_free(result);
 		i++;
 	}
-	cmd_name_error(name, data);
+	cmd_name_error(name);
 	return (NULL);
 }
 
@@ -56,11 +56,11 @@ void	get_cmd(t_tree *tree, t_data *data)
 		return ;
 	data->cmd = mmm_malloc(1 * sizeof(t_cmd));
 	if (data->cmd == NULL)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	argc = get_argc(tree);
 	data->cmd->argv = mmm_malloc((argc + 1) * sizeof(char *));
 	if (data->cmd->argv == NULL)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	i = 0;
 	while (i < argc)
 	{

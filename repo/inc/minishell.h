@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/26 12:33:19 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:48:29 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,10 @@ void	close_2(int pipe_[2]);
 /* error.c */
 void	print_error(int code);
 void	error(int code, t_data *data);
-void	error_exit(int code, t_data *data);
+void	error_exit(int code);
 void	syntax_error(char *token, t_data *data);
 void	fd_error(char *file);
-void	cmd_name_error(char *cmd, t_data *data);
+void	cmd_name_error(char *cmd);
 
 /* init_data.c */
 void	init_data(t_data *data);

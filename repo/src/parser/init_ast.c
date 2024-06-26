@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:19:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:33:49 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:44:31 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	copy_token_content(t_iterable current, t_iterable *current_copy)
 	return (0);
 }
 
-t_list	*copy_tokens(t_list *tokens, int size, t_data *data)
+t_list	*copy_tokens(t_list *tokens, int size)
 {
 	int			i;
 	t_list		*result;
@@ -49,7 +49,7 @@ t_list	*copy_tokens(t_list *tokens, int size, t_data *data)
 		if (copy_token_content(current, &current_copy))
 		{
 			list_clear(&result, free_token);
-			error_exit(MALLOC, data);
+			error_exit(MALLOC);
 		}
 		list_add_back(&result, current_copy.node);
 		set_iterable(&current, current.node->next);
@@ -64,18 +64,18 @@ void	init_ast(t_data *data)
 		return ;
 	data->ast = mmm_malloc(1 * sizeof(t_tree));
 	if (data->ast == NULL)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	data->ast->content = copy_tokens(\
-		data->tokens, list_size(data->tokens), data);
+		data->tokens, list_size(data->tokens));
 }
 
-t_tree	*tree_new(t_list *tokens, t_data *data)
+t_tree	*tree_new(t_list *tokens)
 {
 	t_tree	*result;
 
 	result = mmm_malloc(1 * sizeof(t_tree));
 	if (result == NULL)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	result->content = tokens;
 	return (result);
 }

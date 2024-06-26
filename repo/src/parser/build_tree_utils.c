@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:44:54 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 16:55:27 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:44:14 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ t_list	*find_brokets(t_list *tokens)
 
 void	new_tree(t_data *data)
 {
-	data->tree = tree_new(NULL, data);
-	data->tree->left = tree_new(NULL, data);
-	data->tree->right = tree_new(NULL, data);
+	data->tree = tree_new(NULL);
+	data->tree->left = tree_new(NULL);
+	data->tree->right = tree_new(NULL);
 	if (data->tree == NULL || data->tree->left == NULL
 		|| data->tree->right == NULL)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 }

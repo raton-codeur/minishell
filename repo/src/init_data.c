@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:29:29 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:44:35 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	get_path(t_data *data)
 	}
 	data->path = ft_split(getenv("PATH"), ":");
 	if (data->path == NULL)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 	data->path = add_slash(data->path);
 	if (data->path == NULL)
-		error_exit(MALLOC, data);
+		error_exit(MALLOC);
 }
 
 void	init_data(t_data *data)

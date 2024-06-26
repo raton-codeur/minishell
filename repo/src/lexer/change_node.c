@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:31:09 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:45:51 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	merge_type(t_data *data, int type)
 			{
 				new_content = ft_strjoin(current.content, next.content);
 				if (!new_content)
-					error_exit(MALLOC, data);
+					error_exit(MALLOC);
 				mmm_free(current.content);
 				list_remove_node(&data->tokens, next.node, free_token);
 				current.token->content = new_content;
@@ -102,7 +102,7 @@ void	change_double_type(\
 		{
 			new_content = ft_strdup(new_content);
 			if (new_content == NULL)
-				error_exit(MALLOC, data);
+				error_exit(MALLOC);
 			mmm_free(current.content);
 			current.token->content = new_content;
 			current.token->type = new_type;

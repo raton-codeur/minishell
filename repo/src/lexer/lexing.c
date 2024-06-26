@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:31:41 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:46:07 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	expand_variables(t_data *data)
 			else
 				new_content = ft_strdup(getenv(current.content));
 			if (!new_content)
-				error_exit(MALLOC, data);
+				error_exit(MALLOC);
 			mmm_free(current.content);
 			current.token->content = new_content;
 			current.token->type = T_CHARACTER;

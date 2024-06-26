@@ -45,17 +45,17 @@ void	get_tokens(t_data *data)
 	{
 		new.content = mmm_malloc(2 * sizeof(char));
 		if (new.content == NULL)
-			error_exit(MALLOC, data);
+			error_exit(MALLOC);
 		new.content[0] = data->input[i];
 		new.token = mmm_malloc(1 * sizeof(t_token));
 		if (new.token == NULL)
-			return (free(new.content), error_exit(MALLOC, data));
+			return (free(new.content), error_exit(MALLOC));
 		new.token->content = new.content;
 		if (get_type(&new))
 			return (free_token(new.token), reset_input(data));
 		new.node = list_new(new.token);
 		if (new.node == NULL)
-			return (free_token(new.token), error_exit(MALLOC, data));
+			return (free_token(new.token), error_exit(MALLOC));
 		list_add_back(&data->tokens, new.node);
 		i++;
 	}

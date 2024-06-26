@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:22:08 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:29:59 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:45:18 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static pid_t	child_left(t_tree *tree, t_data *data, int pipe_[2])
 
 	pid = fork();
 	if (pid == -1)
-		error_exit(FORK, data);
+		error_exit(FORK);
 	if (pid == 0)
 	{
 		data->out = pipe_[1];
@@ -34,7 +34,7 @@ static pid_t	child_right(t_tree *tree, t_data *data, int pipe_[2])
 
 	pid = fork();
 	if (pid == -1)
-		error_exit(FORK, data);
+		error_exit(FORK);
 	if (pid == 0)
 	{
 		data->in = pipe_[0];
@@ -50,7 +50,7 @@ static void	exec_pipe(t_tree *tree, t_data *data)
 	int		pipe_[2];
 
 	if (pipe(pipe_))
-		error_exit(PIPE, data);
+		error_exit(PIPE);
 	pid[0] = child_right(tree, data, pipe_);
 	pid[1] = child_left(tree, data, pipe_);
 	close(pipe_[0]);

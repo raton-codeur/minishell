@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/26 12:42:40 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:50:11 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		data.input = readline("minishell> ");
 		if (data.input == NULL)
-			return (error_exit(READLINE, &data), 1);
+			return (error_exit(READLINE), 1);
 		else
 		{
 			if (copy_env(&data, envp) == 1)
-				return (error_exit(ENV, &data), 1);
+				return (error_exit(ENV), 1);
 			if (ft_strcmp(data.input, "env") == 0)
 				print_envp_env(&data.envp);
 			if (ft_strcmp(data.input, "export") == 0)

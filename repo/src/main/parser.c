@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:33:01 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:46:27 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // 	{
 // 		data.input = readline("minishell> ");
 // 		if (data.input == NULL)
-// 			return (error_exit(READLINE, &data), 1);
+// 			return (error_exit(READLINE), 1);
 // 		else
 // 		{
 // 			if (ft_strcmp(data.input, "exit") == 0)
