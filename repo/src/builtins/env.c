@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/26 12:44:44 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 15:58:37 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static t_envp	*copy_env_line(char *env_line)
 		return (NULL);
 	deep_free((void **)split_line, 2);
 	return (new_content);
-
 }
 int	copy_env(t_data *data, char **envp)
 {
@@ -46,14 +45,50 @@ int	copy_env(t_data *data, char **envp)
 	{
 		new_content = copy_env_line(envp[i]);
 		if (new_content == NULL)
-			return (error_exit(MALLOC),1);
+			return (error_exit(MALLOC), 1);
 		new_node = list_new(new_content);
 		if (new_node == NULL)
-			return (error_exit(MALLOC),1);
+			return (error_exit(MALLOC), 1);
 		list_add_back(&data->envp, new_node);
 		i++;
 	}
 	return (0);
 }
+void	sort_export_list(t_list **envp)
+{
+	t_list	*current;
+	t_list	*next;
+	t_envp	*tmp;
 
-	
+	current = *envp;
+	while (current)
+	{
+		next = current->next;
+		while (next)
+		{
+			if (ft_strcmp(((t_envp *)current->content)->key,
+					((t_envp *)next->content)->key) > 0)
+			{
+				tmp = current->content;
+				current->content = next->content;
+				next->content = tmp;
+			}
+			next = next->next;
+		}
+		current = current->next;
+	}
+}
+
+char	*get_env(t_list *envp, char *key)
+{
+	t_list	*current;
+
+	current = envp;
+	while (current)
+	{
+		if (ft_strcmp(((t_envp *)current->content)->key, key) == 0)
+			return (((t_envp *)current->content)->value);
+		current = current->next;
+	}
+	return (NULL);
+}

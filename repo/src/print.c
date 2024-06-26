@@ -6,11 +6,12 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/26 13:39:05 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:57:23 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 void	print_type(int type)
 {
@@ -121,6 +122,7 @@ void	print_envp_export(t_list **envp)
 	char	*join;
 
 	current = *envp;
+	sort_export_list(&current);
 	while (current)
 	{
 		buff = ft_strjoin("declare -x ", ((t_envp *)current->content)->key);
