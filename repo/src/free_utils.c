@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:27:35 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 18:47:55 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 11:14:07 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	free_cmd(t_data *data)
 		free(data->cmd);
 		data->cmd = NULL;
 	}
+}
+
+void	free_env(void *p)
+{
+	t_envp	*current;
+
+	current = p;
+	free(current->key);
+	free(current->value);
+	free(current);
 }

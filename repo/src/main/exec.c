@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 10:38:50 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 11:04:38 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_data(&data);
+	if (copy_env(&data, envp) == 1)
+		return (error_exit(ENV, &data), 1);
 	while (1)
 	{
 		data.input = readline("minishell> ");
@@ -28,8 +30,6 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (ft_strcmp(data.input, "exit") == 0)
 				return (free_all(&data), 0);
-			if (copy_env(&data, envp) == 1)
-				return (error_exit(ENV, &data), 1);
 			if (ft_strcmp(data.input, "env") == 0)
 				print_env(&data.envp);
 			if (ft_strcmp(data.input, "export") == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/26 13:30:33 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 12:01:27 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	free_input(t_data *data)
 void	free_all(t_data *data)
 {
 	free_input(data);
+	list_clear(&data->envp, free_env);
 	rl_clear_history();
 }
 
@@ -48,3 +49,5 @@ void	close_2(int pipe_[2])
 	close(pipe_[0]);
 	close(pipe_[1]);
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 10:36:06 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 11:14:25 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	print_cmd(t_cmd *cmd);
 void	free_token(void *p);
 void	tree_clear(t_tree **tree);
 void	free_cmd(t_data *data);
+void	free_env(void *p);
 
 /* free.c */
 void	free_input(t_data *data);
