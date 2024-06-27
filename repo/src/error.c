@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 16:23:29 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:36:49 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	print_error(int code)
 		ft_putendl_fd("pipe failed", 2);
 	else if (code == FORK)
 		ft_putendl_fd("fork failed", 2);
+	else if (code == ENV)
+		ft_putendl_fd("cannot retriev env", 2);
 }
 
 void	error(int code, t_data *data)

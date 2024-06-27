@@ -6,11 +6,12 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 10:21:27 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:30:47 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 void	print_type(int type)
 {
@@ -125,13 +126,13 @@ void	print_export(t_list **envp)
 	{
 		buff = ft_strjoin("declare -x ", ((t_envp *)current->content)->key);
 		join = ft_strjoin(buff, "=\"");
-		mmm_free(buff);
+		free(buff);
 		buff = ft_strjoin(join, ((t_envp *)current->content)->value);
-		mmm_free(join);
+		free(join);
 		join = ft_strjoin(buff, "\"\n");
-		mmm_free(buff);
+		free(buff);
 		printf("%s", join);
-		mmm_free(join);
+		free(join);
 		current = current->next;
 	}
 }
@@ -147,9 +148,9 @@ void	print_env(t_list **envp)
 	{
 		buff = ft_strjoin(((t_envp *)current->content)->key, "=");
 		join = ft_strjoin(buff, ((t_envp *)current->content)->value);
-		mmm_free(buff);
+		free(buff);
 		buff = ft_strjoin(join, "\n");
-		mmm_free(join);
+		free(join);
 		printf("%s", buff);
 		current = current->next;
 	}

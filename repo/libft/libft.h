@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 14:29:39 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:29:19 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(const char *s, const char *delimiter);
 char	**ft_split_quote(const char *s, char c);
+char	**ft_split_once(char const *s, char c);
 int		ft_size_inside_quotes(const char *s);
 size_t	get_length(char **s);
 int		ft_strisspace(char *s);

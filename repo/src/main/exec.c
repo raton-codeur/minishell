@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 19:29:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:38:50 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	(void)argc;
+	(void)argv;
 	init_data(&data);
 	while (1)
 	{
@@ -26,6 +28,12 @@ int	main(void)
 		{
 			if (ft_strcmp(data.input, "exit") == 0)
 				return (free_all(&data), 0);
+			if (copy_env(&data, envp) == 1)
+				return (error_exit(ENV, &data), 1);
+			if (ft_strcmp(data.input, "env") == 0)
+				print_env(&data.envp);
+			if (ft_strcmp(data.input, "export") == 0)
+				print_export(&data.envp);
 			if (data.input[0] != '\0' && !ft_strisspace(data.input))
 				add_history(data.input);
 			get_tokens(&data);

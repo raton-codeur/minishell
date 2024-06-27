@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:55:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 16:10:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:37:38 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXEC_H
 
 #include "parser.h"
+#include "builtins.h"
 
 /* cmd.c */
 void	analyse_cmd(t_tree *tree, t_data *data);

@@ -65,6 +65,7 @@ SRCS = $(addprefix src/, \
 	save_add.c \
 	isword.c \
 	list_node_index.c \
+	ft_split_once.c\
 )
 
 $(NAME) : $(OBJS)

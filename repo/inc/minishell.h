@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 18:48:06 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:36:06 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,16 @@ enum e_error
 	LEXING,
 	QUOTE,
 	PIPE,
-	FORK
+	FORK,
+	ENV
 };
+
+typedef struct envp
+{
+	char	*key;
+	char	*value;
+}t_envp;
+
 
 typedef struct s_data
 {

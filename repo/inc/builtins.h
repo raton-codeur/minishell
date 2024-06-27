@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:59:19 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/27 10:21:39 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:31:29 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BUILTINS_H
 
 # include "exec.h"
+# include "libft.h"
 
 /* pwd.c */
 int	update_pwd(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/27 10:19:23 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:28:36 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_envp	*copy_env_line(char *env_line)
 	t_envp	*new_content;
 	char	**split_line;
 
-	new_content = mmm_malloc(sizeof(t_envp));
+	new_content = ft_calloc(1, sizeof(t_envp));
 	if (new_content == NULL)
 		return (NULL);
 	split_line = ft_split_once(env_line, '=');
@@ -46,10 +46,10 @@ int	copy_env(t_data *data, char **envp)
 	{
 		new_content = copy_env_line(envp[i]);
 		if (new_content == NULL)
-			return (error_exit(MALLOC), 1);
+			return (error_exit(MALLOC, data), 1);
 		new_node = list_new(new_content);
 		if (new_node == NULL)
-			return (error_exit(MALLOC), 1);
+			return (error_exit(MALLOC, data), 1);
 		list_add_back(&data->envp, new_node);
 		i++;
 	}
