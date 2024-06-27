@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 12:52:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 18:47:20 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ void	lexing(t_data *data)
 	remove_by_type_content(data, T_DELIMITER, "'");
 	remove_by_type_content(data, T_DELIMITER, "\"");
 	merge_type(data, T_DELIMITER);
-	find_variables(data);
 	change_type(data, T_DELIMITER, T_WORD);
+	find_variables(data);
 	merge_type(data, T_VARIABLE);
 	expand_variables(data);
 	merge_type(data, T_CHARACTER);

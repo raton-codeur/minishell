@@ -1,7 +1,4 @@
--
-gerer les noms de fichiers -vs- nom de commande
-
-un word qui contient un slash est un nom de fichier et pas une commande
+faire une fonction error de lexing à part lors de la construction de tokens si le type est inconnu
 -
 
 voir syntax_error et cmd name error

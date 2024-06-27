@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 12:32:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 18:32:12 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_all_input(t_data *data)
-{
-	free_input(data);
-	// free envp
-}
-
-void	free_input(t_data *data)
+void	free_for_reset_input(t_data *data)
 {
 	free(data->input);
 	data->input = NULL;
@@ -36,16 +30,17 @@ void	free_input(t_data *data)
 	free_cmd(data);
 }
 
-void	free_all(t_data *data)
-{
-	free_all_input(data);
-	rl_clear_history();
-}
-
 void	reset_input(t_data *data)
 {
-	free_input(data);
+	free_for_reset_input(data);
 	get_path(data);
+}
+
+void	free_all(t_data *data)
+{
+	free_for_reset_input(data);
+	// free envp
+	clear_history();
 }
 
 void	close_2(int pipe_[2])
