@@ -3,15 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/22 15:21:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 10:19:23 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-// int	copy_env(t_data *data)
-// {
+static t_envp	*copy_env_line(char *env_line)
+{
+	t_envp	*new_content;
+	char	**split_line;
+
+	new_content = mmm_malloc(sizeof(t_envp));
+	if (new_content == NULL)
+		return (NULL);
+	split_line = ft_split_once(env_line, '=');
+	if (split_line == NULL)
+		return (NULL);
+	new_content->key = ft_strdup(split_line[0]);
+	if (new_content->key == NULL)
+		return (NULL);
+	new_content->value = ft_strdup(split_line[1]);
+	if (new_content->value == NULL)
+		return (NULL);
+	deep_free((void **)split_line, 2);
+	return (new_content);
+}
+
+int	copy_env(t_data *data, char **envp)
+{
+	int		i;
+	t_envp	*new_content;
+	t_list	*new_node;
+
+	i = 0;
+	if (envp == NULL || envp[0] == NULL || envp[0][0] == '\0')
+		return (1);
+	while (envp[i])
+	{
+		new_content = copy_env_line(envp[i]);
+		if (new_content == NULL)
+			return (error_exit(MALLOC), 1);
+		new_node = list_new(new_content);
+		if (new_node == NULL)
+			return (error_exit(MALLOC), 1);
+		list_add_back(&data->envp, new_node);
+		i++;
+	}
+	return (0);
+}
+
+void	sort_export_list(t_list **envp)
+{
+	t_list	*current;
+	t_list	*next;
+	t_envp	*tmp;
+
+	current = *envp;
+	while (current)
+	{
+		next = current->next;
+		while (next)
+		{
+			if (ft_strcmp(((t_envp *)current->content)->key,
+					((t_envp *)next->content)->key) > 0)
+			{
+				tmp = current->content;
+				current->content = next->content;
+				next->content = tmp;
+			}
+			next = next->next;
+		}
+		current = current->next;
+	}
+}
+
+char	*get_env_value(char *key, t_list *envp)
+{
+	t_list	*current;
+
+	current = envp;
+	while (current)
+	{
+		if (ft_strcmp(((t_envp *)current->content)->key, key) == 0)
+			return (((t_envp *)current->content)->value);
+		current = current->next;
+	}
+	return (NULL);
+}
+
 	
