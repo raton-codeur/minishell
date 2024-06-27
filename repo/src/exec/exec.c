@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:22:08 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:29:59 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:38:44 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exec_child(t_tree *tree, t_data *data)
 		set_redirections(&tree, data);
 		get_cmd(tree, data);
 		if (data->cmd == NULL)
-			return (mmm_free_all(), exit(0));
+			return (mm_free_all(), exit(0));
 		dup2(data->in, 0);
 		dup2(data->out, 1);
 		if (execve(data->cmd->pathname, data->cmd->argv, NULL) == -1)

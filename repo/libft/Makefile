@@ -1,5 +1,5 @@
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror -I. -fsanitize=address -g3
+FLAGS = -Wall -Wextra -Werror -I. -g3 # -fsanitize=address
 OBJS = $(addprefix tmp/, $(notdir $(SRCS:.c=.o)))
 SRCS = $(addprefix src/, \
 	ft_atoi.c \
@@ -54,7 +54,6 @@ SRCS = $(addprefix src/, \
 	list_print.c \
 	list_size.c \
 	ft_split_quote.c \
-	ft_split_quote_utils.c \
 	get_length.c \
 	ft_atof.c \
 	ft_strisspace.c \
@@ -62,12 +61,11 @@ SRCS = $(addprefix src/, \
 	list_remove_node.c \
 	ft_strjoin_list.c \
 	deep_free.c \
-	save_add.c \
 	isword.c \
 	list_node_index.c \
-	mmm.c \
-	mmm2.c \
-	mmm_utils.c \
+	mm_utils.c \
+	mm_free_close.c \
+	mm_calloc_open.c \
 	ft_split_once.c \
 )
 

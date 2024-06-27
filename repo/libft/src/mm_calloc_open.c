@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   mm_calloc_open.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 18:45:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/26 17:18:29 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/06/26 17:04:51 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/06/26 17:05:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	*mm_calloc(size_t count, size_t size)
 {
-	char	*result;
-	size_t	i;
-	size_t	length_s;
+	void	*result;
+	t_mm	*new;
 
-	if (s == NULL)
-		return (NULL);
-	length_s = ft_strlen(s);
-	if ((size_t)start >= length_s)
-		return (ft_strdup(""));
-	if (length_s - start < len)
-		len = length_s - start;
-	result = mm_calloc(len + 1, sizeof(char));
+	result = ft_calloc(count, size);
 	if (result == NULL)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		result[i] = s[start + i];
-		i++;
-	}
-	result[i] = '\0';
+	new = mm_new_node(result, 0);
+	if (new == NULL)
+		return (free(result), NULL);
+	mm_add_node(new);
+	return (result);
+}
+
+int	mm_open(char *pathname, int flags)
+{
+	int		result;
+	t_mm	*new;
+
+	result = open(pathname, flags);
+	if (result < 0)
+		return (result);
+	new = mm_new_node(NULL, result);
+	if (new == NULL)
+		return (close(result), -1);
+	mm_add_node(new);
 	return (result);
 }

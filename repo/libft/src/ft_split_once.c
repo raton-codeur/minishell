@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_once.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:46:46 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 17:03:57 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:16:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static char	**ft_doubletabfree(int i, char **dest)
 	while (i > 0)
 	{
 		i--;
-		mmm_free(dest[i]);
+		mm_free(dest[i]);
 	}
-	mmm_free(dest);
+	mm_free(dest);
 	return (NULL);
 }
 
@@ -57,7 +57,7 @@ char	**ft_split_once(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	dest = mmm_malloc(3 * sizeof(char *));
+	dest = mm_calloc(3, sizeof(char *));
 	if (dest == NULL)
 		return (NULL);
 	dest[2] = NULL;

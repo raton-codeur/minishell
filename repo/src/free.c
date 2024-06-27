@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:28:24 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 18:16:11 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_input(t_data *data)
 {
-	mmm_free(data->input);
+	free(data->input);
 	data->input = NULL;
 	list_clear(&data->tokens, free_token);
 	tree_clear(&data->ast);
@@ -34,6 +34,7 @@ void	free_all(t_data *data)
 {
 	free_input(data);
 	rl_clear_history();
+	mm_free_all();
 }
 
 void	reset_input(t_data *data)
@@ -44,6 +45,6 @@ void	reset_input(t_data *data)
 
 void	close_2(int pipe_[2])
 {
-	close(pipe_[0]);
-	close(pipe_[1]);
+	mm_close(pipe_[0]);
+	mm_close(pipe_[1]);
 }

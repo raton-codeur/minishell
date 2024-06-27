@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:46:46 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:24:00 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:16:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ft_free_inside(char **result, unsigned int i)
 
 	j = 0;
 	while (j < i)
-		mmm_free(result[j++]);
+		mm_free(result[j++]);
 }
 
 char	**ft_split(const char *s, const char *delimiter)
@@ -59,7 +59,7 @@ char	**ft_split(const char *s, const char *delimiter)
 
 	if (s == NULL)
 		return (NULL);
-	result = mmm_malloc((ft_count_words(s, delimiter) + 1) * sizeof(char *));
+	result = mm_calloc(ft_count_words(s, delimiter) + 1, sizeof(char *));
 	if (result == NULL)
 		return (NULL);
 	if (ft_strchr(delimiter, *s))
@@ -67,9 +67,9 @@ char	**ft_split(const char *s, const char *delimiter)
 	i = 0;
 	while (*s)
 	{
-		result[i] = mmm_malloc((ft_length(s, delimiter) + 1) * sizeof(char));
+		result[i] = mm_calloc(ft_length(s, delimiter) + 1, sizeof(char));
 		if (result[i] == NULL)
-			return (ft_free_inside(result, i), mmm_free(result), NULL);
+			return (ft_free_inside(result, i), mm_free(result), NULL);
 		ft_strlcpy(result[i++], s, ft_length(s, delimiter) + 1);
 		s += ft_length(s, delimiter);
 		s += ft_length(s, delimiter);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 15:12:02 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 18:19:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	syntax_error(char *token, t_data *data)
 	ft_putendl_fd(message_join, 2);
 	mmm_free(message_join);
 	reset_input(data);
-	/* mettre le code d'erreur de $? à 2 */
+	data->exit_status = 2;
 }
 
 void	fd_error(char *file)

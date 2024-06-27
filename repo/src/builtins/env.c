@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/26 12:19:10 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:38:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_envp	*copy_env_line(char *env_line)
 	t_envp	*new_content;
 	char	**split_line;
 
-	new_content = mmm_malloc(sizeof(t_envp));
+	new_content = mm_calloc(1, sizeof(t_envp));
 	if (new_content == NULL)
 		return (NULL);
 	split_line = ft_split_once(env_line, '=');
@@ -56,4 +56,3 @@ int	copy_env(t_data *data, char **envp)
 	return (0);
 }
 
-	

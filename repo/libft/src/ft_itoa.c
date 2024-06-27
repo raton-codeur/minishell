@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:46:58 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:19:17 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:59:15 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_itoa(int n)
 
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
-	result = mmm_malloc((ft_length(n) + 1) * sizeof(char));
+	result = mm_calloc(ft_length(n) + 1, sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	i = ft_length(n) - 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 16:55:28 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:53:34 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include <stdarg.h>
 # include <fcntl.h>
 # include <string.h>
-# include <mmm.h>
+# include <stdbool.h>
 
 /* char */
 int		ft_isalpha(int c);
@@ -87,7 +86,23 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 void	deep_free(void **p, size_t i);
-int		save_add(void *p, t_list **l);
+
+/* memory_manager */
+typedef struct s_mm
+{
+	void		*p;
+	int			fd;
+	struct s_mm	*next;
+}	t_mm;
+t_mm	**get_mm(void);
+t_mm	*mm_new_node(void *p, int fd);
+void	mm_add_node(t_mm *new);
+void	mm_remove_node(t_mm *to_remove);
+void	mm_free(void *p);
+void	mm_close(int fd);
+void	mm_free_all(void);
+void	*mm_calloc(size_t count, size_t size);
+int		mm_open(char *pathname, int flags);
 
 /* print */
 void	ft_putchar_fd(char c, int fd);

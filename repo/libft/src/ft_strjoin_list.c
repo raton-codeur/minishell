@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:37:00 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:21:26 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:17:26 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strjoin_list(t_list *list)
 	char	*result;
 
 	length = get_length_result(list);
-	result = mmm_malloc((length + 1) * sizeof(char));
+	result = mm_calloc(length + 1, sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	while (list)

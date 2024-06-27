@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_new.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:47:08 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/25 13:10:21 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:19:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*list_new(void *content)
 {
 	t_list	*result;
 
-	result = mmm_malloc(sizeof(t_list));
+	result = mm_calloc(1, sizeof(t_list));
 	if (result)
 	{
 		result->content = content;
