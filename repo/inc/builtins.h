@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:59:19 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/27 10:31:29 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 13:08:51 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ int	pwd1(t_data *data);
 
 /* env.c */
 int		copy_env(t_data *data, char **envp);
-void	print_export(t_list **envp);
 void	print_env(t_list **envp);
+char	*get_env(char *key, t_list *envp);
+char	**env_double_array(t_list *envp, t_data *data);
+
+/* export.c */
 void	sort_export_list(t_list **envp);
-char	*get_env_value(char *key, t_list *envp);
+void	print_export(t_list **envp);
+
 
 #endif

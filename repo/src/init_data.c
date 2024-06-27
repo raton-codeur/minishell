@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 16:59:19 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 12:52:39 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 static char	**add_slash(char **path)
 {
@@ -41,12 +42,12 @@ static char	**add_slash(char **path)
 
 void	get_path(t_data *data)
 {
-	if (getenv("PATH") == NULL)
+	if (get_env("PATH", data->envp) == NULL)
 	{
 		data->path = NULL;
 		return ;
 	}
-	data->path = ft_split(getenv("PATH"), ":");
+	data->path = ft_split(get_env("PATH", data->envp), ":");
 	if (data->path == NULL)
 		error_exit(MALLOC, data);
 	data->path = add_slash(data->path);
@@ -59,5 +60,6 @@ void	init_data(t_data *data)
 	ft_bzero(data, sizeof(t_data));
 	data->in = 0;
 	data->out = 1;
+	data->exit_status = 0;
 	get_path(data);
 }

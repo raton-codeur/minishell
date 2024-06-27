@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:07:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/16 19:39:20 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 13:09:29 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	change_type(t_data *data, int type, int new_type);
 void	remove_by_type(t_data *data, int type);
 void	remove_by_type_content(t_data *data, int type, char *content);
 void	merge_type(t_data *data, int type);
+void	change_node(\
+	t_list **node, char *new_content, int new_type, t_data *data);
 void	change_double_type(\
 	t_data *data, int type, char *new_content, int new_type);
 

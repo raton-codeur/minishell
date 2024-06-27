@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:15:41 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 12:51:48 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,19 @@ void	merge_type(t_data *data, int type)
 	}
 }
 
+void	change_node(t_list **node, char *new_content, int new_type, t_data *data)
+{
+	t_iterable	current;
+
+	new_content = ft_strdup(new_content);
+	if (new_content == NULL)
+		error_exit(MALLOC, data);
+	set_iterable(&current, *node);
+	free(current.content);
+	current.token->content = new_content;
+	current.token->type = new_type;
+}
+
 void	change_double_type(\
 	t_data *data, int type, char *new_content, int new_type)
 {
@@ -100,12 +113,7 @@ void	change_double_type(\
 	{
 		if (next.node && current.type == type && next.type == type)
 		{
-			new_content = ft_strdup(new_content);
-			if (new_content == NULL)
-				error_exit(MALLOC, data);
-			free(current.content);
-			current.token->content = new_content;
-			current.token->type = new_type;
+			change_node(&current.node, new_content, new_type, data);
 			list_remove_node(&data->tokens, next.node, free_token);
 		}
 		set_iterables(&current, &next, current.node->next);

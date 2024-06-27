@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/20 16:49:01 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/06/27 12:52:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "builtins.h"
 
 static void	analyse_quotes(t_data *data)
 {
@@ -49,10 +50,10 @@ static void	expand_variables(t_data *data)
 	{
 		if (current.type == T_VARIABLE)
 		{
-			if (getenv(current.content) == NULL)
+			if (get_env(current.content, data->envp) == NULL)
 				new_content = ft_strdup("");
 			else
-				new_content = ft_strdup(getenv(current.content));
+				new_content = ft_strdup(get_env(current.content, data->envp));
 			if (!new_content)
 				error_exit(MALLOC, data);
 			free(current.content);

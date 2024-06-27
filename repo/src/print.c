@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 10:30:47 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 13:01:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,44 +114,4 @@ void	print_cmd(t_cmd *cmd)
 		printf("<%s>\n", cmd->argv[i++]);
 }
 
-void	print_export(t_list **envp)
-{
-	t_list	*current;
-	char	*buff;
-	char	*join;
 
-	current = *envp;
-	sort_export_list(&current);
-	while (current)
-	{
-		buff = ft_strjoin("declare -x ", ((t_envp *)current->content)->key);
-		join = ft_strjoin(buff, "=\"");
-		free(buff);
-		buff = ft_strjoin(join, ((t_envp *)current->content)->value);
-		free(join);
-		join = ft_strjoin(buff, "\"\n");
-		free(buff);
-		printf("%s", join);
-		free(join);
-		current = current->next;
-	}
-}
-
-void	print_env(t_list **envp)
-{
-	t_list	*current;
-	char	*buff;
-	char	*join;
-
-	current = *envp;
-	while (current)
-	{
-		buff = ft_strjoin(((t_envp *)current->content)->key, "=");
-		join = ft_strjoin(buff, ((t_envp *)current->content)->value);
-		free(buff);
-		buff = ft_strjoin(join, "\n");
-		free(join);
-		printf("%s", buff);
-		current = current->next;
-	}
-}

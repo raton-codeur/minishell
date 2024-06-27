@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/27 10:28:36 by jteste           ###   ########.fr       */
+/*   Updated: 2024/06/27 13:09:15 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,7 @@ int	copy_env(t_data *data, char **envp)
 	return (0);
 }
 
-void	sort_export_list(t_list **envp)
-{
-	t_list	*current;
-	t_list	*next;
-	t_envp	*tmp;
-
-	current = *envp;
-	while (current)
-	{
-		next = current->next;
-		while (next)
-		{
-			if (ft_strcmp(((t_envp *)current->content)->key,
-					((t_envp *)next->content)->key) > 0)
-			{
-				tmp = current->content;
-				current->content = next->content;
-				next->content = tmp;
-			}
-			next = next->next;
-		}
-		current = current->next;
-	}
-}
-
-char	*get_env_value(char *key, t_list *envp)
+char	*get_env(char *key, t_list *envp)
 {
 	t_list	*current;
 
@@ -95,4 +70,48 @@ char	*get_env_value(char *key, t_list *envp)
 	return (NULL);
 }
 
+void	print_env(t_list **envp)
+{
+	t_list	*current;
+	char	*buff;
+	char	*join;
+
+	current = *envp;
+	while (current)
+	{
+		buff = ft_strjoin(((t_envp *)current->content)->key, "=");
+		join = ft_strjoin(buff, ((t_envp *)current->content)->value);
+		free(buff);
+		buff = ft_strjoin(join, "\n");
+		free(join);
+		printf("%s", buff);
+		free(buff);
+		current = current->next;
+	}
+}
+
+char	**env_double_array(t_list *envp, t_data *data)
+{
+	char	**env;
+	char	*tmp;
+	t_list	*current;
+	int		i;
 	
+	i = 0;
+	current = envp;
+	env = ft_calloc(list_size(envp) + 1, sizeof(char *));
+	if (env == NULL)
+		error_exit(MALLOC, data);
+	env[list_size(envp)] = NULL;
+	while (current)
+	{
+		tmp = ft_strjoin(((t_envp *)current->content)->key, "=");
+		env[i] = ft_strjoin(tmp, ((t_envp *)current->content)->value);
+		free(tmp);
+		current = current->next;
+		i++;
+	}
+	return (env);
+}
+
+
