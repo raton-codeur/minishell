@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_variables.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 17:43:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/01 15:42:45 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*get_exit_status(t_data *data)
 {
 	char	*result;
 
-	result = ft_itoa((unsigned char)data->exit_status);
+	result = ft_itoa(data->exit_status & 0xFF);
 	if (result == NULL)
 		error_exit(MALLOC, data);
 	return (result);

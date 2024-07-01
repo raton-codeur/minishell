@@ -22,23 +22,6 @@ bash: syntax error near unexpected token `<<'
 [2] qhauuy@k1r2p2:~/Desktop/minishell$ <<<<
 bash: syntax error near unexpected token `<'
 -
--
-exit
-
-avec pls arg non numeric
-erreur + exit
-
-avec pls arg numeric
-errur pas pas exit
-
-avec un overint < over long long
-ok
-
-avec un over long long
-pas ok
-
-exit ne sort pas du programme si on est dans un child / pipe
--
 export
 
 invalid :

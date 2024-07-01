@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 12:32:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/01 19:03:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_tree
 typedef struct s_cmd
 {
 	char	*pathname;
+	int		argc;
 	char	**argv;
 }	t_cmd;
 
@@ -153,7 +154,8 @@ void	fd_error(char *file, t_data *data);
 void	cmd_pathname_error(char *cmd, t_data *data);
 
 /* init_data.c */
-void	init_data(t_data *data);
+void	init_data(t_data *data, int argc, char **argv, char **envp);
 void	get_path(t_data *data);
+void	get_input(t_data *data);
 
 #endif

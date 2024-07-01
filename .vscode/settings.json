@@ -1,6 +1,9 @@
 {
 	"files.associations": {
 		"*.rmd": "markdown",
-		"lexer.h": "c"
+		"lexer.h": "c",
+		"builtins.h": "c",
+		"exec.h": "c",
+		"libft.h": "c"
 	}
 }

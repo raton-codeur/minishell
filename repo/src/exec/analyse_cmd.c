@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   analyse_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:00:11 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 12:29:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/01 19:04:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-/*
-si le fichier existe mais que le droit nest pas bon -> code 126
-
-si le name contient un slash -> regarder si le fichier existe directement sans regarder le path
-*/
 static char	*get_pathname(char *name, t_data *data)
 {
 	char	*result;
@@ -49,7 +44,6 @@ static int	get_argc(t_tree *tree)
 
 void	prepare_argv(t_tree *tree, t_data *data)
 {
-	int		argc;
 	int		i;
 
 	if (tree == NULL)
@@ -57,12 +51,12 @@ void	prepare_argv(t_tree *tree, t_data *data)
 	data->cmd = ft_calloc(1, sizeof(t_cmd));
 	if (data->cmd == NULL)
 		error_exit(MALLOC, data);
-	argc = get_argc(tree);
-	data->cmd->argv = ft_calloc(argc + 1, sizeof(char *));
+	data->cmd->argc = get_argc(tree);
+	data->cmd->argv = ft_calloc(data->cmd->argc + 1, sizeof(char *));
 	if (data->cmd->argv == NULL)
 		error_exit(MALLOC, data);
 	i = 0;
-	while (i < argc)
+	while (i < data->cmd->argc)
 	{
 		data->cmd->argv[i++] = get_content(tree);
 		tree = tree->left;
@@ -95,14 +89,6 @@ int	has_slash(char *s)
 	return (0);
 }
 
-void	file_error(char *name, t_data *data)
-{
-	ft_putstr_fd("minishell: ", 2);
-	perror(name);
-	free_all(data);
-	exit(1);
-}
-
 void	analyse_file(t_tree *tree, t_data *data)
 {
 	struct stat	sb;
@@ -110,31 +96,32 @@ void	analyse_file(t_tree *tree, t_data *data)
 
 	name = get_content(tree);
 	if (stat(name, &sb) == -1)
-		file_error(name, data);
-		/* mettre le code derreur a 127*/
+	{
+		ft_putstr_fd("minishell: ", 2);
+		return (perror(name), free_all(data), exit(127));
+	}
 	if (S_ISDIR(sb.st_mode))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(name, 2);
 		ft_putendl_fd(": Is a directory", 2);
-		free_all(data);
-		exit(1);
-		/* mettre le code derreur a 126 */
+		return (free_all(data), exit(126));
 	}
 	if (access(name, R_OK | X_OK) == -1)
-		file_error(name, data);
-		/* mettre le code derreur a 126 */
-	else
 	{
-		prepare_exec_relative(tree, data);
-		// printf("file found et ok\n");
+		ft_putstr_fd("minishell: ", 2);
+		return (perror(name), free_all(data), exit(126));
 	}
+	else
+		prepare_exec_relative(tree, data);
 }
 
 void	analyse_cmd(t_tree *tree, t_data *data)
 {
 	if (has_slash(get_content(tree)))
 		analyse_file((tree), data);
+	else if (ft_strcmp(get_content(tree), "exit") == 0)
+		return (exit_(tree, data));
 	else
 		prepare_exec_absolute(tree, data);
 }

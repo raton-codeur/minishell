@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 12:52:39 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/01 16:12:18 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,37 @@ void	get_path(t_data *data)
 		error_exit(MALLOC, data);
 }
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, int argc, char **argv, char **envp)
 {
+	(void)argc,
+	(void)argv;
 	ft_bzero(data, sizeof(t_data));
-	data->in = 0;
 	data->out = 1;
-	data->exit_status = 0;
+	if (copy_env(data, envp))
+		return (error_exit(ENV, data));
 	get_path(data);
+}
+
+void	get_input(t_data *data)
+{
+	char	*prompt;
+	char	*save;
+
+	prompt = ft_itoa(data->exit_status);
+	if (prompt == NULL)
+		error_exit(MALLOC, data);
+	save = prompt;
+	prompt = ft_strjoin("[", prompt);
+	free(save);
+	if (prompt == NULL)
+		error_exit(MALLOC, data);
+	save = prompt;
+	prompt = ft_strjoin(prompt, "] minishell > ");
+	free(save);
+	if (prompt == NULL)
+		error_exit(MALLOC, data);
+	data->input = readline(prompt);
+	free(prompt);
+	if (data->input == NULL)
+		error_exit(READLINE, data);
 }
