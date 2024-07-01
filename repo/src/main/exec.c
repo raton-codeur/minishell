@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/01 17:17:01 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/01 23:04:44 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		build_tree(&data.ast, &data);
 		// tree_print(data.ast);
 		get_heredocs(&data.ast, &data);
-		exec(data.ast, &data);
+		exec(&data);
 		reset_input(&data);
 	}
 	return (free_all(&data), 0);

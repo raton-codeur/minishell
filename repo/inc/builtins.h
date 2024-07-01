@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:59:19 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/01 18:19:59 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/01 22:25:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	sort_export_list(t_list **envp);
 void	print_export(t_list **envp);
 
 /* exit.c */
-void	exit_(t_tree *tree, t_data *data);
+void	exit_(t_tree *tree, t_data *data, int in_parent);
 
 #endif

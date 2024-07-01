@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/01 16:12:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/01 22:28:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	get_input(t_data *data)
 	if (prompt == NULL)
 		error_exit(MALLOC, data);
 	save = prompt;
-	prompt = ft_strjoin(prompt, "] minishell > ");
+	prompt = ft_strjoin(prompt, "] minishell >>> ");
 	free(save);
 	if (prompt == NULL)
 		error_exit(MALLOC, data);
