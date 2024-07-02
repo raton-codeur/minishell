@@ -6,11 +6,12 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:22:08 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/01 23:07:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 15:43:55 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "builtin.h"
 
 void	exec_pipe(t_tree *tree, t_data *data);
 
@@ -118,6 +119,7 @@ void	analyse_file(t_tree *tree, t_data *data)
 		prepare_exec_relative(tree, data);
 }
 
+
 static void	exec_cmd(t_tree *tree, t_data *data, int in_parent)
 {
 	pid_t	pid;
@@ -126,8 +128,8 @@ static void	exec_cmd(t_tree *tree, t_data *data, int in_parent)
 	set_redirections(&tree, data);
 	dup2(data->in, 0);
 	dup2(data->out, 1);
-	if (ft_strcmp(get_content(tree), "exit") == 0)
-		exit_(tree, data, in_parent);
+	if (find_builtin(tree, data, in_parent))
+		return ;
 	else
 	{
 		pid = fork();
@@ -158,6 +160,7 @@ static pid_t	child_right(t_tree *tree, t_data *data, int pipe_[2])
 		data->in = pipe_[0];
 		close(pipe_[1]);
 		exec_cmd(tree, data, 0);
+		
 	}
 	return (pid);
 }

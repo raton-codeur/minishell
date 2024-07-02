@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/01 22:34:16 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 15:43:55 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,8 @@ plusieurs arg dont le premier est non numeric ou depasse les valeur min ou max d
 ecrire erreur minishell: argument: numeric numeric argument required
 exit
 */
+
+void	prepare_exec_relative(t_tree *tree, t_data *data);
 
 void	exit_(t_tree *tree, t_data *data, int in_parent)
 {
