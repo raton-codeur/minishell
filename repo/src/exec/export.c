@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/27 13:02:54 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:24:10 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "exec.h"
 
 void	sort_export_list(t_list **envp)
 {

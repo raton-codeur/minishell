@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:27:39 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/02 15:27:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:23:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "exec.h"
 
 t_list	*find_env_key(t_list **envp, char *key_to_find)
 {

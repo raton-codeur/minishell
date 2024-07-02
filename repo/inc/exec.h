@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:55:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 15:39:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:35:04 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define EXEC_H
 
 #include "parser.h"
-#include "builtins.h"
 
 /* set_redirections.h */
 int	set_redirections(t_tree **tree, t_data *data);
@@ -22,8 +21,43 @@ int	set_redirections(t_tree **tree, t_data *data);
 /* get_heredocs.c */
 void	get_heredocs(t_tree **tree, t_data *data);
 
+
+/* prepare_exec.c */
+void	prepare_exec_absolute(t_tree *tree, t_data *data);
+void	prepare_exec_relative(t_tree *tree, t_data *data);
+
+/* exec_cmd.c */
+void	exec_cmd(t_tree *tree, t_data *data, int in_parent);
+
 /* exec.c */
 void	exec(t_data *data);
-void	prepare_argv(t_tree *tree, t_data *data);
+void	exec_pipe(t_tree *tree, t_data *data, int in_parent);
+
+
+
+
+
+
+
+/* pwd.c */
+int	update_pwd(t_data *data);
+int	pwd1(t_data *data);
+
+/* env.c */
+int		copy_env(t_data *data, char **envp);
+void	print_env(t_list **envp);
+char	*get_env(char *key, t_list *envp);
+char	**env_double_array(t_list *envp, t_data *data);
+
+/* export.c */
+void	sort_export_list(t_list **envp);
+void	print_export(t_list **envp);
+
+/* exit.c */
+void	exit_(t_tree *tree, t_data *data, int in_parent);
+
+/* exec_builtin.c */
+int	exec_builtin(t_tree *tree, t_data *data, int in_parent);
+
 
 #endif

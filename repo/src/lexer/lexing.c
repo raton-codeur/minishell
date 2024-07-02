@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 18:47:20 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:24:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "builtins.h"
+#include "exec.h"
 
 static void	analyse_quotes(t_data *data)
 {

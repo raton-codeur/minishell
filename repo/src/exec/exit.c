@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 15:43:55 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:34:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "exec.h"
 
 
 
@@ -220,7 +220,6 @@ ecrire erreur minishell: argument: numeric numeric argument required
 exit
 */
 
-void	prepare_exec_relative(t_tree *tree, t_data *data);
 
 void	exit_(t_tree *tree, t_data *data, int in_parent)
 {

@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/06/27 13:09:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:23:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "exec.h"
 
 static t_envp	*copy_env_line(char *env_line)
 {
