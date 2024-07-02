@@ -1,3 +1,20 @@
+-
+
+
+√ repo - main % export test="a b      c"      
+√ repo - main % m 
+[0] minishell >>> echo $test
+a b      c
+
+alors que
+
+[0] bash >>> test="a b     c"
+[0] bash >>> echo $test
+a b c
+
+
+-
+
 faire une fonction error de lexing à part lors de la construction de tokens si le type est inconnu
 -
 
