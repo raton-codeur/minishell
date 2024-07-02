@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/02 16:50:52 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/02 17:36:38 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ char	*analyse_new_path(char *new_path, t_data *data)
 		ft_putendl_fd("cd: HOME not set", 2);
 		return (NULL);
 	}
-	if ((new_path[0] == '~' && new_path[1] == '\0') || (data->cmd->argc == 1))
+	if ((data->cmd->argc == 1) || (new_path[0] == '~' && new_path[1] == '\0'))
 		return (home);
 	else if (new_path[0] == '~' && new_path[1] == '/')
+	{
 		new_path = ft_strjoin(home, new_path + 1);
-	if (new_path == NULL)
-		error_exit(MALLOC, data);
+		if (new_path == NULL)
+			error_exit(MALLOC, data);
+	}
 	else
 		new_path = data->cmd->argv[1];
 	return (new_path);
@@ -43,10 +45,11 @@ int	cd_(t_tree *tree, t_data *data, int in_parent)
 {
 	char	*new_path;
 
-	prepare_argv(tree, data);
+	(void)in_parent;
+	prepare_exec_relative(tree, data);
 	if (data->cmd->argc > 2)
 	{
-		ft_putendl_fd("cd: too many arguments", 2);
+		ft_putendl_fd("Minishell: cd: too many arguments", 2);
 		return (1);
 	}
 	else
