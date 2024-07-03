@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/03 16:10:58 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 17:26:49 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		exec_pipe(t_tree *tree, t_data *data, int in_parent);
 int			cd_(t_tree *tree, t_data *data, int in_parent);
 
 /* pwd.c */
-int	pwd_(int in_parent)
+int			pwd_(int in_parent);
 
 /* env.c */
 int			copy_env(t_data *data, char **envp);

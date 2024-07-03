@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 16:33:46 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/03 17:27:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 		lexing(&data);
 		init_ast(&data);
 		build_tree(&data.ast, &data);
-		// tree_print(data.ast);
 		get_heredocs(&data.ast, &data);
 		exec(&data);
 		reset_input(&data);
