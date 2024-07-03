@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/02 16:23:33 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/03 15:43:24 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,13 @@ char	*get_env(char *key, t_list *envp)
 	return (NULL);
 }
 
-void	print_env(t_list **envp)
-{
-	t_list	*current;
-	char	*buff;
-	char	*join;
-
-	current = *envp;
-	while (current)
-	{
-		buff = ft_strjoin(((t_envp *)current->content)->key, "=");
-		join = ft_strjoin(buff, ((t_envp *)current->content)->value);
-		free(buff);
-		buff = ft_strjoin(join, "\n");
-		free(join);
-		printf("%s", buff);
-		free(buff);
-		current = current->next;
-	}
-}
-
 char	**env_double_array(t_list *envp, t_data *data)
 {
 	char	**env;
 	char	*tmp;
 	t_list	*current;
 	int		i;
-	
+
 	i = 0;
 	current = envp;
 	env = ft_calloc(list_size(envp) + 1, sizeof(char *));
@@ -114,4 +94,31 @@ char	**env_double_array(t_list *envp, t_data *data)
 	return (env);
 }
 
+void	env_(t_list **envp, int in_parent)
+{
+	t_list	*current;
+	char	*buff;
+	char	*join;
 
+	(void)in_parent;
+	current = *envp;
+	while (current)
+	{
+		if (((t_envp *)current->content)->value == NULL
+			|| ft_strcmp(((t_envp *)current->content)->value, "") == 0)
+		{
+			current = current->next;
+			continue ;
+		}
+		buff = ft_strjoin(((t_envp *)current->content)->key, "=");
+		if (buff == NULL)
+			return (error_exit(MALLOC, NULL));
+		join = ft_strjoin(buff, ((t_envp *)current->content)->value);
+		if (join == NULL)
+			return (error_exit(MALLOC, NULL));
+		free(buff);
+		printf("%s\n", join);
+		free(join);
+		current = current->next;
+	}
+}

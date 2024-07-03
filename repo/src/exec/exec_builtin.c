@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:49 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/02 17:40:08 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 15:43:01 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int	exec_builtin(t_tree *tree, t_data *data, int in_parent)
 	// 	return (echo_(tree, data, in_parent), 1);
 	if (ft_strcmp(get_content(tree), "cd") == 0)
 		return (cd_(tree, data, in_parent), 1);
-	// if (ft_strcmp(get_content(tree), "pwd") == 0)
-	// 	return (pwd_(tree, data, in_parent), 1);
-	// if (ft_strcmp(get_content(tree), "export") == 0)
-	// 	return (export_(tree, data, in_parent), 1);
+	if (ft_strcmp(get_content(tree), "pwd") == 0)
+		return (pwd_(), 1);
+	if (ft_strcmp(get_content(tree), "export") == 0)
+		return (export_(tree, data, in_parent), 1);
 	// if (ft_strcmp(get_content(tree), "unset") == 0)
 	// 	return (unset_(tree, data, in_parent), 1);
-	// if (ft_strcmp(get_content(tree), "env") == 0)
-	// 	return (env_(tree, data, in_parent), 1);
+	if (ft_strcmp(get_content(tree), "env") == 0)
+		return (env_(&data->envp, in_parent), 1);
 	if (ft_strcmp(get_content(tree), "exit") == 0)
 		return (exit_(tree, data, in_parent), 1);
 	return (0);

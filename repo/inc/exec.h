@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/03 13:26:53 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 15:43:57 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,11 @@ void		exec_pipe(t_tree *tree, t_data *data, int in_parent);
 int			cd_(t_tree *tree, t_data *data, int in_parent);
 
 /* pwd.c */
-int			update_pwd(t_data *data);
-int			pwd1(t_data *data);
+int			pwd_(void);
 
 /* env.c */
 int			copy_env(t_data *data, char **envp);
-void		print_env(t_list **envp);
+void		env_(t_list **envp, int in_parent);
 char		*get_env(char *key, t_list *envp);
 char		**env_double_array(t_list *envp, t_data *data);
 
@@ -51,8 +50,10 @@ t_list		*find_env_key(t_list **envp, char *key_to_find);
 void		modify_key_value(t_list **envp, char *key_to_find, char *new_value);
 
 /* export.c */
+int			export_(t_tree *tree, t_data *data, int in_parent);
 void		sort_export_list(t_list **envp);
 void		print_export(t_list **envp);
+int			add_export_variable(t_tree *tree, t_data *data, int in_parent);
 
 /* exit.c */
 void		exit_(t_tree *tree, t_data *data, int in_parent);

@@ -3,40 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:39:58 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/02 16:24:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/03 14:13:23 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-// int	update_pwd(t_data *data)
-// {
-// 	char	*pwd;
+int	pwd_(void)
+{
+	char	*pwd;
 
-// 	pwd = getcwd(NULL, 0);
-// 	if (pwd == NULL)
-// 		return (1);
-// 	else
-// 	{
-// 		free(data->oldpwd);
-// 		data->oldpwd = data->pwd;
-// 		free(data->pwd);
-// 		data->pwd = pwd;
-// 		return (0);
-// 	}
-// }
-
-// int	pwd1(t_data *data)
-// {
-// 	update_pwd(data);
-// 	if (data->pwd == NULL)
-// 		return (1);
-// 	else
-// 	{
-// 		printf("%s\n", data->pwd);
-// 		return (0);
-// 	}
-// }
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+	{
+		perror("pwd");
+		return (1);
+	}
+	printf("%s\n", pwd);
+	free(pwd);
+	return (0);
+}
