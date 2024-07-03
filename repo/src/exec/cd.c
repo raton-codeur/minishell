@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/03 13:52:20 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:09:22 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ int	cd_(t_tree *tree, t_data *data, int in_parent)
 	if (new_path == NULL || new_path[0] == '\0')
 		return (1);
 	change_directory(new_path, data);
+	if (!in_parent)
+		exit(0);
 	return (0);
 }

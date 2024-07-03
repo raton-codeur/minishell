@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:49 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/03 15:43:01 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:10:22 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	exec_builtin(t_tree *tree, t_data *data, int in_parent)
 	if (ft_strcmp(get_content(tree), "cd") == 0)
 		return (cd_(tree, data, in_parent), 1);
 	if (ft_strcmp(get_content(tree), "pwd") == 0)
-		return (pwd_(), 1);
+		return (pwd_(in_parent), 1);
 	if (ft_strcmp(get_content(tree), "export") == 0)
 		return (export_(tree, data, in_parent), 1);
 	// if (ft_strcmp(get_content(tree), "unset") == 0)

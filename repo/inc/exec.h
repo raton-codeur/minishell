@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/03 15:43:57 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:10:58 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		exec_pipe(t_tree *tree, t_data *data, int in_parent);
 int			cd_(t_tree *tree, t_data *data, int in_parent);
 
 /* pwd.c */
-int			pwd_(void);
+int	pwd_(int in_parent)
 
 /* env.c */
 int			copy_env(t_data *data, char **envp);

@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/03 15:46:07 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:00:41 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,7 @@ int	export_(t_tree *tree, t_data *data, int in_parent)
 	}
 	else
 		add_export_variable(tree->left, data, in_parent);
+	if (!in_parent)
+		exit(0);
 	return (0);
 }

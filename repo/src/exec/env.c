@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/03 15:43:24 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:03:25 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	env_(t_list **envp, int in_parent)
 	char	*buff;
 	char	*join;
 
-	(void)in_parent;
 	current = *envp;
 	while (current)
 	{
@@ -121,4 +120,6 @@ void	env_(t_list **envp, int in_parent)
 		free(join);
 		current = current->next;
 	}
+	if (!in_parent)
+		exit(0);
 }
