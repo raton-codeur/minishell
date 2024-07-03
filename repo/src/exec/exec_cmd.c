@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:32:51 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 16:33:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/03 17:23:26 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	exec_cmd(t_tree *tree, t_data *data, int in_parent)
 	pid_t	pid;
 	int		status;
 
+	/* si on est dans le parent, il faut sauvegarder stdin et stdout avec dup */
 	set_redirections(&tree, data);
 	dup2(data->in, 0);
 	dup2(data->out, 1);
@@ -83,6 +84,7 @@ void	exec_cmd(t_tree *tree, t_data *data, int in_parent)
 			if (WIFEXITED(status))
 				data->exit_status = WEXITSTATUS(status);
 		}
+		/* il faut remettre stdin et stdout */
 	}
 	else
 		run_cmd(tree, data);

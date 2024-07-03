@@ -1,0 +1,18 @@
+*
+En bash, les codes de sortie (exit status) sont des entiers de 0 à 255, où 0 signifie généralement que la commande s'est exécutée avec succès et tout autre code indique une erreur ou un état particulier. Cependant, certaines conventions et standards existent pour les codes de sortie, laissant certains codes plus ou moins inutilisés ou réservés pour des cas spécifiques. Voici un aperçu :
+
+    Code de sortie 0 : Indique que la commande s'est exécutée avec succès.
+    Codes de sortie 1-2 : Souvent utilisés pour des erreurs générales.
+    Codes de sortie 126 : Commande trouvée mais impossible à exécuter.
+    Codes de sortie 127 : Commande non trouvée.
+    Codes de sortie 128+n : La commande a été interrompue par le signal n (par exemple, 128+9 = 137 indique que la commande a été tuée par SIGKILL).
+    Code de sortie 130 : La commande a été interrompue par Ctrl+C.
+    Codes de sortie 255 : Souvent utilisé pour indiquer une erreur de sortie arbitraire.
+
+Entre ces codes, certains sont moins communément utilisés et peuvent être considérés comme "inutilisés" dans des scripts bash ordinaires :
+
+    Codes de sortie entre 3 et 125 : Bien qu'ils puissent être utilisés, ils ne sont pas spécifiquement réservés par bash ou POSIX et donc peuvent être choisis librement pour des erreurs spécifiques dans vos scripts.
+    Codes de sortie au-delà de 255 : Techniquement, bash ne gère que les codes de sortie jusqu'à 255. Les codes au-delà seront modulés par 256 (par exemple, 256 deviendrait 0, 257 deviendrait 1, etc.).
+
+En pratique, pour la gestion de scripts bash, il est généralement préférable d'utiliser des codes de sortie standardisés ou documentés clairement pour faciliter le débogage et la maintenance.
+*/
