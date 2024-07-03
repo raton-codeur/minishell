@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 18:41:06 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/03 13:26:53 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void		exec(t_data *data);
 void		exec_pipe(t_tree *tree, t_data *data, int in_parent);
 
 /* cd.c */
-void		change_directory(char *path);
-char		*analyse_new_path(char *new_path, t_data *data);
 int			cd_(t_tree *tree, t_data *data, int in_parent);
 
 /* pwd.c */

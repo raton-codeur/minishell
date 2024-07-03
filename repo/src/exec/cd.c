@@ -3,22 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/02 18:42:12 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/03 13:52:20 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	change_directory(char *path)
+static void	change_directory(char *path, t_data *data)
 {
+	char	*oldpwd;
+	char	*pwd;
+
+	oldpwd = getcwd(NULL, 0);
 	if (chdir(path) != 0)
 		perror("cd");
+	modify_key_value(&data->envp, "OLDPWD", oldpwd);
+	free(oldpwd);
+	pwd = getcwd(NULL, 0);
+	modify_key_value(&data->envp, "PWD", pwd);
+	free(pwd);
 }
 
-char	*analyse_new_path(char *new_path, t_data *data)
+static char	*analyse_new_path(char *new_path, t_data *data)
 {
 	char	*home;
 
@@ -54,10 +63,8 @@ int	cd_(t_tree *tree, t_data *data, int in_parent)
 	}
 	else
 		new_path = analyse_new_path(data->cmd->argv[1], data);
-	if (new_path == NULL)
+	if (new_path == NULL || new_path[0] == '\0')
 		return (1);
-	modify_key_value(&data->envp, "OLDPWD", get_env("PWD", data->envp));
-	change_directory(new_path);
-	modify_key_value(&data->envp, "PWD", getcwd(NULL, 0));
+	change_directory(new_path, data);
 	return (0);
 }
