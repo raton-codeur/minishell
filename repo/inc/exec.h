@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2024/07/04 17:21:10 by jteste           ###   ########.fr       */
+=======
+/*   Updated: 2024/07/04 18:31:48 by qhauuy           ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +72,8 @@ void		exit_(t_tree *tree, t_data *data, int in_parent);
 int			is_long_long(char *n, t_data *data);
 long long	ft_atoll(const char *s);
 
-/* exec_builtin.c */
-int			exec_builtin(t_tree *tree, t_data *data, int in_parent);
+/* select_builtin.c */
+int			has_builtin(t_tree *tree);
+int			select_builtin(t_tree *tree, t_data *data, int in_parent);
 
 #endif

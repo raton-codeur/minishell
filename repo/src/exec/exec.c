@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 19:22:08 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 16:34:52 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/04 19:46:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	exec(t_data *data)
 	if (get_type(data->ast) == T_PIPE)
 		exec_pipe(data->ast, data, 1);
 	else
-		exec_cmd(data->ast, data, 1);
+		exec_cmd_as_parent(data->ast, data);
 }

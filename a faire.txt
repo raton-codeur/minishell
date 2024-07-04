@@ -1,5 +1,16 @@
 -
 
+[0] minishell >>> << fin > f
+heredoc> bonjour
+heredoc> et la fleur
+heredoc> de tes penseee
+heredoc> sera 
+heredoc> a jamais perdu
+heredoc> fin
+AddressSanitizer:DEADLYSIGNAL
+
+-
+
 
 √ repo - main % export test="a b      c"      
 √ repo - main % m 
