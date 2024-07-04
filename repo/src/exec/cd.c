@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/03 16:09:22 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/04 17:05:04 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,17 @@ int	cd_(t_tree *tree, t_data *data, int in_parent)
 	if (data->cmd->argc > 2)
 	{
 		ft_putendl_fd("Minishell: cd: too many arguments", 2);
+		if (!in_parent)
+			return (free_all(data), exit(0), 1);
 		return (1);
 	}
 	else
 		new_path = analyse_new_path(data->cmd->argv[1], data);
 	if (new_path == NULL || new_path[0] == '\0')
-		return (1);
+		if (!in_parent)
+			return (free_all(data), exit(0), 1);
 	change_directory(new_path, data);
 	if (!in_parent)
-		exit(0);
+		return (free_all(data), exit(0), 0);
 	return (0);
 }

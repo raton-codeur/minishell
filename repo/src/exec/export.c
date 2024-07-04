@@ -6,13 +6,13 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/04 16:57:24 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/04 17:21:49 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	sort_export_list(t_list **envp)
+static void	sort_export_list(t_list **envp)
 {
 	t_list	*current;
 	t_list	*next;
@@ -37,35 +37,17 @@ void	sort_export_list(t_list **envp)
 	}
 }
 
-static void	print_export(t_list **envp, t_data *data)
+static void	print_export(t_list **envp)
 {
 	t_list	*current;
-	char	*buff;
-	char	*join;
 
 	current = copy_env_list(envp);
 	sort_export_list(&current);
-	while (current)
-	{
-		buff = ft_strjoin("declare -x ", ((t_envp *)current->content)->key);
-		if (buff == NULL)
-			error_exit(MALLOC, data);
-		join = ft_strjoin(buff, "=\"");
-		if (join == NULL)
-			error_exit(MALLOC, data);
-		free(buff);
-		buff = ft_strjoin(join, ((t_envp *)current->content)->value);
-		if (buff == NULL)
-			error_exit(MALLOC, data);
-		free(join);
-		printf("%s\"\n", buff);
-		free(buff);
-		current = current->next;
-	}
+	list_print(current, print_export_content);
 	list_clear(&current, free_env);
 }
 
-int	add_env(t_list **envp, t_envp *new)
+static int	add_env(t_list **envp, t_envp *new)
 {
 	t_list	*new_node;
 
@@ -76,7 +58,7 @@ int	add_env(t_list **envp, t_envp *new)
 	return (0);
 }
 
-void	add_export_variable(t_data *data)
+static void	add_export_variable(t_data *data)
 {
 	int		i;
 	t_envp	*new;
@@ -109,12 +91,12 @@ void	export_(t_tree *tree, t_data *data, int in_parent)
 	prepare_exec_relative(tree, data);
 	if (data->cmd->argc == 1)
 	{
-		print_export(&data->envp, data);
+		print_export(&data->envp);
 		if (!in_parent)
-			exit(0);
+			return (free_all(data), exit(0));
 	}
 	else
 		add_export_variable(data);
 	if (!in_parent)
-		exit(0);
+		return (free_all(data), exit(0));
 }

@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/04 16:08:08 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/04 17:02:36 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**env_double_array(t_list *envp, t_data *data)
 	return (env);
 }
 
-void	env_(t_list **envp, int in_parent)
+void	env_(t_data *data, t_list **envp, int in_parent)
 {
 	t_list	*current;
 	char	*buff;
@@ -121,5 +121,5 @@ void	env_(t_list **envp, int in_parent)
 		current = current->next;
 	}
 	if (!in_parent)
-		exit(0);
+		return (free_all(data), exit(0));
 }

@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/04 16:55:50 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/04 17:21:10 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void		exec_pipe(t_tree *tree, t_data *data, int in_parent);
 int			cd_(t_tree *tree, t_data *data, int in_parent);
 
 /* pwd.c */
-int			pwd_(int in_parent);
+int			pwd_(t_data *data, int in_parent);
 
 /* env.c */
+void		env_(t_data *data, t_list **envp, int in_parent);
 int			copy_env(t_data *data, char **envp);
-void		env_(t_list **envp, int in_parent);
 char		*get_env(char *key, t_list *envp);
 char		**env_double_array(t_list *envp, t_data *data);
 
@@ -51,14 +51,15 @@ void		modify_key_value(t_list **envp, char *key_to_find, char *new_value);
 
 /* export.c */
 void		export_(t_tree *tree, t_data *data, int in_parent);
-void		sort_export_list(t_list **envp);
-void		add_export_variable(t_data *data);
 
 /* export2.c */
 void		export_error(char **key, char **value);
 t_envp		*creat_full_env_node(char *arg);
 t_envp		*creat_half_env_node(char *arg);
 t_list		*copy_env_list(t_list **envp);
+
+/* export_utils.c */
+void	print_export_content(void *p);
 
 /* exit.c */
 void		exit_(t_tree *tree, t_data *data, int in_parent);
