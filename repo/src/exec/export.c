@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/03 16:00:41 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/04 16:57:24 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,105 +37,84 @@ void	sort_export_list(t_list **envp)
 	}
 }
 
-void	print_export(t_list **envp)
+static void	print_export(t_list **envp, t_data *data)
 {
 	t_list	*current;
 	char	*buff;
 	char	*join;
 
-	current = *envp;
+	current = copy_env_list(envp);
 	sort_export_list(&current);
 	while (current)
 	{
 		buff = ft_strjoin("declare -x ", ((t_envp *)current->content)->key);
+		if (buff == NULL)
+			error_exit(MALLOC, data);
 		join = ft_strjoin(buff, "=\"");
+		if (join == NULL)
+			error_exit(MALLOC, data);
 		free(buff);
 		buff = ft_strjoin(join, ((t_envp *)current->content)->value);
+		if (buff == NULL)
+			error_exit(MALLOC, data);
 		free(join);
-		join = ft_strjoin(buff, "\"\n");
+		printf("%s\"\n", buff);
 		free(buff);
-		printf("%s", join);
-		free(join);
 		current = current->next;
 	}
+	list_clear(&current, free_env);
 }
 
-int	add_env(t_list **envp, char *key, char *value)
+int	add_env(t_list **envp, t_envp *new)
 {
-	t_envp	*new_content;
 	t_list	*new_node;
 
-	new_content = ft_calloc(1, sizeof(t_envp));
-	if (new_content == NULL)
-		return (1);
-	new_content->key = key;
-	new_content->value = value;
-	new_node = list_new(new_content);
+	new_node = list_new(new);
 	if (new_node == NULL)
 		return (1);
 	list_add_back(envp, new_node);
 	return (0);
 }
 
-int	add_export_variable(t_tree *tree, t_data *data, int in_parent)
+void	add_export_variable(t_data *data)
 {
 	int		i;
-	char	*key;
-	char	*value;
-	char	**tmp;
+	t_envp	*new;
 
-	(void)in_parent;
-	(void)tree;
 	i = 1;
 	while (i < data->cmd->argc)
 	{
-		if (ft_strchr(data->cmd->argv[i], '='))
-		{
-			tmp = ft_split_once(data->cmd->argv[i], '=');
-			key = ft_strdup(tmp[0]);
-			value = ft_strdup(tmp[1]);
-			deep_free((void **)tmp, 2);
-		}
+		if (ft_strchr(data->cmd->argv[i], '=')
+			&& ft_strchr(data->cmd->argv[i], '=') != data->cmd->argv[i])
+			new = creat_full_env_node(data->cmd->argv[i]);
 		else
-		{
-			key = ft_strdup(data->cmd->argv[i]);
-			value = ft_strdup("");
-		}
-		if (key == NULL || value == NULL)
+			new = creat_half_env_node(data->cmd->argv[i]);
+		if (new == NULL || new->key == NULL || new->value == NULL)
 			error_exit(MALLOC, data);
-		if (ft_isword_start(key[0]) == 0)
-		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putstr_fd(key, 2);
-			ft_putendl_fd("': not a valid identifier", 2);
-			free(key);
-			free(value);
-			return (1);
-		}
-		if (find_env_key(&data->envp, key) == NULL)
-			add_env(&data->envp, key, value);
+		if (ft_isword_start(new->key[0]) == 0)
+			return (export_error(&new->key, &new->value));
+		if (find_env_key(&data->envp, new->key) == NULL)
+			add_env(&data->envp, new);
 		else
 		{
-			modify_key_value(&data->envp, key, value);
-			free(key);
-			free(value);
+			modify_key_value(&data->envp, new->key, new->value);
+			free_env(new);
 		}
 		i++;
 	}
-	return (0);
 }
 
-int	export_(t_tree *tree, t_data *data, int in_parent)
+void	export_(t_tree *tree, t_data *data, int in_parent)
 {
 	prepare_exec_relative(tree, data);
 	if (data->cmd->argc == 1)
 	{
-		print_export(&data->envp);
-		return (0);
+		print_export(&data->envp, data);
+		if (!in_parent)
+			exit(0);
 	}
 	else
-		add_export_variable(tree->left, data, in_parent);
+		add_export_variable(data);
 	if (!in_parent)
 		exit(0);
-	return (0);
 }

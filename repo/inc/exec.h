@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/03 17:26:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/04 16:55:50 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,15 @@ t_list		*find_env_key(t_list **envp, char *key_to_find);
 void		modify_key_value(t_list **envp, char *key_to_find, char *new_value);
 
 /* export.c */
-int			export_(t_tree *tree, t_data *data, int in_parent);
+void		export_(t_tree *tree, t_data *data, int in_parent);
 void		sort_export_list(t_list **envp);
-void		print_export(t_list **envp);
-int			add_export_variable(t_tree *tree, t_data *data, int in_parent);
+void		add_export_variable(t_data *data);
+
+/* export2.c */
+void		export_error(char **key, char **value);
+t_envp		*creat_full_env_node(char *arg);
+t_envp		*creat_half_env_node(char *arg);
+t_list		*copy_env_list(t_list **envp);
 
 /* exit.c */
 void		exit_(t_tree *tree, t_data *data, int in_parent);
