@@ -6,15 +6,16 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:05:19 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 16:53:30 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 17:50:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static int	run_builtin(t_tree *tree, t_data *data)
+static void	select_builtin(t_tree *tree, t_data *data)
 {
-	// if (ft_strcmp(get_content(tree), "echo") == 0)
+	if (ft_strcmp(get_content(tree), "echo") == 0)
+		echo_(tree, data);
 	// 	return (1);
 	// if (ft_strcmp(get_content(tree), "cd") == 0)
 	// 	return (1);
@@ -27,10 +28,7 @@ static int	run_builtin(t_tree *tree, t_data *data)
 	// if (ft_strcmp(get_content(tree), "env") == 0)
 	// 	return (1);
 	if (ft_strcmp(get_content(tree), "exit") == 0)
-	{
 		exit_(tree, data, 0);
-	}
-	return (0);
 }
 
 static int	has_slash(char *s)
@@ -78,13 +76,11 @@ void	run_cmd(t_tree *tree, t_data *data)
 		return (free_all(data), exit(0));
 	dup2(data->in, 0);
 	dup2(data->out, 1);
-	if (!run_builtin(tree, data))
-	{
-		if (has_slash(get_content(tree)))
-			analyse_file((tree), data);
-		else
-			prepare_exec_absolute(tree, data);
-		if (execve(data->cmd->pathname, data->cmd->argv, NULL) == -1)
-			return (free_all(data), exit(127));
-	}
+	select_builtin(tree, data);
+	if (has_slash(get_content(tree)))
+		analyse_file((tree), data);
+	else
+		prepare_exec_absolute(tree, data);
+	if (execve(data->cmd->pathname, data->cmd->argv, NULL) == -1)
+		return (free_all(data), exit(127));
 }

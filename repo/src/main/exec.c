@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 16:13:01 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 17:46:52 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,4 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (free_all(&data), 0);
 }
+

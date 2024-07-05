@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 15:08:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 17:51:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void		exit_(t_tree *tree, t_data *data, int in_parent);
 int			is_long_long(char *n, t_data *data);
 long long	ft_atoll(const char *s);
 
-
+/* echo.c */
+void	echo_(t_tree *tree, t_data *data);
 
 
 
