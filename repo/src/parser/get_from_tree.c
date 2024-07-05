@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:23:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/22 22:11:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 15:26:13 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	get_here_doc(t_tree *tree)
 
 int	is_broket(t_tree *tree)
 {
-	return (get_type(tree) == T_BROKET_LEFT
+	return (tree && (get_type(tree) == T_BROKET_LEFT
 		|| get_type(tree) == T_BROKET_RIGHT
 		|| get_type(tree) == T_DOUBLE_BROKET_RIGHT
-		|| get_type(tree) == T_DOUBLE_BROKET_LEFT);
+		|| get_type(tree) == T_DOUBLE_BROKET_LEFT));
 }

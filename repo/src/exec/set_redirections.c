@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:47 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/23 17:07:59 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 16:13:30 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ static void	set_here_doc(t_tree **tree, t_data *data)
 {
 	if (data->in != 0)
 		close(data->in);
-	data->in = get_here_doc((*tree)->right);
+	if ((*tree)->right == NULL)
+		return ;
+	data->in = get_here_doc(*tree);
 }
 
 int	set_redirections(t_tree **tree, t_data *data)
 {
-	if (*tree == NULL || !is_broket(*tree))
+	if (!is_broket(*tree))
 		return (0);
 	if (get_type(*tree) == T_BROKET_LEFT)
 		set_in(tree, data);

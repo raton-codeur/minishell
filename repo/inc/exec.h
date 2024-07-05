@@ -6,11 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/07/04 17:21:10 by jteste           ###   ########.fr       */
-=======
-/*   Updated: 2024/07/04 18:31:48 by qhauuy           ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/07/05 15:08:51 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +21,21 @@ int			set_redirections(t_tree **tree, t_data *data);
 /* get_heredocs.c */
 void		get_heredocs(t_tree **tree, t_data *data);
 
-
 /* prepare_exec.c */
 void		prepare_exec_absolute(t_tree *tree, t_data *data);
 void		prepare_exec_relative(t_tree *tree, t_data *data);
 
-/* exec_cmd.c */
-void		exec_cmd(t_tree *tree, t_data *data, int in_parent);
-
 /* exec.c */
 void		exec(t_data *data);
-void		exec_pipe(t_tree *tree, t_data *data, int in_parent);
+
+/* run_cmd.c */
+void		run_cmd(t_tree *tree, t_data *data);
+
+/* exec_pipe.c */
+void		exec_pipe(t_tree *tree, t_data *data);
+
+
+
 
 /* cd.c */
 int			cd_(t_tree *tree, t_data *data, int in_parent);
@@ -63,7 +63,7 @@ t_envp		*creat_half_env_node(char *arg);
 t_list		*copy_env_list(t_list **envp);
 
 /* export_utils.c */
-void	print_export_content(void *p);
+void		print_export_content(void *p);
 
 /* exit.c */
 void		exit_(t_tree *tree, t_data *data, int in_parent);
@@ -72,8 +72,8 @@ void		exit_(t_tree *tree, t_data *data, int in_parent);
 int			is_long_long(char *n, t_data *data);
 long long	ft_atoll(const char *s);
 
-/* select_builtin.c */
-int			has_builtin(t_tree *tree);
-int			select_builtin(t_tree *tree, t_data *data, int in_parent);
+
+
+
 
 #endif
