@@ -6,10 +6,9 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 15:19:48 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 16:53:07 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "exec.h"
 
@@ -49,8 +48,7 @@ static int	exec_builtin_in_parent(t_tree *tree, t_data *data)
 	}
 	else if (ft_strcmp(get_content(tree), "exit") == 0)
 	{
-		free_all(data);
-		exit(0);
+		exit_(tree, data, 1);
 		return (1);
 	}
 	else

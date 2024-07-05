@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/03 17:05:26 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 16:51:03 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ static void	exit_numeric_error(t_data *data)
 	exit(2);
 }
 
-static void	exit_with_code(t_data *data)
+static void	exit_with_code(char *code, t_data *data)
 {
 	unsigned char	exit_status;
 
-	exit_status = ft_atoll(data->cmd->argv[1]);
+	exit_status = ft_atoll(code);
 	free_all(data);
 	exit(exit_status);
 }
@@ -56,11 +56,11 @@ void	exit_(t_tree *tree, t_data *data, int in_parent)
 					return (free_all(data), exit(1));
 			}
 			else
-				exit_with_code(data);
+				exit_with_code(data->cmd->argv[1], data);
 		}
 		else
 			exit_numeric_error(data);
 	}
 	else
-		return (free_all(data), exit(0));
+		return (free_all(data), exit(data->exit_status));
 }
