@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/01 19:03:33 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/05 18:35:18 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ typedef struct envp
 {
 	char	*key;
 	char	*value;
-}t_envp;
-
+}	t_envp;
 
 typedef struct s_data
 {
