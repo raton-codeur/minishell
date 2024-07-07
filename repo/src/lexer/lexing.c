@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 16:24:57 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/06 13:26:18 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ static void	expand_variables(t_data *data)
 	{
 		if (current.type == T_VARIABLE)
 		{
-			if (get_env(current.content, data->envp) == NULL)
-				new_content = ft_strdup("");
-			else
-				new_content = ft_strdup(get_env(current.content, data->envp));
+			// if (get_env(current.content, data->envp) == NULL)
+			// 	new_content = ft_strdup("");
+			// else
+			// 	new_content = ft_strdup(get_env(current.content, data->envp));
+			new_content = 0;
 			if (!new_content)
 				error_exit(MALLOC, data);
 			free(current.content);

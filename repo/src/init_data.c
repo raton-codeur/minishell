@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 16:24:44 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/06 13:23:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ static char	**add_slash(char **path)
 
 void	get_path(t_data *data)
 {
-	if (get_env("PATH", data->envp) == NULL)
-	{
-		data->path = NULL;
-		return ;
-	}
-	data->path = ft_split(get_env("PATH", data->envp), ":");
-	if (data->path == NULL)
-		error_exit(MALLOC, data);
+	// if (get_env("PATH", data->envp) == NULL)
+	// {
+	// 	data->path = NULL;
+	// 	return ;
+	// }
+	// data->path = ft_split(get_env("PATH", data->envp), ":");
+	// if (data->path == NULL)
+	// 	error_exit(MALLOC, data);
 	data->path = add_slash(data->path);
 	if (data->path == NULL)
 		error_exit(MALLOC, data);
@@ -61,8 +61,8 @@ void	init_data(t_data *data, int argc, char **argv, char **envp)
 	(void)argv;
 	ft_bzero(data, sizeof(t_data));
 	data->out = 1;
-	if (copy_env(data, envp))
-		return (error_exit(ENV, data));
+	(void)envp;
+	// init_envp(data, envp);
 	get_path(data);
 }
 

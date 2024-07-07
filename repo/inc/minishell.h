@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 18:35:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/06 13:15:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,11 @@ enum e_error
 	ENV
 };
 
-typedef struct envp
+typedef struct s_variable
 {
 	char	*key;
 	char	*value;
-}	t_envp;
+}	t_variable;
 
 typedef struct s_data
 {
@@ -121,7 +121,7 @@ typedef struct s_data
 	int			in;
 	int			out;
 	t_cmd		*cmd;
-	t_list		*envp;
+	char		**envp;
 	int			exit_status;
 }	t_data;
 

@@ -1,4 +1,12 @@
 -
+SHLVL 
+
+quand on lance un bash (= minishell), si la variable existe, on linitialise a (valeur precedente + 1), sinon, on linitialise a 0
+
+donc si on lance bash depuis zsh, on va commencer a 1
+et si on lance bash avec env -i, on va commencer a 0
+
+quand on l'affiche avec export il faut lincrementer de 1 car ce sera sa prochaine valeur dans les programmes qui suivent
 
 
 -
