@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 16:53:07 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/07 15:01:15 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,16 @@ static int	exec_builtin_in_parent(t_tree *tree, t_data *data)
 	else if (ft_strcmp(get_content(tree), "exit") == 0)
 	{
 		exit_(tree, data, 1);
+		return (1);
+	}
+	else if (ft_strcmp(get_content(tree), "export") == 0)
+	{
+		printf("on fait un export dans le parent\n");
+		return (1);
+	}
+	else if (ft_strcmp(get_content(tree), "unset") == 0)
+	{
+		printf("on fait un unset dans le parent\n");
 		return (1);
 	}
 	else

@@ -7,7 +7,7 @@ OBJS = $(patsubst src/%,tmp/%,$(SRCS:.c=.o))
 
 tmp/%.o : src/%.c
 	@ mkdir -p $(dir $@)
-	@ cc $(CFLAGS) -c $< -o $@ && printf "\rcompilation for $(NAME) : %d / %d" $$(find tmp -type f | wc -l) $(words $(SRCS))
+	@ cc $(CFLAGS) -c $< -o $@ && printf "compilation for $(NAME) : %d / %d\n" $$(find tmp -type f | wc -l) $(words $(SRCS))
 
 $(NAME) : $(LIBFT) $(OBJS)
 	@ cc $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $@ && printf "\n$@ created\n"

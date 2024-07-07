@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/27 18:32:12 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:10:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	reset_input(t_data *data)
 void	free_all(t_data *data)
 {
 	free_for_reset_input(data);
-	// free envp
-	clear_history();
+	list_clear(&data->env, free_kv);
+	rl_clear_history();
 }
 
 void	close_2(int pipe_[2])

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:27:35 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/06 13:25:27 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/07 16:36:38 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	free_cmd(t_data *data)
 	}
 }
 
-// void	free_env(void *p)
-// {
-// 	t_envp	*current;
+void	free_kv(void *p)
+{
+	t_kv	*kv;
 
-// 	current = p;
-// 	free(current->key);
-// 	free(current->value);
-// 	free(current);
-// }
+	kv = p;
+	free(kv->key);
+	free(kv->value);
+	free(kv);
+}

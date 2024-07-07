@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/06 13:15:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/07 16:43:20 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,11 @@ enum e_error
 	ENV
 };
 
-typedef struct s_variable
+typedef struct s_kv
 {
 	char	*key;
 	char	*value;
-}	t_variable;
+}	t_kv;
 
 typedef struct s_data
 {
@@ -121,7 +121,8 @@ typedef struct s_data
 	int			in;
 	int			out;
 	t_cmd		*cmd;
-	char		**envp;
+	t_list		*env;
+	t_list		*export;
 	int			exit_status;
 }	t_data;
 
@@ -131,18 +132,19 @@ void	print_type(int type);
 void	print_token(void *p);
 void	tree_print(t_tree *tree);
 void	print_cmd(t_cmd *cmd);
-
-/* free_utils.c */
-void	free_token(void *p);
-void	tree_clear(t_tree **tree);
-void	free_cmd(t_data *data);
-void	free_env(void *p);
+void	print_kv(void *p);
 
 /* free.c */
 void	free_input(t_data *data);
 void	free_all(t_data *data);
 void	reset_input(t_data *data);
 void	close_2(int pipe_[2]);
+
+/* free_utils.c */
+void	free_token(void *p);
+void	tree_clear(t_tree **tree);
+void	free_cmd(t_data *data);
+void	free_kv(void *p);
 
 /* error.c */
 void	print_error(int code);
@@ -156,5 +158,14 @@ void	cmd_pathname_error(char *cmd, t_data *data);
 void	init_data(t_data *data, int argc, char **argv, char **envp);
 void	get_path(t_data *data);
 void	get_input(t_data *data);
+
+/* init_env_export.c */
+void	init_env(t_data *data, char **envp);
+void	init_export(t_data *data, char **envp);
+
+/* get_from_env.c */
+char	*get_from_env(char *key, t_data *data);
+char	*get_key(t_list *node);
+char	*get_value(t_list *node);
 
 #endif

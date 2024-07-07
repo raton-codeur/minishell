@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/06 13:21:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:33:38 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,75 +14,30 @@
 
 
 
-// static t_envp	*init_env_line(char *env_line)
-// {
-// 	t_envp	*new_content;
-// 	char	**split_line;
+char	*get_key(t_list *node)
+{
+	return (((t_kv *)node->content)->key);
+}
 
-// 	new_content = ft_calloc(1, sizeof(t_envp));
-// 	if (new_content == NULL)
-// 		return (NULL);
-// 	split_line = ft_split_once(env_line, '=');
-// 	if (split_line == NULL)
-// 		return (NULL);
-// 	new_content->key = ft_strdup(split_line[0]);
-// 	if (new_content->key == NULL)
-// 		return (NULL);
-// 	new_content->value = ft_strdup(split_line[1]);
-// 	if (new_content->value == NULL)
-// 		return (NULL);
-// 	deep_free((void **)split_line, 2);
-// 	return (new_content);
-// }
+char	*get_value(t_list *node)
+{
+	return (((t_kv *)node->content)->value);
+}
 
-// /* faire une copie de envp malloc dans data->envp*/
-// void	init_envp(t_data *data, char **envp)
-// {
-// 	char	**result;
+char	*get_from_env(char *key, t_data *data)
+{
+	t_list	*current;
 
-// 	result = ft_calloc(get_length(envp) + 1, sizeof(char *));
-// 	if (result == NULL)
-// 		error_exit(MALLOC, data);
-// 	/* copier chaque */
-	
-// 	/**/
-// }
-// // {
-// // 	int		i;
-// // 	t_envp	*new_content;
-// // 	t_list	*new_node;
+	current = data->env;
+	while (current)
+	{
+		if (!ft_strncmp(get_key(current), key, ft_strlen(get_key(current))))
+			return (get_value(current));
+		current = current->next;
+	}
+	return (NULL);
+}
 
-// // 	i = 0;
-// // 	if (envp == NULL || envp[0] == NULL)
-// // 		return (1);
-// // 	while (envp[i])
-// // 	{
-// // 		new_content = copy_env_line(envp[i]);
-// // 		if (new_content == NULL)
-// // 			return (error_exit(MALLOC, data), 1);
-// // 		new_node = list_new(new_content);
-// // 		if (new_node == NULL)
-// // 			return (error_exit(MALLOC, data), 1);
-// // 		list_add_back(&data->envp, new_node);
-// // 		i++;
-// // 	}
-// // 	return (0);
-// // }
-
-// /* renvoie le pointeur sur la valeur de key dans la map ou null si la cle nest pas dans la map */
-// char	*get_value(char *key, t_list *map)
-// {
-// 	t_list	*current;
-
-// 	current = envp;
-// 	while (current)
-// 	{
-// 		if (ft_strcmp(((t_envp *)current->content)->key, key) == 0)
-// 			return (((t_envp *)current->content)->value);
-// 		current = current->next;
-// 	}
-// 	return (NULL);
-// }
 
 // char	**env_double_array(t_list *envp, t_data *data)
 // {
