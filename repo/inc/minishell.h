@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 13:24:17 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:04:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ typedef struct s_data
 	int			exit_status;
 }	t_data;
 
+/* main a faire */
+int	end_builtin(int in_parent, int exit_status, t_data *data);
+
 /* print.c */
 // a supp
 void	print_type(int type);
@@ -170,8 +173,8 @@ t_list	*in_env(char *key, t_data *data);
 void	reset_value(char *key, char *new_value, t_data *data);
 
 /* env_utils_2.c */
-void	add_to_env(char *env_line, t_data *data);
+char	*extract_key(char *env_line, t_data *data);
+t_list	*add_to_env(char *env_line, t_data *data);
 void	remove_from_env(char *key, t_data *data);
-
 
 #endif

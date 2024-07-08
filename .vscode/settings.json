@@ -13,6 +13,7 @@
 		"parser.h": "c",
 		"lexer.h": "c",
 		"minishell.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"ranges": "c"
 	}
 }

@@ -6,20 +6,31 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:13:54 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/06 13:24:34 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:30:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
+void	print_export_content(void *p)
+{
+	t_kv	*kv;
+
+	kv = p;
+	if (kv->value && kv->value[0] != '\0')
+		printf("declare -x %s=\"%s\"\n", kv->key, kv->value);
+	else
+		printf("declare -x %s\n", kv->key);
+}
+
 // void	print_export_content(void *p)
 // {
-// 	t_envp	*envp;
+// 	t_kv	*kv;
 // 	char	*buff;
 // 	char	*join;
 
-// 	envp = p;
-// 	buff = ft_strjoin("declare -x ", envp->key);
+// 	kv = p;
+// 	buff = ft_strjoin("declare -x ", kv->key);
 // 	if (buff == NULL)
 // 		return ;
 // 	join = ft_strjoin(buff, "=\"");
@@ -29,7 +40,7 @@
 // 		return ;
 // 	}
 // 	free(buff);
-// 	buff = ft_strjoin(join, envp->value);
+// 	buff = ft_strjoin(join, kv->value);
 // 	if (buff == NULL)
 // 	{
 // 		free(join);

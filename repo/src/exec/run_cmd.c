@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:05:19 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 12:13:58 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:13:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,16 @@ static void	select_builtin(t_tree *tree, t_data *data)
 {
 	if (ft_strcmp(get_content(tree), "echo") == 0)
 		echo_(tree, data);
-	// 	return (1);
-	// if (ft_strcmp(get_content(tree), "cd") == 0)
-	// 	return (1);
-	// if (ft_strcmp(get_content(tree), "pwd") == 0)
-	// 	return (1);
-	// if (ft_strcmp(get_content(tree), "export") == 0)
-	// 	return (1);
-	// if (ft_strcmp(get_content(tree), "unset") == 0)
-	// 	return (1);
+	if (ft_strcmp(get_content(tree), "cd") == 0)
+		cd_(tree, data, 0);
+	if (ft_strcmp(get_content(tree), "pwd") == 0)
+		pwd_(data);
+	if (ft_strcmp(get_content(tree), "export") == 0)
+		export_(tree, data, 0);
+	if (ft_strcmp(get_content(tree), "unset") == 0)
+		unset_(tree, data, 0);
 	if (ft_strcmp(get_content(tree), "env") == 0)
-		env_(tree, data);
+		env_(data);
 	if (ft_strcmp(get_content(tree), "exit") == 0)
 		exit_(tree, data, 0);
 }
@@ -71,6 +70,8 @@ static void	analyse_file(t_tree *tree, t_data *data)
 
 void	run_cmd(t_tree *tree, t_data *data)
 {
+	char	**envp;
+
 	set_redirections(&tree, data);
 	if (tree == NULL)
 		return (free_all(data), exit(0));
@@ -81,6 +82,10 @@ void	run_cmd(t_tree *tree, t_data *data)
 		analyse_file((tree), data);
 	else
 		prepare_exec_absolute(tree, data);
-	if (execve(data->cmd->pathname, data->cmd->argv, NULL) == -1)
+	envp = env_to_double_array(data);
+	if (execve(data->cmd->pathname, data->cmd->argv, envp) == -1)
+	{
+		deep_free((void **)envp, get_length(envp));
 		return (free_all(data), exit(127));
+	}
 }

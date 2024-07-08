@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 13:03:12 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:40:10 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ static t_kv	*new_kv(char *env_line)
 	i = 0;
 	while (env_line[i] && env_line[i] != '=')
 		i++;
-	result->key = ft_substr(env_line, 0, i);
 	if (env_line[i] != '=')
-		return (free_kv(result), NULL);
+		result->value = ft_strdup("");
+	else if (env_line[i] == '=' && i == 0)
+	
+	result->key = ft_substr(env_line, 0, i);
 	else
 		result->value = ft_substr(env_line, i + 1, ft_strlen(env_line) - i - 1);
 	if (result->key == NULL || result->value == NULL)
@@ -33,18 +35,31 @@ static t_kv	*new_kv(char *env_line)
 	return (result);
 }
 
-void	add_to_env(char *env_line, t_data *data)
+t_list	*add_to_env(char *env_line, t_data *data)
 {
 	t_kv	*new_content;
 	t_list	*new_node;
+	t_list	*result;
 
 	new_content = new_kv(env_line);
 	if (new_content == NULL)
-		return (error_exit(MALLOC, data));
-	new_node = list_new(new_content);
-	if (new_node == NULL)
-		return (free_kv(new_content), error_exit(MALLOC, data));
-	list_add_back(&data->env, new_node);
+		return (error_exit(MALLOC, data), NULL);
+	if (in_env(new_content->key, data))
+	{
+		result = in_env(new_content->key, data);
+		reset_value(new_content->key, new_content->value, data);
+		free(new_content->key);
+		free(new_content);
+		return (result);
+	}
+	else
+	{
+		new_node = list_new(new_content);
+		if (new_node == NULL)
+			return (free_kv(new_content), error_exit(MALLOC, data), NULL);
+		list_add_back(&data->env, new_node);
+		return (new_node);
+	}
 }
 
 void	remove_from_env(char *key, t_data *data)

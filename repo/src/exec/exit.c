@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 16:51:03 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:22:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	exit_with_code(char *code, t_data *data)
 	exit(exit_status);
 }
 
-void	exit_(t_tree *tree, t_data *data, int in_parent)
+int	exit_(t_tree *tree, t_data *data, int in_parent)
 {
 	if (in_parent)
 		ft_putendl_fd("exit", 2);
@@ -52,15 +52,14 @@ void	exit_(t_tree *tree, t_data *data, int in_parent)
 			{
 				ft_putendl_fd("minishell: exit: too many arguments", 2);
 				data->exit_status = 1;
-				if (!in_parent)
-					return (free_all(data), exit(1));
+				return (end_builtin(in_parent, 1, data));
 			}
 			else
-				exit_with_code(data->cmd->argv[1], data);
+				return (exit_with_code(data->cmd->argv[1], data), 1);
 		}
 		else
-			exit_numeric_error(data);
+			return (exit_numeric_error(data), 1);
 	}
 	else
-		return (free_all(data), exit(data->exit_status));
+		return (exit_with_code("0", data), 1);
 }

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:52:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 13:50:23 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 16:52:20 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ static void	init_OLDPWD(t_data *data)
 
 	node = in_env("OLDPWD", data);
 	if (node == NULL)
-	{
 		add_to_env("OLDPWD=", data);
-		reset_value("OLDPWD", NULL, data);
-	}
 }
 
 static void	minimum_env(t_data *data)

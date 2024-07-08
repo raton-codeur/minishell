@@ -6,11 +6,23 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 09:46:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:07:59 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+int	end_builtin(int in_parent, int exit_status, t_data *data)
+{
+	if (!in_parent)
+	{
+		free_all(data);
+		exit(exit_status);
+	}
+	else
+		data->exit_status = exit_status;
+	return (1);
+}
 
 int	main(int argc, char **argv, char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/07 15:01:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 16:59:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,18 @@ static void	exec_cmd_in_new_child(t_tree *tree, t_data *data)
 
 static int	exec_builtin_in_parent(t_tree *tree, t_data *data)
 {
-	(void)data;
 	while (is_broket(tree))
 		tree = tree->right;
 	if (tree == NULL)
 		return (0);
 	if (ft_strcmp(get_content(tree), "cd") == 0)
-	{
-		printf("on fait un cd\n");
-		return (1);
-	}
+		return (cd_(tree, data, 1));
 	else if (ft_strcmp(get_content(tree), "exit") == 0)
-	{
-		exit_(tree, data, 1);
-		return (1);
-	}
+		return (exit_(tree, data, 1));
 	else if (ft_strcmp(get_content(tree), "export") == 0)
-	{
-		printf("on fait un export dans le parent\n");
-		return (1);
-	}
+		return (export_(tree, data, 1));
 	else if (ft_strcmp(get_content(tree), "unset") == 0)
-	{
-		printf("on fait un unset dans le parent\n");
-		return (1);
-	}
+		return (unset_(tree, data, 1));
 	else
 		return (0);
 }
