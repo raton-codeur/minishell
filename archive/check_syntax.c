@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:15:58 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/04 21:30:58 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 22:55:47 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "parsing.h"
 
 // static int	check_words(t_list *tokens)
 // {

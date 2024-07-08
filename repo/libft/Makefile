@@ -1,5 +1,5 @@
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror -I. -g3 # -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -I. -g3 -fsanitize=address
 OBJS = $(addprefix tmp/, $(notdir $(SRCS:.c=.o)))
 SRCS = $(addprefix src/, \
 	ft_atoi.c \

@@ -6,29 +6,29 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 17:58:16 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 22:35:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_good_line(char *env_line)
+static int	has_value(char *envp_line)
 {
 	int	i;
 
-	if (ft_strchr(env_line, '=') == NULL)
+	if (ft_strchr(envp_line, '=') == NULL)
 		return (0);
-	if (env_line[0] == '=')
+	if (envp_line[0] == '=')
 		return (0);
 	i = 0;
-	while (env_line[i] && env_line[i] != '=')
+	while (envp_line[i] && envp_line[i] != '=')
 		i++;
-	if (env_line[i] == '\0')
+	if (envp_line[i] == '\0')
 		return (0);
 	return (1);
 }
 
-static t_kv	*new_kv(char *env_line)
+static t_kv	*get_kv(char *envp_line)
 {
 	t_kv	*result;
 	int		i;
@@ -37,56 +37,77 @@ static t_kv	*new_kv(char *env_line)
 	if (result == NULL)
 		return (NULL);
 	i = 0;
-	if (!is_good_line(env_line))
+	if (!has_value(envp_line))
 	{
-		result->key = ft_strdup(env_line);
+		result->key = ft_strdup(envp_line);
 		result->value = ft_strdup("");
 	}
 	else
 	{
-		while (env_line[i] && env_line[i] != '=')
+		while (envp_line[i] && envp_line[i] != '=')
 			i++;
-		result->key = ft_substr(env_line, 0, i++);
-		result->value = ft_substr(env_line, i, ft_strlen(env_line) - i);
+		result->key = ft_substr(envp_line, 0, i++);
+		result->value = ft_substr(envp_line, i, ft_strlen(envp_line) - i);
 	}
 	if (result->key == NULL || result->value == NULL)
 		return (free_kv(result), NULL);
 	return (result);
 }
 
-t_list	*add_to_env(char *env_line, t_data *data)
+t_list	*insert_in_env(char *envp_line, t_data *data)
 {
-	t_kv	*new_content;
-	t_list	*new_node;
+	t_kv	*kv;
 	t_list	*result;
 
-	new_content = new_kv(env_line);
-	if (new_content == NULL)
+	kv = get_kv(envp_line);
+	if (kv == NULL)
 		return (error_exit(MALLOC, data), NULL);
-	if (in_env(new_content->key, data))
+	if (in_env(kv->key, data))
 	{
-		result = in_env(new_content->key, data);
-		reset_value(new_content->key, new_content->value, data);
-		free(new_content->key);
-		free(new_content);
-		return (result);
+		result = in_env(kv->key, data);
+		reset_value(kv->key, kv->value, data);
+		free(kv->key);
+		free(kv);
 	}
 	else
 	{
-		new_node = list_new(new_content);
-		if (new_node == NULL)
-			return (free_kv(new_content), error_exit(MALLOC, data), NULL);
-		list_add_back(&data->env, new_node);
-		return (new_node);
+		result = list_new(kv);
+		if (result == NULL)
+			return (free_kv(kv), error_exit(MALLOC, data), NULL);
+		list_add_back(&data->env, result);
 	}
+	return (result);
 }
 
-void	remove_from_env(char *key, t_data *data)
+char	**get_envp(t_data *data)
 {
-	t_list	*node;
+	char	**result;
+	char	*tmp;
+	t_list	*current;
+	int		i;
 
-	node = in_env(key, data);
-	if (node == NULL)
-		return ;
-	list_remove_node(&data->env, node, free_kv);
+	current = data->env;
+	result = ft_calloc(list_size(data->env) + 1, sizeof(char *));
+	if (result == NULL)
+		error_exit(MALLOC, data);
+	i = 0;
+	while (current)
+	{
+		if (get_value(current)[0] == '\0')
+		{
+			current = current->next;
+			continue ;
+		}
+		tmp = ft_strjoin(get_key(current), "=");
+		if (tmp == NULL)
+			return (deep_free((void **)result, i), error_exit(MALLOC, data), NULL);
+		result[i] = ft_strjoin(tmp, get_value(current));
+		free(tmp);
+		if (result[i] == NULL)
+			return (deep_free((void **)result, i), error_exit(MALLOC, data), NULL);
+		current = current->next;
+		i++;
+	}
+	result[i] = NULL;
+	return (result);
 }

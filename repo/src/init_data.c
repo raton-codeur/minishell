@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 12:52:20 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 22:15:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	get_input(t_data *data)
 	free(prompt);
 	if (data->input == NULL)
 		error_exit(READLINE, data);
+	if (data->input[0] != '\0' && !ft_strisspace(data->input))
+		add_history(data->input);
 }
 
 static char	**add_slash(char **path)
@@ -76,6 +78,18 @@ void	get_path(t_data *data)
 	data->path = add_slash(data->path);
 	if (data->path == NULL)
 		error_exit(MALLOC, data);
+}
+
+static void	init_env(t_data *data, char **envp)
+{
+	int	i;
+
+	i = 0;
+	if (envp == NULL)
+		return (minimum_env(data));
+	while (envp[i])
+		insert_in_env(envp[i++], data);
+	minimum_env(data);
 }
 
 

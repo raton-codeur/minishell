@@ -1,0 +1,28 @@
+
+// void	print_export_content(void *p)
+// {
+// 	t_kv	*kv;
+// 	char	*buff;
+// 	char	*join;
+
+// 	kv = p;
+// 	buff = ft_strjoin("declare -x ", kv->key);
+// 	if (buff == NULL)
+// 		return ;
+// 	join = ft_strjoin(buff, "=\"");
+// 	if (join == NULL)
+// 	{
+// 		free(buff);
+// 		return ;
+// 	}
+// 	free(buff);
+// 	buff = ft_strjoin(join, kv->value);
+// 	if (buff == NULL)
+// 	{
+// 		free(join);
+// 		return ;
+// 	}
+// 	free(join);
+// 	printf("%s\"\n", buff);
+// 	free(buff);
+// }

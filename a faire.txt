@@ -1,19 +1,30 @@
 -
-SHLVL 
+ne faire des get path quau moment ou on en a besoin ...
 
-quand on lance un bash (= minishell), si la variable existe, on linitialise a (valeur precedente + 1), sinon, on linitialise a 0
-
-donc si on lance bash depuis zsh, on va commencer a 1
-et si on lance bash avec env -i, on va commencer a 0
-
-quand on l'affiche avec export il faut lincrementer de 1 car ce sera sa prochaine valeur dans les programmes qui suivent
-
+plus beosin de faire des get path a chaque fois quon veut reinitialiser linput
+plus logique car pas tout le temps besoin
 
 -
+[0] bash >>> a='   a   "   "   b   '
+[0] bash >>> echo $a
+a " " b
+-
 
+-
+faire une fonction de list copy pour copier les tokens dans init ast et pour copier lenv dans lexport
+envoyer une fonction de copy du content differente selon le cas
+lune devra copier un t_token et lautre un t_kv je crois
+-
 
-√ repo - main % export test="a b      c"      
-√ repo - main % m 
+raccourcir get_envp dans env_utils_2
+-
+probleme de quote avec par exemple export a'b'
+
+revoir lexport des variables
+-
+
+√ repo - main % export test="a b      c"
+√ repo - main % m
 [0] minishell >>> echo $test
 a b      c
 
@@ -29,18 +40,9 @@ revoir lexpand des variables pour $?
 il faut le free
 -
 
-faire une fonction error de lexing à part lors de la construction de tokens si le type est inconnu
+fusionner les erreurs de fichier pour cd et execution relative
 -
 
-voir syntax_error et cmd name error
--
-voir get_pathname
--
-
-void les set redirections pour exit directement et pas remonter un code derreur
-il faut exit dans le cas dune commande comme < sdlkfjsldkfjsdlkj
-
--
 minishell> <<<<
 syntax error near unexpected token `<<'
 minishell> << <<
@@ -53,25 +55,4 @@ bash: syntax error near unexpected token `<<'
 [2] qhauuy@k1r2p2:~/Desktop/minishell$ <<<<
 bash: syntax error near unexpected token `<'
 -
-export
 
-invalid :
-export =
-export ''
-
-penser aux guillemets pour afficher le export
--
-tableau des export
-export affiche toutes les variables
--
-env n'affiche que les variables avec les =
--
-
-
--
-echo -nnnnnnnnnn
-
-echo -n -n
-
-echo -n -nbb bonjour
--

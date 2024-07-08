@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:37:44 by jteste            #+#    #+#             */
-/*   Updated: 2024/05/24 13:33:07 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 22:55:47 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "parsing.h"
 
 static int	new_length(char *str)
 {

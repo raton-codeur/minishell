@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/08 13:03:24 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "execution.h"
 
 char	*get_key(t_list *node)
 {
@@ -51,4 +51,14 @@ void	reset_value(char *key, char *new_value, t_data *data)
 	kv = node->content;
 	free(kv->value);
 	kv->value = new_value;
+}
+
+void	remove_from_env(char *key, t_data *data)
+{
+	t_list	*node;
+
+	node = in_env(key, data);
+	if (node == NULL)
+		return ;
+	list_remove_node(&data->env, node, free_kv);
 }
