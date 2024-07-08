@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/07 16:34:43 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 09:45:51 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,5 @@ void	init_data(t_data *data, int argc, char **argv, char **envp)
 	ft_bzero(data, sizeof(t_data));
 	data->out = 1;
 	init_env(data, envp);
-	init_export(data, envp);
 	get_path(data);
 }

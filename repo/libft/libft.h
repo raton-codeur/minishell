@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 12:28:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/07 15:50:42 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 10:08:21 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int		ft_size_inside_quotes(const char *s);
 size_t	get_length(char **s);
 int		ft_strisspace(char *s);
 int		ft_strisword(char *s);
+int		ft_strisdigit(char *s);
+char	*skip_zeros(char *s);
 
 /* list */
 typedef struct s_list

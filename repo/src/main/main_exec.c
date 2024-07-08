@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/07 18:12:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 09:46:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ int	main(int argc, char **argv, char **envp)
 		build_tree(&data.ast, &data);
 		get_heredocs(&data.ast, &data);
 		exec(&data);
-
-		printf("---------- env ----------\n");
-		list_print(data.env, print_kv);
-
 		reset_input(&data);
 	}
 	return (free_all(&data), 0);

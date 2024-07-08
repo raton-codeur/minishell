@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/07 16:43:20 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 09:48:38 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,9 @@ void	init_data(t_data *data, int argc, char **argv, char **envp);
 void	get_path(t_data *data);
 void	get_input(t_data *data);
 
-/* init_env_export.c */
+/* env.c */
 void	init_env(t_data *data, char **envp);
-void	init_export(t_data *data, char **envp);
-
-/* get_from_env.c */
 char	*get_from_env(char *key, t_data *data);
-char	*get_key(t_list *node);
-char	*get_value(t_list *node);
+
 
 #endif

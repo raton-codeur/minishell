@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.utils.c                                       :+:      :+:    :+:   */
+/*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:21:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/02 18:21:46 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 10:07:50 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-static char	*skip_zero(char *s)
-{
-	int		i;
-	char	*result;
-
-	i = 0;
-	result = s;
-	while (s[i] == '0')
-	{
-		result++;
-		i++;
-	}
-	if (s[i] == '\0')
-		result--;
-	return (result);
-}
 
 static int	ft_strisdigit(const char *s)
 {
@@ -64,15 +47,15 @@ int	is_long_long(char *n, t_data *data)
 	trim_trailing_white_space(&n, i);
 	if (n[i] == '+')
 	{
-		if (ft_strcmp(skip_zero(n + i + 1), "9223372036854775807") > 0)
+		if (ft_strcmp(skip_zeros(n + i + 1), "9223372036854775807") > 0)
 			return (free(n), 0);
 	}
 	else if (n[i] == '-')
 	{
-		if (ft_strcmp(skip_zero(n + i + 1), "9223372036854775808") > 0)
+		if (ft_strcmp(skip_zeros(n + i + 1), "9223372036854775808") > 0)
 			return (free(n), 0);
 	}
-	else if (ft_strcmp(skip_zero(n + i), "9223372036854775807") > 0)
+	else if (ft_strcmp(skip_zeros(n + i), "9223372036854775807") > 0)
 		return (free(n), 0);
 	return (free(n), 1);
 }
