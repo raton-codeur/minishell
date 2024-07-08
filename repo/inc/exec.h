@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 13:03:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 14:03:13 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void		echo_(t_tree *tree, t_data *data);
 
 /* cd.c */
 int			cd_(t_tree *tree, t_data *data, int in_parent);
+
+/* cd_utils.c */
+int			check_symbolic_link(char *new_path);
+int			check_cd_error(char *new_path);
+
 
 /* pwd.c */
 int			pwd_(t_data *data, int in_parent);
