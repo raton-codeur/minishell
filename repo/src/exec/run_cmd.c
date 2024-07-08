@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:05:19 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/05 17:50:57 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 12:13:58 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	select_builtin(t_tree *tree, t_data *data)
 	// 	return (1);
 	// if (ft_strcmp(get_content(tree), "unset") == 0)
 	// 	return (1);
-	// if (ft_strcmp(get_content(tree), "env") == 0)
-	// 	return (1);
+	if (ft_strcmp(get_content(tree), "env") == 0)
+		env_(tree, data);
 	if (ft_strcmp(get_content(tree), "exit") == 0)
 		exit_(tree, data, 0);
 }

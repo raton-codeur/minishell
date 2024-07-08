@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 09:45:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 12:52:20 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,19 @@ static char	**add_slash(char **path)
 
 void	get_path(t_data *data)
 {
-	if (get_from_env("PATH", data) == NULL)
+	if (get_value(in_env("PATH", data)) == NULL)
 	{
 		data->path = NULL;
 		return ;
 	}
-	data->path = ft_split(get_from_env("PATH", data), ":");
+	data->path = ft_split(get_value(in_env("PATH", data)), ":");
 	if (data->path == NULL)
 		error_exit(MALLOC, data);
 	data->path = add_slash(data->path);
 	if (data->path == NULL)
 		error_exit(MALLOC, data);
 }
+
 
 void	init_data(t_data *data, int argc, char **argv, char **envp)
 {

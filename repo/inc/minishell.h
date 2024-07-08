@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 09:48:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 13:24:17 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_cmd
 
 enum e_error
 {
+	DEFAULT,
 	MALLOC,
 	READLINE,
 	LEXING,
@@ -159,9 +160,18 @@ void	init_data(t_data *data, int argc, char **argv, char **envp);
 void	get_path(t_data *data);
 void	get_input(t_data *data);
 
-/* env.c */
+/* init_env.c */
 void	init_env(t_data *data, char **envp);
-char	*get_from_env(char *key, t_data *data);
+
+/* env_utils_1.c */
+char	*get_key(t_list *node);
+char	*get_value(t_list *node);
+t_list	*in_env(char *key, t_data *data);
+void	reset_value(char *key, char *new_value, t_data *data);
+
+/* env_utils_2.c */
+void	add_to_env(char *env_line, t_data *data);
+void	remove_from_env(char *key, t_data *data);
 
 
 #endif

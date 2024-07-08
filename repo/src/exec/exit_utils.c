@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:21:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 10:07:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 13:04:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static int	ft_strisdigit(const char *s)
+static int	is_nbr(const char *s)
 {
 	while (ft_isspace(*s))
 		s++;
@@ -39,7 +39,7 @@ int	is_long_long(char *n, t_data *data)
 	n = ft_strdup(n);
 	if (n == NULL)
 		error_exit(MALLOC, data);
-	if (!ft_strisdigit(n))
+	if (!is_nbr(n))
 		return (free(n), 0);
 	i = 0;
 	while (ft_isspace(n[i]))

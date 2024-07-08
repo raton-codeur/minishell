@@ -1,0 +1,105 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/08 12:53:54 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/07/08 12:54:24 by qhauuy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "exec.h"
+
+void	env_(t_tree *tree, t_data *data)
+{
+	(void)tree;
+	list_print(data->env, print_kv);
+	free_all(data);
+	exit(0);
+}
+
+
+
+// char	**env_double_array(t_list *envp, t_data *data)
+// {
+// 	char	**env;
+// 	char	*tmp;
+// 	t_list	*current;
+// 	int		i;
+
+// 	i = 0;
+// 	current = envp;
+// 	env = ft_calloc(list_size(envp) + 1, sizeof(char *));
+// 	if (env == NULL)
+// 		error_exit(MALLOC, data);
+// 	env[list_size(envp)] = NULL;
+// 	while (current)
+// 	{
+// 		tmp = ft_strjoin(((t_envp *)current->content)->key, "=");
+// 		env[i] = ft_strjoin(tmp, ((t_envp *)current->content)->value);
+// 		free(tmp);
+// 		current = current->next;
+// 		i++;
+// 	}
+// 	return (env);
+// }
+
+// void	env_(t_data *data, t_list **envp, int in_parent)
+// {
+// 	t_list	*current;
+// 	char	*buff;
+// 	char	*join;
+
+// 	current = *envp;
+// 	while (current)
+// 	{
+// 		if (((t_envp *)current->content)->value == NULL
+// 			|| ft_strcmp(((t_envp *)current->content)->value, "") == 0)
+// 		{
+// 			current = current->next;
+// 			continue ;
+// 		}
+// 		buff = ft_strjoin(((t_envp *)current->content)->key, "=");
+// 		if (buff == NULL)
+// 			return (error_exit(MALLOC, NULL));
+// 		join = ft_strjoin(buff, ((t_envp *)current->content)->value);
+// 		if (join == NULL)
+// 			return (error_exit(MALLOC, NULL));
+// 		free(buff);
+// 		printf("%s\n", join);
+// 		free(join);
+// 		current = current->next;
+// 	}
+// 	if (!in_parent)
+// 		return (free_all(data), exit(0));
+// }
+
+
+
+// t_list	*find_env_key(t_list **envp, char *key_to_find)
+// {
+// 	t_list	*current;
+
+// 	current = *envp;
+// 	while (current)
+// 	{
+// 		if (ft_strcmp(((t_envp *)current->content)->key, key_to_find) == 0)
+// 			return (current);
+// 		current = current->next;
+// 	}
+// 	return (NULL);
+// }
+
+// void	modify_key_value(t_list **envp, char *key_to_find, char *new_value)
+// {
+// 	t_list	*target;
+
+// 	target = find_env_key(envp, key_to_find);
+// 	if (target)
+// 	{
+// 		free(((t_envp *)target->content)->value);
+// 		((t_envp *)target->content)->value = ft_strdup(new_value);
+// 	}
+// }

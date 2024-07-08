@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/07 18:34:21 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 13:03:38 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int			pwd_(t_data *data, int in_parent);
 /* unset.c */
 
 /* env.c */
+void	env_(t_tree *tree, t_data *data);
 // void		env_(t_data *data, t_list **envp, int in_parent);
 // int			copy_env(t_data *data, char **envp);
 // char		*get_env(char *key, t_list *envp);

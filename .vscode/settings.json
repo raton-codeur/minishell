@@ -9,6 +9,10 @@
 		"functional": "c",
 		"tuple": "c",
 		"type_traits": "c",
-		"utility": "c"
+		"utility": "c",
+		"parser.h": "c",
+		"lexer.h": "c",
+		"minishell.h": "c",
+		"libft.h": "c"
 	}
 }
