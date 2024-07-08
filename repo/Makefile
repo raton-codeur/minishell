@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -I inc -I libft -g3  -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -I inc -I libft -g3 # -fsanitize=address
 LFLAGS = -lreadline
 LIBFT = libft/libft.a
 SRCS = $(shell find src -type f)
@@ -31,12 +31,12 @@ re : clean all
 .PHONY : all clean fclean re
 
 test :
-	make 
+	make
 	./minishell
 
 valgrind :
-	make 
-	valgrind --track-fds=yes --trace-children=yes --suppressions=ignore_readline_leaks --leak-check=full ./minishell
+	make
+	valgrind --track-fds=yes --trace-children=yes --suppressions=ignore_readline_leaks --leak-check=full --show-leak-kinds=all ./minishell
 # --track-fds=yes
 # --trace-children=yes
 # --suppressions=ignore_readline_leaks

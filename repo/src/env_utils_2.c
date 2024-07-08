@@ -6,11 +6,27 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 17:40:10 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:58:16 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is_good_line(char *env_line)
+{
+	int	i;
+
+	if (ft_strchr(env_line, '=') == NULL)
+		return (0);
+	if (env_line[0] == '=')
+		return (0);
+	i = 0;
+	while (env_line[i] && env_line[i] != '=')
+		i++;
+	if (env_line[i] == '\0')
+		return (0);
+	return (1);
+}
 
 static t_kv	*new_kv(char *env_line)
 {
@@ -21,15 +37,18 @@ static t_kv	*new_kv(char *env_line)
 	if (result == NULL)
 		return (NULL);
 	i = 0;
-	while (env_line[i] && env_line[i] != '=')
-		i++;
-	if (env_line[i] != '=')
+	if (!is_good_line(env_line))
+	{
+		result->key = ft_strdup(env_line);
 		result->value = ft_strdup("");
-	else if (env_line[i] == '=' && i == 0)
-	
-	result->key = ft_substr(env_line, 0, i);
+	}
 	else
-		result->value = ft_substr(env_line, i + 1, ft_strlen(env_line) - i - 1);
+	{
+		while (env_line[i] && env_line[i] != '=')
+			i++;
+		result->key = ft_substr(env_line, 0, i++);
+		result->value = ft_substr(env_line, i, ft_strlen(env_line) - i);
+	}
 	if (result->key == NULL || result->value == NULL)
 		return (free_kv(result), NULL);
 	return (result);
