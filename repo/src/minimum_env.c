@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:52:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:11:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:38:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ static void	init_PWD(t_data *data)
 
 static void	init_OLDPWD(t_data *data)
 {
-	t_list	*node;
-
-	node = in_env("OLDPWD", data);
-	if (node == NULL)
+	if (!in_env("OLDPWD", data))
 		insert_in_env("OLDPWD=", data);
 }
 

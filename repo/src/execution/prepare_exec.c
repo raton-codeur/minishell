@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:33:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 12:05:28 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static char	*get_pathname(char *name, t_data *data)
 {
-	char	*result;
-	int		i;
+	char		*result;
+	int			i;
+	struct stat	sb;
 
 	result = NULL;
 	i = 0;
@@ -26,7 +27,7 @@ static char	*get_pathname(char *name, t_data *data)
 		result = ft_strjoin(data->path[i], name);
 		if (result == NULL)
 			error_exit(MALLOC, data);
-		if (access(result, X_OK) == 0)
+		if (stat(result, &sb) == 0 && !S_ISDIR(sb.st_mode) && access(result, X_OK) == 0)
 			return (result);
 		free(result);
 		i++;

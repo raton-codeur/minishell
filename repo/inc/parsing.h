@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:59:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:59:29 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 13:35:06 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,28 @@
 
 # include "minishell.h"
 
-/* init_tokens.c */
-void	init_tokens(t_data *data);
-
 /* parsing.c */
 void	parsing(t_data *data);
 
-/* find_variables.c */
-void	find_variables(t_data *data);
+/* init_tokens.c */
+void	init_tokens(t_data *data);
 
-/* iterable.c */
+/* quotes.c */
+void	parse_quotes(t_data *data);
+void	remove_quotes(t_data *data);
+
+/* parse_delimiters.c */
+void	parse_delimiters(t_data *data);
+
+/* expand_variables.c */
+void	expand_variables(t_data *data);
+
+/* iterate_on_tokens.c */
 void	set_iterable(t_iterable *i, t_list *node);
 void	set_iterables(t_iterable *current, t_iterable *next, t_list *node);
-void	remove_node_and_update(\
-	t_data *data, t_iterable *current, t_iterable *next);
+void	remove_and_update(t_data *data, t_iterable *current, t_iterable *next);
 
-/* change_node.c */
+/* change_token.c */
 void	change_type(t_data *data, int type, int new_type);
 void	remove_by_type(t_data *data, int type);
 void	remove_by_type_content(t_data *data, int type, char *content);

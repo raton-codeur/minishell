@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:05:19 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:47:48 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	run_cmd(t_tree *tree, t_data *data)
 	envp = get_envp(data);
 	if (execve(data->cmd->pathname, data->cmd->argv, envp) == -1)
 	{
-		deep_free((void **)envp, get_length(envp));
+		deep_free((void **)envp, array_size(envp));
 		return (free_all(data), exit(127));
 	}
 }

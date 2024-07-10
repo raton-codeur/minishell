@@ -6,12 +6,12 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:41:33 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 23:14:13 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 12:10:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef AST_H
+# define AST_H
 
 # include "parsing.h"
 

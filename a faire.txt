@@ -43,16 +43,4 @@ il faut le free
 fusionner les erreurs de fichier pour cd et execution relative
 -
 
-minishell> <<<<
-syntax error near unexpected token `<<'
-minishell> << <<
-syntax error near unexpected token `<<'
-
-alors que :
-
-[0] qhauuy@k1r2p2:~/Desktop/minishell$ << <<
-bash: syntax error near unexpected token `<<'
-[2] qhauuy@k1r2p2:~/Desktop/minishell$ <<<<
-bash: syntax error near unexpected token `<'
--
 

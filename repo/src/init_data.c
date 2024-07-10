@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:15:35 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:44:40 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	**add_slash(char **path)
 	int		i;
 	int		n;
 
-	n = get_length(path);
+	n = array_size(path);
 	result = ft_calloc(n + 1, sizeof(char *));
 	if (result == NULL)
 		return (deep_free((void **)path, n), NULL);
@@ -91,7 +91,6 @@ static void	init_env(t_data *data, char **envp)
 		insert_in_env(envp[i++], data);
 	minimum_env(data);
 }
-
 
 void	init_data(t_data *data, int argc, char **argv, char **envp)
 {

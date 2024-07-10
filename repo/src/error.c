@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 13:16:09 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 11:41:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	syntax_error(char *token, t_data *data)
 	char	*message;
 	char	*message_join;
 
-	message = ft_strjoin("syntax error near unexpected token `", token);
+	message = ft_strjoin("minishell: syntax error near unexpected token `", token);
 	if (!message)
 		error_exit(MALLOC, data);
 	message_join = ft_strjoin(message, "'");

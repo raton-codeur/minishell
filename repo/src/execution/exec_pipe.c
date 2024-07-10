@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:06:04 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:27:58 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	exec_pipe(t_tree *tree, t_data *data)
 	pid[1] = child_left(tree->left, data, pipe_);
 	close(pipe_[0]);
 	close(pipe_[1]);
-	waitpid(pid[0], &status, 0);
 	waitpid(pid[1], NULL, 0);
+	waitpid(pid[0], &status, 0);
 	if (WIFEXITED(status))
 		return (free_all(data), exit(WEXITSTATUS(status)));
 }

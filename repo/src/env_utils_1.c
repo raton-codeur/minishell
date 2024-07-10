@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:41:50 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 12:42:40 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_list	*in_env(char *key, t_data *data)
 	current = data->env;
 	while (current)
 	{
-		if (!ft_strncmp(get_key(current), key, ft_strlen(get_key(current))))
+		if (ft_strcmp(get_key(current), key) == 0)
 			return (current);
 		current = current->next;
 	}

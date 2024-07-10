@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 13:24:28 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:46:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_for_reset_input(t_data *data)
 	list_clear(&data->tokens, free_token);
 	tree_clear(&data->ast);
 	tree_clear(&data->tree);
-	deep_free((void **)data->path, get_length(data->path));
+	deep_free((void **)data->path, array_size(data->path));
 	data->path = NULL;
 	if (data->in != 0)
 		close(data->in);

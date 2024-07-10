@@ -55,7 +55,7 @@ SRCS = $(addprefix src/, \
 	list_size.c \
 	ft_split_quote.c \
 	ft_split_quote_utils.c \
-	get_length.c \
+	array_size.c \
 	ft_atof.c \
 	ft_strisspace.c \
 	ft_isspace.c \

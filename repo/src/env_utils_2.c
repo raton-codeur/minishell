@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:35:35 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 10:03:08 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static int	has_value(char *envp_line)
 	if (envp_line[0] == '=')
 		return (0);
 	i = 0;
-	while (envp_line[i] && envp_line[i] != '=')
+	while (envp_line[i] != '=')
 		i++;
+	i++;
 	if (envp_line[i] == '\0')
 		return (0);
 	return (1);
@@ -36,7 +37,6 @@ static t_kv	*get_kv(char *envp_line)
 	result = ft_calloc(1, sizeof(t_kv));
 	if (result == NULL)
 		return (NULL);
-	i = 0;
 	if (!has_value(envp_line))
 	{
 		result->key = ft_strdup(envp_line);
@@ -44,7 +44,8 @@ static t_kv	*get_kv(char *envp_line)
 	}
 	else
 	{
-		while (envp_line[i] && envp_line[i] != '=')
+		i = 0;
+		while (envp_line[i] != '=')
 			i++;
 		result->key = ft_substr(envp_line, 0, i++);
 		result->value = ft_substr(envp_line, i, ft_strlen(envp_line) - i);
