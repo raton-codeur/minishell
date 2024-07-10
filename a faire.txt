@@ -3,7 +3,16 @@
 export 5=sdf
 message derreur pas bon
 -
-
+[0] minishell >>> << "'"
+apres parse delimiters
+content : <<<>
+type : DOUBLE_BROKET_LEFT
+content : < >
+type : WHITE_SPACE
+content : <'>
+type : DELIMITER
+minishell: syntax error near unexpected token `newline'
+-
 
 ne faire des get path quau moment ou on en a besoin ...
 

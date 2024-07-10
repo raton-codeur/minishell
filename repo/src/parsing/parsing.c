@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 14:20:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 15:31:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 22:06:58 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	parsing(t_data *data)
 	get_double_brokets(data);
 	parse_delimiters(data);
 	expand_variables(data);
-	remove_quotes(data);
+	remove_last_quotes(data);
 	get_words(data);
 	parse_brokets(data);
 
-	list_print(data->tokens, print_token);
+	// list_print(data->tokens, print_token);
 }

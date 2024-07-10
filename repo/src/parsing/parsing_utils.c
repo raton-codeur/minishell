@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:30:49 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 15:30:57 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 21:29:34 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	get_double_brokets(t_data *data)
 
 void	get_words(t_data *data)
 {
-	change_type(data, T_DELIMITER, T_WORD);
+	change_all_type(data, T_DELIMITER, T_WORD);
 	merge_type(data, T_CHARACTER);
-	change_type(data, T_CHARACTER, T_WORD);
-	remove_by_type(data, T_DOUBLE_QUOTE);
-	remove_by_type(data, T_SIMPLE_QUOTE);
-	remove_by_type(data, T_WHITE_SPACE);
+	change_all_type(data, T_CHARACTER, T_WORD);
+	remove_all_by_type(data, T_DOUBLE_QUOTE);
+	remove_all_by_type(data, T_SIMPLE_QUOTE);
+	remove_all_by_type(data, T_WHITE_SPACE);
 }
 
 void	parse_brokets(t_data *data)

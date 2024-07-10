@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:59:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 15:30:34 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 22:07:07 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ void	parse_brokets(t_data *data);
 /* init_tokens.c */
 void	init_tokens(t_data *data);
 
-/* quotes.c */
+/* parse_quotes.c */
+int		get_quote(t_iterable i);
 void	parse_quotes(t_data *data);
-void	remove_quotes(t_data *data);
+
+/* remove_quotes.c */
+void	remove_quotes_delimiters(t_data *data);
+void	remove_last_quotes(t_data *data);
 
 /* parse_delimiters.c */
 void	parse_delimiters(t_data *data);
@@ -39,15 +43,15 @@ void	expand_variables(t_data *data);
 /* iterate_on_tokens.c */
 void	set_iterable(t_iterable *i, t_list *node);
 void	set_iterables(t_iterable *current, t_iterable *next, t_list *node);
-void	remove_and_update(t_data *data, t_iterable *current, t_iterable *next);
+void	remove_and_update(t_iterable *current, t_iterable *next, t_data *data);
+void	set_token(t_iterable current, char *content, int type);
+int		is_type_content(t_iterable i, int type, char *content);
 
 /* change_token.c */
-void	change_type(t_data *data, int type, int new_type);
-void	remove_by_type(t_data *data, int type);
-void	remove_by_type_content(t_data *data, int type, char *content);
+void	change_all_type(t_data *data, int type, int new_type);
+void	remove_all_by_type(t_data *data, int type);
+// void	remove_all_by_type_content(t_data *data, int type, char *content);
 void	merge_type(t_data *data, int type);
-void	change_node(\
-	t_list **node, char *new_content, int new_type, t_data *data);
 void	change_double_type(\
 	t_data *data, int type, char *new_content, int new_type);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_variables.c                                 :+:      :+:    :+:   */
+/*   expand_variables copy.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 16:30:22 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 20:44:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	find_variables(t_data *data)
 			current.token->content = new_content;
 			current.token->type = T_CHARACTER;
 			if (ft_strcmp(current.token->content, "") == 0)
-				remove_and_update(data, &current, NULL);
+				remove_and_update(&current, NULL, data);
 			else
 				set_iterable(&current, current.node->next);
 		}
@@ -75,13 +75,13 @@ void	expand_variables(t_data *data)
 	{
 		if (current.type == T_DOLLAR && next.type == T_CHARACTER && (ft_isword_content(next.content[0]) || next.content[0] == '?'))
 		{
-			remove_and_update(data, &current, &next);
+			remove_and_update(&current, &next, data);
 			if (ft_isword_content(current.content[0]))
 			{
 				if (ft_isword_start(current.content[0]))
 					set_to_variable(&current, &next);
 				else
-					remove_and_update(data, &current, &next);
+					remove_and_update(&current, &next, data);
 			}
 			else
 			{

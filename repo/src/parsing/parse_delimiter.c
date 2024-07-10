@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 13:29:09 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 15:28:52 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 22:08:54 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	find_delimiters(t_data *data)
 void	parse_delimiters(t_data *data)
 {
 	find_delimiters(data);
-	remove_by_type_content(data, T_DELIMITER, "'");
-	remove_by_type_content(data, T_DELIMITER, "\"");
+	remove_quotes_delimiters(data);
 	merge_type(data, T_DELIMITER);
 }

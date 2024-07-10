@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:03 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 13:11:32 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 21:27:23 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,23 @@ void	set_iterables(t_iterable *current, t_iterable *next, t_list *node)
 		set_iterable(next, node->next);
 }
 
-void	remove_and_update(t_data *data, t_iterable *current, t_iterable *next)
+void	remove_and_update(t_iterable *current, t_iterable *next, t_data *data)
 {
 	t_list		*tmp;
 
 	tmp = current->node;
 	set_iterables(current, next, current->node->next);
 	list_remove_node(&data->tokens, tmp, free_token);
+}
+
+void	set_token(t_iterable current, char *content, int type)
+{
+	free(current.content);
+	current.token->content = content;
+	current.token->type = type;
+}
+
+int	is_type_content(t_iterable i, int type, char *content)
+{
+	return (i.type == type && ft_strcmp(i.content, content) == 0);
 }
