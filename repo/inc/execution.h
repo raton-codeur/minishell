@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 23:15:54 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:49:18 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXECUTION_H
 
 # include "AST.h"
- 
+
 /* get_heredocs.c */
 void		get_heredocs(t_tree **tree, t_data *data);
 
@@ -40,6 +40,12 @@ void		echo_(t_tree *tree, t_data *data);
 
 /* cd.c */
 int			cd_(t_tree *tree, t_data *data, int in_parent);
+
+/* cd_utils.c */
+int			check_cd_error(char *new_path);
+int			check_symbolic_link(char *new_path);
+int			is_home_needed(char *arg, int argc);
+char		*return_home(t_data *data);
 
 /* pwd.c */
 void		pwd_(t_data *data);

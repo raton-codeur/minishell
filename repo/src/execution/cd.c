@@ -3,57 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/10 15:13:18 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:49:01 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
-int	check_symbolic_link(char *new_path)
-{
-	struct stat	buf;
-
-	if (lstat(new_path, &buf) == -1)
-	{
-		perror("lstat");
-		return (1);
-	}
-	if (S_ISLNK(buf.st_mode) == 1)
-		return (1);
-	else
-		return (0);
-}
-
-int	check_cd_error(char *new_path)
-{
-	struct stat	buf;
-
-	if (stat(new_path, &buf) == -1)
-	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(new_path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		return (1);
-	}
-	if (!S_ISDIR(buf.st_mode))
-	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(new_path, 2);
-		ft_putstr_fd(": Not a directory\n", 2);
-		return (1);
-	}
-	if (access(new_path, X_OK) == -1)
-	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(new_path, 2);
-		ft_putstr_fd(": Permission denied\n", 2);
-		return (1);
-	}
-	return (0);
-}
 
 static void	change_directory(char *path, t_data *data)
 {
@@ -79,17 +36,11 @@ static char	*get_new_path(char *arg, t_data *data)
 	char	*result;
 	char	*tmp;
 
-	if ((data->cmd->argc == 1)
-		|| (arg[0] == '~' && arg[1] == '\0')
-		|| (arg[0] == '~' && arg[1] == '/'))
+	if (is_home_needed(arg, data->cmd->argc) == 1)
 	{
-		result = get_value(in_env("HOME", data));
-		if (result == NULL)
-			return (ft_putendl_fd("cd: HOME not set", 2), NULL);
-		result = ft_strdup(result);
-		if (result == NULL)
-			error_exit(MALLOC, data);
-		if ((data->cmd->argc == 1) || (arg[0] == '~' && arg[1] == '\0'))
+		result = return_home(data);
+		if (result == NULL
+			|| (data->cmd->argc == 1) || (arg[0] == '~' && arg[1] == '\0'))
 			return (result);
 		else
 		{
@@ -97,8 +48,7 @@ static char	*get_new_path(char *arg, t_data *data)
 			result = ft_strjoin(result, arg + 1);
 			if (result == NULL)
 				return (free(tmp), error_exit(MALLOC, data), NULL);
-			free(tmp);
-			return (result);
+			return (free(tmp), result);
 		}
 	}
 	else
