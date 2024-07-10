@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 21:30:24 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 23:38:52 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,68 @@
 		/*avancer*/
 	/*mettre un white space*/
 
-void	find_variables(t_data *data)
+// void	find_variables(t_data *data)
+// {
+// 	t_iterable	current;
+// 	t_iterable	next;
+
+// 	set_iterables(&current, &next, data->tokens);
+// 	while (current.node)
+// 	{
+// 		if (current.type == T_DOLLAR)
+// 		{
+// 			remove_and_update(&current, &next, data);
+// 			if (is_type_content(current, T_CHARACTER, "?"))
+// 			{
+// 				free(current.content);
+// 				current.token->content = ft_itoa(data->exit_status);
+// 				if (current.token->content == NULL)
+// 					error_exit(MALLOC, data);
+// 				current.token->type = T_CHARACTER;
+// 			}
+// 		}
+// 			/*remove and update */
+// 			/* si le courant est ?
+// 				remplacer le content par itoa du exit status + avancer */
+// 			/*sinon si cest un char + debut de variable correct*/
+// 				/* avancer en mettant les type a variable */
+// 			/* sinon */
+// 				/*remove and update*/
+// 		else
+// 			set_iterables(&current, &next, current.node->next); // on avance
+// 	}
+// }
+
+// /* on est sur une variable. on veut la remplacer par sa valeur
+// si cest une variable normal on veut insert ses white space comme des whitespace et
+// a la fin on veut que current soit sur le token dapres
+// */
+// void	expand_variable(t_iterable *current, t_data *data)
+// {
+// 	t_iterable	next;
+
+// 	set_iterables(current, &next, current->node);
+// 	if (next.content[0] == '?')
+// 	{
+// 		free(next.content);
+// 		next.token->content = ft_itoa(data->exit_status);
+// 		if (next.token->content == NULL)
+// 			error_exit(MALLOC, data);
+// 		next.token->type = T_CHARACTER;
+// 	}
+// 	else
+// 	{
+// 		// remplacer char par char par le contenu de la variable
+
+// 	}
+// }
+
+
+
+
+
+
+static void	find_dollar_chars(t_data *data)
 {
 	t_iterable	current;
 	t_iterable	next;
@@ -77,75 +138,95 @@ void	find_variables(t_data *data)
 	set_iterables(&current, &next, data->tokens);
 	while (current.node)
 	{
-		if (current.type == T_DOLLAR)
-		{
-			remove_and_update(&current, &next, data);
-			if (is_type_content(current, T_CHARACTER, "?"))
-			{
-				free(current.content);
-				current.token->content = ft_itoa(data->exit_status);
-				if (current.token->content == NULL)
-					error_exit(MALLOC, data);
-				current.token->type = T_CHARACTER;
-			}
-		}
-			/*remove and update */
-			/* si le courant est ?
-				remplacer le content par itoa du exit status + avancer */
-			/*sinon si cest un char + debut de variable correct*/
-				/* avancer en mettant les type a variable */
-			/* sinon */
-				/*remove and update*/
-		else
-			set_iterables(&current, &next, current.node->next); // on avance
+		if (current.type == T_DOLLAR && next.type != T_CHARACTER)
+			current.token->type = T_CHARACTER;
+		set_iterables(&current, &next, current.node->next);
 	}
 }
 
-/* on est sur une variable. on veut la remplacer par sa valeur
-si cest une variable normal on veut insert ses white space comme des whitespace et
-a la fin on veut que current soit sur le token dapres
-*/
-void	expand_variable(t_iterable *current, t_data *data)
+static void	set_variable(t_iterable *current)
 {
-	t_iterable	next;
-
-	set_iterables(current, &next, current->node);
-	if (next.content[0] == '?')
+	while (current->node && ft_isword_content(current->content[0]))
 	{
-		free(next.content);
-		next.token->content = ft_itoa(data->exit_status);
-		if (next.token->content == NULL)
+		current->token->type = T_VARIABLE;
+		set_iterable(current, current->node->next);
+	}
+}
+
+static void	find_variables(t_data *data)
+{
+	t_iterable	current;
+
+	set_iterable(&current, data->tokens);
+	while (current.node)
+	{
+		if (current.type == T_DOLLAR)
+		{
+			remove_and_update(&current, NULL, data);
+			if (current.content[0] == '?')
+			{
+				current.token->type = T_VARIABLE;
+				set_iterable(&current, current.node->next);
+			}
+			else if (ft_isword_start(current.content[0]))
+				set_variable(&current);
+			else
+				remove_and_update(&current, NULL, data);
+		}
+		else
+			set_iterable(&current, current.node->next);
+	}
+}
+
+static void	expand_variable(t_iterable *current, t_data *data)
+{
+	char	*new_content;
+
+	if (current->content[0] == '?')
+	{
+		new_content = ft_itoa(data->exit_status);
+		if (new_content == NULL)
 			error_exit(MALLOC, data);
-		next.token->type = T_CHARACTER;
+		set_token(*current, new_content, T_CHARACTER);
+	}
+	else if (!in_env(current->content, data))
+	{
+		new_content = ft_strdup("");
+		if (new_content == NULL)
+			error_exit(MALLOC, data);
+		set_token(*current, new_content, T_CHARACTER);
 	}
 	else
 	{
-		// remplacer char par char par le contenu de la variable
-
+		new_content = ft_strdup(get_value(in_env(current->content, data)));
+		if (new_content == NULL)
+			error_exit(MALLOC, data);
+		set_token(*current, new_content, T_CHARACTER);
 	}
 }
 
 void	expand_variables(t_data *data)
 {
-	t_iterable	current;
-	t_iterable	next;
+	// printf("-------------------------expand_variables\n");
+	// list_print(data->tokens, print_token);
+	// printf("------------------------------\n");
 
-	/*trouver les dollar qui sont des char*/
+	find_dollar_chars(data);
 	find_variables(data);
-	change_all_type(data, T_DOLLAR, T_CHARACTER);
-	set_iterables(&current, &next, data->tokens);
-	// if (current.type == T_VARIABLE)
-	// {
-	// 	// nouveau debut de tokens = get  tokens ( get value de la varable )
-	// 	// set iterable (current, next, tokens)
-	// 	// suivant du dernier nouveau token = tokens
-	// }
+
+
+	t_iterable	current;
+
+	set_iterable(&current, data->tokens);
 	while (current.node)
 	{
-		if (next.type == T_VARIABLE)
+		if (current.type == T_VARIABLE)
 			expand_variable(&current, data);
 		else
 			set_iterable(&current, current.node->next);
 	}
+
 	change_all_type(data, T_VARIABLE, T_CHARACTER);
+	merge_type(data, T_CHARACTER);
+	change_all_type(data, T_CHARACTER, T_WORD);
 }

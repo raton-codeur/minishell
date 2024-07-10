@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 22:05:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 23:38:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 		list_print(data.tokens, print_token);
 		build_AST(&data);
 		// tree_print(data.ast);
-		execute(&data);
+		// execute(&data);
 		reset_input(&data);
 	}
 	return (free_all(&data), 0);

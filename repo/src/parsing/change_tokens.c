@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   change_token.c                                     :+:      :+:    :+:   */
+/*   change_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 21:34:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 23:00:39 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	merge_type(t_data *data, int type)
 	}
 }
 
-void	change_double_type(\
+void	change_all_consecutive(\
 	t_data *data, int type, char *new_content, int new_type)
 {
 	t_iterable	current;
