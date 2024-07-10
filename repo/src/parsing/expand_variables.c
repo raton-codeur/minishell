@@ -6,73 +6,71 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 13:38:23 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 17:37:32 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "execution.h"
 
+/*
+ a $ b c d whitespace -> a bcd whitespace
+ a $ 0 c whitespace -> a c whitespace
+ a $ % c whitespace -> a c whitespace
+ a $ ? c whitespace -> a ? whitespace
+ a $ whitespace -> a $ whitespace (type devient char)
+*/
 
-
-/*s est la cle dune variable qui se trouve dans lenv
-on veut inserer les car de s dans la liste des tokens individuellement comme des car, sauf les white space qui seront des white space*/
-// (char *s)/
-
-static void	f(t_data *data)
+static int	is_valid_start_variable(char c)
 {
-	t_iterable	current;
-	char		*new_content;
-
-	set_iterable(&current, data->tokens);
-	while (current.node)
-	{
-		if (current.type == T_VARIABLE)
-		{
-			if (!in_env(current.content, data))
-				new_content = ft_strdup("");
-			else
-				new_content = ft_strdup(get_value(in_env(current.content, data)));
-			if (!new_content)
-				error_exit(MALLOC, data);
-			free(current.content);
-			current.token->content = new_content;
-			current.token->type = T_CHARACTER;
-			if (ft_strcmp(current.token->content, "") == 0)
-				remove_and_update(data, &current, NULL);
-			else
-				set_iterable(&current, current.node->next);
-		}
-		else
-			set_iterable(&current, current.node->next);
-	}
+	return(ft_isalpha(c) || c == '_');
 }
 
+static int	is_valid_variable(char c)
+{
+	return(ft_isalnum(c) || c == '_');
+}
 
-
-
-
-
+static void	set_to_type(t_list *start, t_list *end, int type)
+{
+	int	target;
+	while (start != end)
+	{
+		target = ((t_token *)start->content)->type;
+		target = type;
+		start = start->next;
+	}
+}
 static void	set_to_variable(t_iterable *current, t_iterable *next)
 {
-	while (current->node && ft_isword_content(current->content[0]))
+	t_list	*tmp;
+
+	tmp = NULL;
+	while (current->node)
 	{
-		current->token->type = T_VARIABLE;
+		if (current->type == T_DOLLAR)
+		{
+			if (current->node->next && is_valid_start_variable((char)(((t_token *)(current->node->next->content))->content)[0]))
+			{
+				set_iterable(current, current->node->next);
+				tmp = current->node;
+				while(is_valid_variable(current->content[0]))
+					set_iterables(current, next, next->node);
+				set_to_type(tmp, current->node, T_VARIABLE);
+			}
+			else if (current->node->next && next->content[0] == '?')
+			{
+				set_iterables(current, next, next->node);
+				((t_token *)(current->node->content))->type = T_VARIABLE;
+			}
+			else
+				((t_token *)(current->node->content))->type = T_CHARACTER;
+		}
 		set_iterables(current, next, next->node);
 	}
 }
 
-/* regarder dans exit.c ... */
-static char	*get_exit_status(t_data *data)
-{
-	char	*result;
-
-	result = ft_itoa(data->exit_status & 0xFF);
-	if (result == NULL)
-		error_exit(MALLOC, data);
-	return (result);
-}
-
-void	expand_variables(t_data *data)
+void	find_variables(t_data *data)
 {
 	t_iterable	current;
 	t_iterable	next;
@@ -80,27 +78,59 @@ void	expand_variables(t_data *data)
 	set_iterables(&current, &next, data->tokens);
 	while (current.node)
 	{
-		if (current.type == T_DOLLAR && next.type == T_CHARACTER && (ft_isword_content(next.content[0]) || next.content[0] == '?'))
+		if (current.type == T_DOLLAR)
 		{
-			remove_and_update(data, &current, &next);
-			if (ft_isword_content(current.content[0]))
-			{
-				if (ft_isword_start(current.content[0]))
-					set_to_variable(&current, &next);
-				else
-					remove_and_update(data, &current, &next);
-			}
-			else // next.content[0] == '?'
-			{
-				change_node(&current.node, get_exit_status(data), T_CHARACTER, data);
-				set_iterables(&current, &next, current.node->next);
-			}
+
 		}
 		else
-			set_iterables(&current, &next, next.node);
+			set_iterables(&current, &next, current.node->next);
 	}
-	change_type(data, T_DOLLAR, T_CHARACTER);
-	merge_type(data, T_VARIABLE);
-	f(data);
 }
 
+/* on est sur une variable. on veut la remplacer par sa valeur
+si cest une variable normal on veut insert ses white space comme des whitespace et 
+a la fin on veut que current soit sur le token dapres
+*/
+void	expand_variable(t_iterable *current, t_data *data)
+{
+	t_iterable	next;
+
+	set_iterables(current, &next, current.node);
+	if (next.content[0] == '?')
+	{
+		free(next.content);
+		next.token->content = ft_itoa(data->exit_status);
+		if (next.token->content == NULL)
+			error_exit(MALLOC, data);
+		next.token->type = T_CHARACTER;
+	}
+	else
+	{
+		// remplacer char par char par le contenu de la variable
+
+	}
+}
+
+void	expand_variables(t_data *data)
+{
+	t_iterable	current;
+	t_iterable	next;
+
+	find_variables(data);
+	change_type(data, T_DOLLAR, T_CHARACTER);
+	set_iterables(&current, &next, data->tokens);
+	// if (current.type == T_VARIABLE)
+	// {
+	// 	// nouveau debut de tokens = get  tokens ( get value de la varable )
+	// 	// set iterable (current, next, tokens)
+	// 	// suivant du dernier nouveau token = tokens
+	// }
+	while (current.node)
+	{
+		if (next.type == T_VARIABLE)
+			expand_variable(&current, data);
+		else
+			set_iterable(&current, current.node->next);
+	}
+	change_type(data, T_VARIABLE, T_CHARACTER);
+}

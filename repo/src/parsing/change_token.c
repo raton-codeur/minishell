@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:55:47 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 16:22:09 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	change_node(t_list **node, char *new_content, int new_type, t_data *data)
 {
 	t_iterable	current;
 
-	new_content = ft_strdup(new_content);
 	if (new_content == NULL)
 		error_exit(MALLOC, data);
 	set_iterable(&current, *node);

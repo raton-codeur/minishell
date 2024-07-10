@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:12:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/10 16:19:32 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,16 @@ typedef struct s_kv
 
 typedef struct s_data
 {
-	char		*input;
-	t_list		*tokens;
-	t_tree		*ast;
-	t_tree		*tree;
-	char		**path;
-	int			in;
-	int			out;
-	t_cmd		*cmd;
-	t_list		*env;
-	int			exit_status;
+	char			*input;
+	t_list			*tokens;
+	t_tree			*ast;
+	t_tree			*tree;
+	char			**path;
+	int				in;
+	int				out;
+	t_cmd			*cmd;
+	t_list			*env;
+	unsigned char	exit_status;
 }	t_data;
 
 /* print.c */ // a supp

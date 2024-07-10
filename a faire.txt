@@ -1,14 +1,10 @@
-cd basique
+
 -
-cd avec home not set
+export 5=sdf
+message derreur pas bon
 -
-[0] bash >>> mkdir d
-[0] bash >>> cd d
-[0] bash >>> chmod 0 .
-[0] bash >>> cd ..
-[0] bash >>> pwd
-/home/qhauuy/Desktop/minishell/repo
--
+
+
 ne faire des get path quau moment ou on en a besoin ...
 
 plus beosin de faire des get path a chaque fois quon veut reinitialiser linput
