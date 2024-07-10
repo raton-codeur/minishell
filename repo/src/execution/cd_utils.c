@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:37:14 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/10 16:09:48 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/10 16:11:00 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*return_home(t_data *data)
 
 	result = get_value(in_env("HOME", data));
 	if (result == NULL)
-		return (ft_putendl_fd("Minishell: cd: HOME not set", 2), NULL);
+		return (ft_putendl_fd("minishell: cd: HOME not set", 2), NULL);
 	result = ft_strdup(result);
 	if (result == NULL)
 		error_exit(MALLOC, data);
@@ -56,21 +56,21 @@ int	check_cd_error(char *new_path)
 
 	if (stat(new_path, &buf) == -1)
 	{
-		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(new_path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		return (1);
 	}
 	if (!S_ISDIR(buf.st_mode))
 	{
-		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(new_path, 2);
 		ft_putstr_fd(": Not a directory\n", 2);
 		return (1);
 	}
 	if (access(new_path, X_OK) == -1)
 	{
-		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(new_path, 2);
 		ft_putstr_fd(": Permission denied\n", 2);
 		return (1);
