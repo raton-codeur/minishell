@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 15:49:18 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/11 17:50:25 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ void		env_(t_data *data);
 
 /* exit.c */
 int			exit_(t_tree *tree, t_data *data, int in_parent);
+void		exit_global(t_data *data);
 
 /* exit_utils.c */
 int			is_long_long(char *n, t_data *data);
 long long	ft_atoll(const char *s);
+
+/* signals.c */
+void		sigint_handler_parent(int sig);
+void		sigint_handler_child(int sig);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 11:41:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 16:20:38 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	print_error(int code)
 		ft_putendl_fd("pipe failed", 2);
 	else if (code == FORK)
 		ft_putendl_fd("fork failed", 2);
+	else if (code == EXIT)
+		ft_putendl_fd("exit", 1);
 }
 
 void	error(int code, t_data *data)

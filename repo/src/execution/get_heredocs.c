@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredocs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 18:01:54 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+extern unsigned char	g_exit_status;
 
 static void	get_heredoc_readline(t_tree *current, int pipe_[2], t_data *data)
 {
@@ -27,6 +29,10 @@ static void	get_heredoc_readline(t_tree *current, int pipe_[2], t_data *data)
 		line = readline("heredoc> ");
 		if (line == NULL)
 			return (close_2(pipe_), error_exit(READLINE, data));
+		if (g_exit_status == 130)
+		{
+			break ;
+		}
 	}
 	free(line);
 }

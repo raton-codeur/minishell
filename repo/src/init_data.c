@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 10:44:40 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 16:28:08 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "execution.h"
 
 void	get_input(t_data *data)
 {
@@ -33,7 +34,7 @@ void	get_input(t_data *data)
 	data->input = readline(prompt);
 	free(prompt);
 	if (data->input == NULL)
-		error_exit(READLINE, data);
+		exit_global(data);
 	if (data->input[0] != '\0' && !ft_strisspace(data->input))
 		add_history(data->input);
 }

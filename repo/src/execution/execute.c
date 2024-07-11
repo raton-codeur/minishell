@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 23:15:06 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 17:56:03 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	exec_cmd_in_new_child(t_tree *tree, t_data *data)
 	pid = fork();
 	if (pid == -1)
 		error_exit(FORK, data);
+	signal(SIGINT, sigint_handler_child);
 	if (pid == 0)
 	{
 		if (get_type(tree) == T_PIPE)
