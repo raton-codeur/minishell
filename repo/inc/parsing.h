@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:59:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 13:01:07 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 16:18:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parsing(t_data *data);
 /* parsing_utils.c */
 void	get_double_brokets(t_data *data);
 void	find_delimiters(t_data *data);
-void	clean_tokens(t_data *data);
+void	get_words(t_data *data);
 void	parse_brokets(t_data *data);
 
 /* init_tokens.c */
@@ -29,14 +29,15 @@ void	init_tokens(t_data *data);
 
 /* parse_quotes.c */
 int		get_quote(t_iterable i);
+void	find_char_in_quotes(t_data *data);
 void	parse_quotes(t_data *data);
-
-/* remove_quotes.c */
-void	remove_quotes_delimiters(t_data *data);
-void	remove_last_quotes(t_data *data);
 
 /* expand_variables.c */
 void	expand_variables(t_data *data);
+
+/* expand_variables_utils.c */
+void	find_variables(t_data *data);
+void	merge_variables(t_data *data);
 
 /* iterate_on_tokens.c */
 void	set_iterable(t_iterable *i, t_list *node);

@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:52:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 10:38:19 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 16:02:07 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_good_SHLVL(char *s)
+static int	is_good_shlvl(char *s)
 {
 	if (s[0] == '\0')
 		return (0);
@@ -25,7 +25,7 @@ static int	is_good_SHLVL(char *s)
 	return (1);
 }
 
-static void	init_SHLVL(t_data *data)
+static void	init_shlvl(t_data *data)
 {
 	t_list	*node;
 	char	*new_value;
@@ -35,7 +35,7 @@ static void	init_SHLVL(t_data *data)
 		insert_in_env("SHLVL=1", data);
 	else
 	{
-		if (!is_good_SHLVL(get_value(node)))
+		if (!is_good_shlvl(get_value(node)))
 			new_value = ft_strdup("1");
 		else
 			new_value = ft_itoa(ft_atoi(get_value(node)) + 1);
@@ -45,7 +45,7 @@ static void	init_SHLVL(t_data *data)
 	}
 }
 
-static void	init_PWD(t_data *data)
+static void	init_pwd(t_data *data)
 {
 	t_list	*node;
 	char	*new_value;
@@ -59,7 +59,7 @@ static void	init_PWD(t_data *data)
 	reset_value("PWD", new_value, data);
 }
 
-static void	init_OLDPWD(t_data *data)
+static void	init_oldpwd(t_data *data)
 {
 	if (!in_env("OLDPWD", data))
 		insert_in_env("OLDPWD=", data);
@@ -67,7 +67,7 @@ static void	init_OLDPWD(t_data *data)
 
 void	minimum_env(t_data *data)
 {
-	init_SHLVL(data);
-	init_PWD(data);
-	init_OLDPWD(data);
+	init_shlvl(data);
+	init_pwd(data);
+	init_oldpwd(data);
 }

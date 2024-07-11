@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:26:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 12:48:46 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 17:31:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	quotes_are_closed(t_data *data)
 	return (quote == 0);
 }
 
-static void	find_char_in_quotes(t_data *data)
+void	find_char_in_quotes(t_data *data)
 {
 	t_iterable	current;
 	char		quote;
@@ -92,9 +92,7 @@ void	parse_quotes(t_data *data)
 	if (!quotes_are_closed(data))
 		return (print_error(QUOTE), reset_input(data));
 	find_char_in_quotes(data);
-	find_dollars_in_double_quotes(data);
 	change_all_consecutive(data, T_SIMPLE_QUOTE, "", T_CHARACTER);
 	change_all_consecutive(data, T_DOUBLE_QUOTE, "", T_CHARACTER);
-	remove_all_by_type(data, T_SIMPLE_QUOTE);
-	remove_all_by_type(data, T_DOUBLE_QUOTE);
+	find_dollars_in_double_quotes(data);
 }

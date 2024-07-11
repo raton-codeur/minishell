@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:06 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 23:00:39 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 16:01:44 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,6 @@ void	remove_all_by_type(t_data *data, int type)
 			set_iterable(&current, current.node->next);
 	}
 }
-
-// void	remove_all_by_type_content(t_data *data, int type, char *content)
-// {
-// 	t_list		*tmp;
-// 	t_iterable	current;
-
-// 	set_iterable(&current, data->tokens);
-// 	while (current.node)
-// 	{
-// 		if (current.type == type && ft_strcmp(current.content, content) == 0)
-// 		{
-// 			tmp = current.node;
-// 			set_iterable(&current, current.node->next);
-// 			list_remove_node(&data->tokens, tmp, free_token);
-// 		}
-// 		else
-// 			set_iterable(&current, current.node->next);
-// 	}
-// }
 
 void	merge_type(t_data *data, int type)
 {

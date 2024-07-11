@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   error_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 15:41:36 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/07/11 15:58:43 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/07/11 15:58:55 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
-unsigned char	g_exit_status;
-
-int	main(int argc, char **argv, char **envp)
+void	cmd_pathname_error(char *cmd, t_data *data)
 {
-	t_data	data;
+	char	*message;
 
-	init_data(&data, argc, argv, envp);
-	while (1)
-	{
-		get_input(&data);
-		parsing(&data);
-		list_print(data.tokens, print_token);
-		build_AST(&data);
-		tree_print(data.ast);
-		execute(&data);
-		reset_input(&data);
-	}
-	return (free_all(&data), 0);
+	message = ft_strjoin(cmd, ": command not found");
+	if (!message)
+		error_exit(MALLOC, data);
+	ft_putendl_fd(message, 2);
+	free(message);
+	free_all(data);
+	exit(127);
 }
