@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 17:11:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,7 @@ static void	add_export_variable(t_data *data)
 	{
 		new = insert_in_env(data->cmd->argv[i], data);
 		if (ft_isword_start(get_key(new)[0]) == 0)
-		{
-			printf("key : %s\n", get_key(new));
 			return (export_error(new, data));
-		}
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 16:19:32 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 15:58:27 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,14 @@ void	tree_clear(t_tree **tree);
 void	free_cmd(t_data *data);
 void	free_kv(void *p);
 
-/* error.c */
+/* error_1.c */
 void	print_error(int code);
 void	error(int code, t_data *data);
 void	error_exit(int code, t_data *data);
 void	syntax_error(char *token, t_data *data);
 void	fd_error(char *file, t_data *data);
+
+/* error_2.c */
 void	cmd_pathname_error(char *cmd, t_data *data);
 
 /* init_data.c */

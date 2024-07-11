@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   error_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 11:41:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 15:59:04 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	syntax_error(char *token, t_data *data)
 	char	*message;
 	char	*message_join;
 
-	message = ft_strjoin("minishell: syntax error near unexpected token `", token);
+	message = ft_strjoin(\
+		"minishell: syntax error near unexpected token `", token);
 	if (!message)
 		error_exit(MALLOC, data);
 	message_join = ft_strjoin(message, "'");
@@ -69,15 +70,3 @@ void	fd_error(char *file, t_data *data)
 	exit(1);
 }
 
-void	cmd_pathname_error(char *cmd, t_data *data)
-{
-	char	*message;
-
-	message = ft_strjoin(cmd, ": command not found");
-	if (!message)
-		error_exit(MALLOC, data);
-	ft_putendl_fd(message, 2);
-	free(message);
-	free_all(data);
-	exit(127);
-}
