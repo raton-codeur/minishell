@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:02:03 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 23:24:23 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 22:39:18 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	set_iterables(t_iterable *current, t_iterable *next, t_list *node)
 	set_iterable(current, node);
 	if (node && next)
 		set_iterable(next, node->next);
+	else if (next)
+		ft_bzero(next, sizeof(t_iterable));
 }
 
 void	remove_and_update(t_iterable *current, t_iterable *next, t_data *data)
