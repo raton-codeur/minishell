@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:25:09 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/06/13 15:14:36 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 14:48:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	list_remove_node(\
 	if (*list == node)
 	{
 		*list = node->next;
+		if (node->next)
+			node->next->previous = NULL;
 		ft_free(node->content);
 		free(node);
 		return ;

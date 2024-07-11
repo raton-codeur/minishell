@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 13:46:00 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 15:07:38 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,12 +195,65 @@ static void	merge_variables(t_data *data)
 			remove_and_update(&current, &next, data);
 			while (next.type == T_VARIABLE && next.content[0] != '$')
 			{
-				new_content = ft_strjoin(current.content,
+				new_content = ft_strjoin(current.content, next.content);
+				if (!new_content)
+					error_exit(MALLOC, data);
+				set_token(current, new_content, T_VARIABLE);
+				list_remove_node(&data->tokens, next.node, free_token);
+				set_iterables(&current, &next, current.node);
 			}
 		}
 		set_iterable(&current, current.node->next);
 	}
 }
+
+/* la liste des tokens */
+t_list	*get_tokens(char *value)
+{
+	t_list		*result;
+	int			i;
+	t_iterable	new;
+
+	result = NULL;
+	i = 0;
+	while (value[i])
+	{
+		new.content = ft_calloc(2, sizeof(char));
+		if (new.content == NULL)
+			return (list_clear(&result, free_token), NULL);
+		new.content[0] = value[i];
+		new.token = ft_calloc(1, sizeof(t_token));
+		if (new.token == NULL)
+			return (free(new.content), list_clear(&result, free_token), NULL);
+		new.token->content = new.content;
+		if (ft_isspace(value[i]))
+			new.token->type = T_WHITE_SPACE;
+		else
+			new.token->type = T_CHARACTER;
+		new.node = list_new(new.token);
+		if (new.node == NULL)
+			return (free_token(new.token), NULL);
+		list_add_back(&result, new.node);
+		i++;
+	}
+	return (result);
+}
+
+		char	*value;
+		t_list	*to_insert;
+
+		value = get_value(in_env(current->content, data));
+		new_tokens = get_tokens(value);
+		if (new_tokens == NULL)
+			error_exit(MALLOC, data);
+
+		list_last(new_tokens)->next = current->node->next;
+		if (current->node->next)
+			current->node->next->previous = list_last(new_tokens);
+		new_tokens->previous = current->node;
+		current->node->next = new_tokens;
+		remove_and_update(current, NULL, data);
+
 
 static void	expand_variable(t_iterable *current, t_data *data)
 {
@@ -212,22 +265,14 @@ static void	expand_variable(t_iterable *current, t_data *data)
 		if (new_content == NULL)
 			error_exit(MALLOC, data);
 		set_token(*current, new_content, T_CHARACTER);
+		set_iterable(current, current->node->next);
 	}
-	else if (!in_env(current->content, data))
-	{
-		new_content = ft_strdup("");
-		if (new_content == NULL)
-			error_exit(MALLOC, data);
-		set_token(*current, new_content, T_CHARACTER);
-	}
+	else if (!(ft_isword_start(current->content[0]))
+		|| !in_env(current->content, data))
+		remove_and_update(current, NULL, data);
 	else
 	{
-		new_content = ft_strdup(get_value(in_env(current->content, data)));
-		if (new_content == NULL)
-			error_exit(MALLOC, data);
-		set_token(*current, new_content, T_CHARACTER);
 	}
-	set_iterable(current, current->node->next);
 }
 
 void	expand_variables(t_data *data)
@@ -235,18 +280,19 @@ void	expand_variables(t_data *data)
 
 	find_dollar_chars(data);
 	find_variables(data);
-	merge_variable(data);
+	merge_variables(data);
+
+
+	t_iterable	current;
+
+	set_iterable(&current, data->tokens);
+	while (current.node)
+	{
+		if (current.type == T_VARIABLE)
+			expand_variable(&current, data);
+		else
+			set_iterable(&current, current.node->next);
+	}
 
 	list_print(data->tokens, print_token);
-
-	// t_iterable	current;
-
-	// set_iterable(&current, data->tokens);
-	// while (current.node)
-	// {
-	// 	if (current.type == T_VARIABLE)
-	// 		expand_variable(&current, data);
-	// 	else
-	// 		set_iterable(&current, current.node->next);
-	// }
 }

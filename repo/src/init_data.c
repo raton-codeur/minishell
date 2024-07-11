@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 10:44:40 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 14:57:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	get_input(t_data *data)
 	if (prompt == NULL)
 		error_exit(MALLOC, data);
 	data->input = readline(prompt);
+	
 	free(prompt);
 	if (data->input == NULL)
 		error_exit(READLINE, data);
