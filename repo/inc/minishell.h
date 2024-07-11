@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 15:58:27 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:28:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,9 @@ typedef struct s_data
 	int				out;
 	t_cmd			*cmd;
 	t_list			*env;
-	unsigned char	exit_status;
 }	t_data;
+
+extern unsigned char	g_exit_status;
 
 /* print.c */ // a supp
 void	print_type(int type);

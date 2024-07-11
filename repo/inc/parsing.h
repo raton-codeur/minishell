@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:59:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 23:08:22 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:37:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-/* parsing.c */
+/* parse.c */
 void	parse(t_data *data);
 
 /* parsing_utils.c */

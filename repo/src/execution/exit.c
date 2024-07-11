@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:32:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	exit_(t_tree *tree, t_data *data, int in_parent)
 			if (data->cmd->argc > 2)
 			{
 				ft_putendl_fd("minishell: exit: too many arguments", 2);
-				data->exit_status = 1;
+				g_exit_status = 1;
 				return (end_builtin(in_parent, 1, data));
 			}
 			else

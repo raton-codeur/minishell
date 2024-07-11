@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 15:59:04 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:35:03 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	syntax_error(char *token, t_data *data)
 	ft_putendl_fd(message_join, 2);
 	free(message_join);
 	reset_input(data);
-	data->exit_status = 2;
+	g_exit_status = 2;
 }
 
 void	fd_error(char *file, t_data *data)
@@ -69,4 +69,3 @@ void	fd_error(char *file, t_data *data)
 	free_all(data);
 	exit(1);
 }
-

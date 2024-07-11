@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:26:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 22:25:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:20:30 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	get_quote(t_iterable i)
 {
 	if (i.node == NULL)
 		return (0);
-	if (i.content[0] == '\'' || i.content[0] == '"')
-		return (i.content[0]);
+	if (i.type == T_SIMPLE_QUOTE && i.content[0] == '\'')
+		return ('\'');
+	else if (i.type == T_DOUBLE_QUOTE && i.content[0] == '"')
+		return ('"');
 	else
 		return (0);
 }

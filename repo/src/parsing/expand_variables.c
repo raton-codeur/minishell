@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 16:13:43 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:31:13 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	expand_variable(t_iterable *current, t_data *data)
 
 	if (current->content[0] == '?')
 	{
-		new_content = ft_itoa(data->exit_status);
+		new_content = ft_itoa(g_exit_status);
 		if (new_content == NULL)
 			error_exit(MALLOC, data);
 		set_token(*current, new_content, T_CHARACTER);

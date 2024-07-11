@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_tree_utils.c                                 :+:      :+:    :+:   */
+/*   expand_tree_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:44:54 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:16 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:57:54 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_list	*find_brokets(t_list *tokens)
 	set_iterable(&current, tokens);
 	while (current.node)
 	{
-		if (current.type == T_BROKET_LEFT || current.type == T_BROKET_RIGHT
+		if (current.type == T_BROKET_LEFT
+			|| current.type == T_BROKET_RIGHT
 			|| current.type == T_DOUBLE_BROKET_LEFT
 			|| current.type == T_DOUBLE_BROKET_RIGHT)
 			return (current.node);
@@ -42,12 +43,24 @@ t_list	*find_brokets(t_list *tokens)
 	return (NULL);
 }
 
-void	new_tree(t_data *data)
+static t_tree	*get_new_tree(t_list *tokens, t_data *data)
 {
-	data->tree = tree_new(NULL, data);
-	data->tree->left = tree_new(NULL, data);
-	data->tree->right = tree_new(NULL, data);
-	if (data->tree == NULL || data->tree->left == NULL
-		|| data->tree->right == NULL)
+	t_tree	*result;
+
+	result = ft_calloc(1, sizeof(t_tree));
+	if (result == NULL)
+		error_exit(MALLOC, data);
+	result->content = tokens;
+	return (result);
+}
+
+void	set_new_tree(t_data *data)
+{
+	data->tree = get_new_tree(NULL, data);
+	if (data->tree == NULL)
+		error_exit(MALLOC, data);
+	data->tree->left = get_new_tree(NULL, data);
+	data->tree->right = get_new_tree(NULL, data);
+	if (data->tree->left == NULL || data->tree->right == NULL)
 		error_exit(MALLOC, data);
 }

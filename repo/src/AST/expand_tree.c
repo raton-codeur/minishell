@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:44:09 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 23:07:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/12 00:22:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	expand_tree_pipe(t_tree **tree, t_list *node, t_data *data)
 	t_tree	*right;
 
 	tokens = (*tree)->content;
-	new_tree(data);
+	set_new_tree(data);
 	left = data->tree->left;
 	right = data->tree->right;
 	if (list_node_index(tokens, node) == 0)
@@ -44,7 +44,7 @@ static void	expand_tree_broket(t_tree **tree, t_list *node, t_data *data)
 	t_iterable	next;
 
 	set_iterables(&current, &next, node);
-	new_tree(data);
+	set_new_tree(data);
 	data->tree->content = copy_tokens(node, 1, data);
 	data->tree->left->content = copy_tokens(node->next, 1, data);
 	list_remove_node((t_list **)&(*tree)->content, node->next, free_token);
@@ -86,26 +86,26 @@ static void	expand_tree_split(t_tree **tree, t_data *data)
 	expand_tree_split(&(*tree)->left, data);
 }
 
-void	expand_tree(t_tree **tree, t_data *data)
-{
-	t_list	*node;
+// void	expand_tree(t_tree **tree, t_data *data)
+// {
+// 	t_list	*node;
 
-	if (*tree == NULL)
-		return ;
-	node = find_pipe((*tree)->content);
-	if (node)
-	{
-		if (expand_tree_pipe(tree, node, data))
-			return ;
-	}
-	else
-	{
-		node = find_brokets((*tree)->content);
-		if (node)
-			expand_tree_broket(tree, node, data);
-		expand_tree_split(tree, data);
-	}
-	expand_tree(&(*tree)->left, data);
-	if (*tree != NULL)
-		expand_tree(&(*tree)->right, data);
-}
+// 	if (*tree == NULL)
+// 		return ;
+// 	node = find_pipe((*tree)->content);
+// 	if (node)
+// 	{
+// 		if (expand_tree_pipe(tree, node, data))
+// 			return ;
+// 	}
+// 	else
+// 	{
+// 		node = find_brokets((*tree)->content);
+// 		if (node)
+// 			expand_tree_broket(tree, node, data);
+// 		expand_tree_split(tree, data);
+// 	}
+// 	expand_tree(&(*tree)->left, data);
+// 	if (*tree != NULL)
+// 		expand_tree(&(*tree)->right, data);
+// }

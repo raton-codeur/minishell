@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 23:15:06 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:33:16 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	exec_cmd_in_new_child(t_tree *tree, t_data *data)
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		data->exit_status = WEXITSTATUS(status);
+		g_exit_status = WEXITSTATUS(status);
 }
 
 static int	exec_builtin_in_parent(t_tree *tree, t_data *data)
@@ -60,7 +60,7 @@ int	end_builtin(int in_parent, int exit_status, t_data *data)
 		exit(exit_status);
 	}
 	else
-		data->exit_status = exit_status;
+		g_exit_status = exit_status;
 	return (1);
 }
 
