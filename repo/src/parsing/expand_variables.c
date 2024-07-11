@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 15:07:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 15:22:20 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,8 +207,15 @@ static void	merge_variables(t_data *data)
 	}
 }
 
-/* la liste des tokens */
-t_list	*get_tokens(char *value)
+static int	get_new_type(char c)
+{
+	if (ft_isspace(c))
+		return (T_WHITE_SPACE);
+	else
+		return (T_CHARACTER);
+}
+
+static t_list	*get_new_tokens(char *s)
 {
 	t_list		*result;
 	int			i;
@@ -216,44 +223,41 @@ t_list	*get_tokens(char *value)
 
 	result = NULL;
 	i = 0;
-	while (value[i])
+	while (s[i])
 	{
 		new.content = ft_calloc(2, sizeof(char));
 		if (new.content == NULL)
 			return (list_clear(&result, free_token), NULL);
-		new.content[0] = value[i];
+		new.content[0] = s[i];
 		new.token = ft_calloc(1, sizeof(t_token));
 		if (new.token == NULL)
-			return (free(new.content), list_clear(&result, free_token), NULL);
+			return (list_clear(&result, free_token), free(new.content), NULL);
 		new.token->content = new.content;
-		if (ft_isspace(value[i]))
-			new.token->type = T_WHITE_SPACE;
-		else
-			new.token->type = T_CHARACTER;
+		new.token->type = get_new_type(s[i]);
 		new.node = list_new(new.token);
 		if (new.node == NULL)
-			return (free_token(new.token), NULL);
+			return (list_clear(&result, free_token), \
+				free_token(new.token), NULL);
 		list_add_back(&result, new.node);
 		i++;
 	}
-	return (result);
 }
 
-		char	*value;
-		t_list	*to_insert;
+static void	insert_value(t_iterable *current, t_data *data)
+{
+	char	*value;
+	t_list	*to_insert;
 
-		value = get_value(in_env(current->content, data));
-		new_tokens = get_tokens(value);
-		if (new_tokens == NULL)
-			error_exit(MALLOC, data);
-
-		list_last(new_tokens)->next = current->node->next;
-		if (current->node->next)
-			current->node->next->previous = list_last(new_tokens);
-		new_tokens->previous = current->node;
-		current->node->next = new_tokens;
-		remove_and_update(current, NULL, data);
-
+	value = get_value(in_env(current->content, data));
+	if (get_new_tokens(&to_insert, value))
+		return (list_clear(&to_insert, free_token), error_exit(MALLOC, data));
+	list_last(to_insert)->next = current->node->next;
+	if (current->node->next)
+		current->node->next->previous = list_last(to_insert);
+	to_insert->previous = current->node;
+	current->node->next = to_insert;
+	remove_and_update(current, NULL, data);
+}
 
 static void	expand_variable(t_iterable *current, t_data *data)
 {
@@ -271,20 +275,16 @@ static void	expand_variable(t_iterable *current, t_data *data)
 		|| !in_env(current->content, data))
 		remove_and_update(current, NULL, data);
 	else
-	{
-	}
+		insert_value(current, data);
 }
 
 void	expand_variables(t_data *data)
 {
+	t_iterable	current;
 
 	find_dollar_chars(data);
 	find_variables(data);
 	merge_variables(data);
-
-
-	t_iterable	current;
-
 	set_iterable(&current, data->tokens);
 	while (current.node)
 	{
