@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 13:08:33 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 13:46:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,9 @@ static void	find_dollar_chars(t_data *data)
 	set_iterables(&current, &next, data->tokens);
 	while (current.node)
 	{
-		if (current.type == T_DOLLAR && next.type != T_CHARACTER)
+		if (current.type == T_DOLLAR
+			&& next.type != T_CHARACTER
+			&& next.type != T_DOLLAR)
 			current.token->type = T_CHARACTER;
 		if (current.type == T_DOLLAR && get_quote(next))
 			current.token->type = T_CHARACTER;
@@ -164,19 +166,39 @@ static void	find_variables(t_data *data)
 	{
 		if (current.type == T_DOLLAR)
 		{
-			remove_and_update(&current, NULL, data);
-			if (current.content[0] == '?')
+			current.token->type = T_VARIABLE;
+			set_iterable(&current, current.node->next);
+			if (ft_isword_start(current.content[0]))
+				set_variable(&current);
+			else
 			{
 				current.token->type = T_VARIABLE;
 				set_iterable(&current, current.node->next);
 			}
-			else if (ft_isword_start(current.content[0]))
-				set_variable(&current);
-			else
-				remove_and_update(&current, NULL, data);
 		}
 		else
 			set_iterable(&current, current.node->next);
+	}
+}
+
+static void	merge_variables(t_data *data)
+{
+	t_iterable	current;
+	t_iterable	next;
+	char		*new_content;
+
+	set_iterables(&current, &next, data->tokens);
+	while (current.node)
+	{
+		if (current.type == T_VARIABLE)
+		{
+			remove_and_update(&current, &next, data);
+			while (next.type == T_VARIABLE && next.content[0] != '$')
+			{
+				new_content = ft_strjoin(current.content,
+			}
+		}
+		set_iterable(&current, current.node->next);
 	}
 }
 
@@ -210,18 +232,21 @@ static void	expand_variable(t_iterable *current, t_data *data)
 
 void	expand_variables(t_data *data)
 {
-	t_iterable	current;
 
 	find_dollar_chars(data);
 	find_variables(data);
-	merge_type(data, T_VARIABLE);
+	merge_variable(data);
+
 	list_print(data->tokens, print_token);
-	set_iterable(&current, data->tokens);
-	while (current.node)
-	{
-		if (current.type == T_VARIABLE)
-			expand_variable(&current, data);
-		else
-			set_iterable(&current, current.node->next);
-	}
+
+	// t_iterable	current;
+
+	// set_iterable(&current, data->tokens);
+	// while (current.node)
+	// {
+	// 	if (current.type == T_VARIABLE)
+	// 		expand_variable(&current, data);
+	// 	else
+	// 		set_iterable(&current, current.node->next);
+	// }
 }
