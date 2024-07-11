@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:59:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 23:24:27 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 13:01:07 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parsing(t_data *data);
 /* parsing_utils.c */
 void	get_double_brokets(t_data *data);
 void	find_delimiters(t_data *data);
-void	get_words(t_data *data);
+void	clean_tokens(t_data *data);
 void	parse_brokets(t_data *data);
 
 /* init_tokens.c */

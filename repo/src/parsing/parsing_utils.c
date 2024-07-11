@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:30:49 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 23:18:23 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 13:00:29 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	find_delimiters(t_data *data)
 			while (current.type == T_WHITE_SPACE)
 				set_iterable(&current, current.node->next);
 			while (current.type == T_CHARACTER
-				|| current.type == T_DOUBLE_QUOTE
-				|| current.type == T_SIMPLE_QUOTE
 				|| current.type == T_DOLLAR)
 			{
 				current.token->type = T_DELIMITER;
@@ -44,6 +42,13 @@ void	find_delimiters(t_data *data)
 	}
 	merge_type(data, T_DELIMITER);
 	change_all_type(data, T_DELIMITER, T_WORD);
+}
+
+void	clean_tokens(t_data *data)
+{
+	merge_type(data, T_CHARACTER);
+	change_all_type(data, T_CHARACTER, T_WORD);
+	remove_all_by_type(data, T_WHITE_SPACE);
 }
 
 void	parse_brokets(t_data *data)

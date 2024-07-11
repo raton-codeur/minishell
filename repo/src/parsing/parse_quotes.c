@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:26:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 23:37:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 12:48:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,7 @@ static int	quotes_are_closed(t_data *data)
 	return (quote == 0);
 }
 
-static void	find_dollar_in_double_quote(t_data *data)
-{
-	t_iterable	current;
-	char		quote;
-
-	quote = 0;
-	set_iterable(&current, data->tokens);
-	while (current.node)
-	{
-		if (quote == 0 && get_quote(current) == '"')
-			quote = '"';
-		else if (quote && get_quote(current) == '"')
-			quote = 0;
-		else if (quote && current.content[0] == '$')
-			current.token->type = T_CHARACTER;
-		set_iterable(&current, current.node->next);
-	}
-}
-
-static void	remove_quotes(t_data *data)
+static void	find_char_in_quotes(t_data *data)
 {
 	t_iterable	current;
 	char		quote;
@@ -71,19 +52,38 @@ static void	remove_quotes(t_data *data)
 		if (quote == 0 && get_quote(current))
 		{
 			quote = get_quote(current);
-			remove_and_update(&current, NULL, data);
-		}
-		else if (quote && get_quote(current) == quote)
-		{
+			set_iterable(&current, current.node->next);
+			while (get_quote(current) != quote)
+			{
+				current.token->type = T_CHARACTER;
+				set_iterable(&current, current.node->next);
+			}
+			set_iterable(&current, current.node->next);
 			quote = 0;
-			remove_and_update(&current, NULL, data);
 		}
 		else
-		{
-			if (quote && current.type != T_DOLLAR)
-				current.token->type = T_CHARACTER;
 			set_iterable(&current, current.node->next);
-		}
+	}
+}
+
+static void	find_dollars_in_double_quotes(t_data *data)
+{
+	t_iterable	current;
+	char		quote;
+
+	quote = 0;
+	set_iterable(&current, data->tokens);
+	while (current.node)
+	{
+		if (quote == 0 && get_quote(current))
+			quote = get_quote(current);
+		else if (quote == '\'' && get_quote(current) == '\'')
+			quote = 0;
+		else if (quote == '"' && get_quote(current) == '"')
+			quote = 0;
+		else if (quote == '"' && current.content[0] == '$')
+			current.token->type = T_DOLLAR;
+		set_iterable(&current, current.node->next);
 	}
 }
 
@@ -91,8 +91,10 @@ void	parse_quotes(t_data *data)
 {
 	if (!quotes_are_closed(data))
 		return (print_error(QUOTE), reset_input(data));
+	find_char_in_quotes(data);
+	find_dollars_in_double_quotes(data);
 	change_all_consecutive(data, T_SIMPLE_QUOTE, "", T_CHARACTER);
 	change_all_consecutive(data, T_DOUBLE_QUOTE, "", T_CHARACTER);
-	find_dollar_in_double_quote(data);
-	remove_quotes(data);
+	remove_all_by_type(data, T_SIMPLE_QUOTE);
+	remove_all_by_type(data, T_DOUBLE_QUOTE);
 }

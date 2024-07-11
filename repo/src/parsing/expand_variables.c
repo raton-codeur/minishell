@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 23:38:52 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 13:08:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ static void	find_dollar_chars(t_data *data)
 	{
 		if (current.type == T_DOLLAR && next.type != T_CHARACTER)
 			current.token->type = T_CHARACTER;
+		if (current.type == T_DOLLAR && get_quote(next))
+			current.token->type = T_CHARACTER;
 		set_iterables(&current, &next, current.node->next);
 	}
 }
@@ -203,20 +205,17 @@ static void	expand_variable(t_iterable *current, t_data *data)
 			error_exit(MALLOC, data);
 		set_token(*current, new_content, T_CHARACTER);
 	}
+	set_iterable(current, current->node->next);
 }
 
 void	expand_variables(t_data *data)
 {
-	// printf("-------------------------expand_variables\n");
-	// list_print(data->tokens, print_token);
-	// printf("------------------------------\n");
+	t_iterable	current;
 
 	find_dollar_chars(data);
 	find_variables(data);
-
-
-	t_iterable	current;
-
+	merge_type(data, T_VARIABLE);
+	list_print(data->tokens, print_token);
 	set_iterable(&current, data->tokens);
 	while (current.node)
 	{
@@ -225,8 +224,4 @@ void	expand_variables(t_data *data)
 		else
 			set_iterable(&current, current.node->next);
 	}
-
-	change_all_type(data, T_VARIABLE, T_CHARACTER);
-	merge_type(data, T_CHARACTER);
-	change_all_type(data, T_CHARACTER, T_WORD);
 }
