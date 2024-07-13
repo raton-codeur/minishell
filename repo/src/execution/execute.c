@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 22:13:03 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 23:32:47 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ static int	run_builtin_in_parent(t_tree *tree, t_data *data)
 
 int	end_builtin(int in_parent, int exit_status, t_data *data)
 {
+	g_exit_status = exit_status;
 	if (!in_parent)
 	{
 		free_all(data);
 		exit(exit_status);
 	}
-	else
-		g_exit_status = exit_status;
 	return (1);
 }
 

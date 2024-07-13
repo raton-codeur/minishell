@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:26:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 23:20:30 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 23:18:00 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ void	get_char_in_quotes(t_data *data)
 static void	find_dollars_in_double_quotes(t_data *data)
 {
 	t_iterable	current;
+	t_iterable	next;
 	char		quote;
 
 	quote = 0;
-	set_iterable(&current, data->tokens);
+	set_iterables(&current, &next, data->tokens);
 	while (current.node)
 	{
 		if (quote == 0 && get_quote(current))
@@ -83,9 +84,10 @@ static void	find_dollars_in_double_quotes(t_data *data)
 			quote = 0;
 		else if (quote == '"' && get_quote(current) == '"')
 			quote = 0;
-		else if (quote == '"' && current.content[0] == '$')
+		else if (quote == '"' && current.content[0] == '$'
+			&& !(next.node && ft_isspace(next.content[0])))
 			current.token->type = T_DOLLAR;
-		set_iterable(&current, current.node->next);
+		set_iterables(&current, &next, current.node->next);
 	}
 }
 

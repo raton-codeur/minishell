@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/11 17:11:00 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 23:26:21 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	export_error(t_list *new, t_data *data)
 {
 	printf("minishell: export: `%s': not a valid identifier\n", get_key(new));
 	list_remove_node(&data->env, new, free_kv);
+	g_exit_status = 1;
 }
 
 static t_kv	*copy_env_content(t_kv *content)
@@ -112,6 +113,7 @@ static void	add_export_variable(t_data *data)
 		new = insert_in_env(data->cmd->argv[i], data);
 		if (ft_isword_start(get_key(new)[0]) == 0)
 			return (export_error(new, data));
+		// tant que on est pas sur le egual, si il y a un car qui nest pas un word content -> error
 		i++;
 	}
 }

@@ -1,3 +1,8 @@
+quand on fait export A=
+on est en train de definir la cle "A="...
+
+il y a une difference entre export A et export A=
+au niveau de laffichage
 -
 [2] minishell >>> a|<fd
          <
@@ -13,7 +18,7 @@ alors que
 [130] bash >>> a|<df
 bash: df: No such file or directory
 a: command not found
-[0] bash >>> 
+[0] bash >>>
 -
 [0] minishell >>> export "r = t"
 ne fait rien alors quil faut afficher une erreur comme :
