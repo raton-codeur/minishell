@@ -31,8 +31,8 @@ re : clean all
 .PHONY : all clean fclean re
 
 test :
-	make
-	./minishell
+	@ make --no-print-directory
+	@ ./minishell
 
 valgrind :
 	make

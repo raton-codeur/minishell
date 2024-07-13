@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:19:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 17:08:12 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:25:50 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void	split_tree_pipe(t_tree **tree, t_list *pipe, t_data *data)
 	*tree = data->tree;
 	data->tree = NULL;
 	expand_tree(&(*tree)->left, data);
-	expand_tree(&(*tree)->right, data);
+	if (*tree)
+		expand_tree(&(*tree)->right, data);
 }
 
 static void	split_tree_broket(t_tree **tree, t_list *broket, t_data *data)
@@ -67,7 +68,7 @@ static void	split_tree(t_tree **tree, t_data *data)
 	if (tokens == NULL || list_size(tokens) == 1)
 		return ;
 	new_tree(data);
-	free(data->tree->left);
+	tree_clear(&data->tree->left);
 	data->tree->content = copy_tokens(tokens, 1, data);
 	data->tree->right->content
 		= copy_tokens(tokens->next, list_size(tokens->next), data);

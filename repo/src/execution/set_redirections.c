@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:47 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 17:05:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:20:40 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	set_redirections(t_tree **tree, t_data *data)
 {
 	int	broket;
 
+	if (*tree == NULL)
+		return (0);
 	broket = get_broket((*tree)->content);
 	if (broket == 0)
 		return (0);

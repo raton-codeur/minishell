@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:33:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 12:05:28 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:54:54 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	get_argc(t_tree *tree)
 {
 	if (tree == NULL)
 		return (0);
-	return (1 + get_argc(tree->left));
+	return (1 + get_argc(tree->right));
 }
 
 static void	prepare_argv(t_tree *tree, t_data *data)
@@ -60,7 +60,7 @@ static void	prepare_argv(t_tree *tree, t_data *data)
 	while (i < data->cmd->argc)
 	{
 		data->cmd->argv[i++] = get_content(tree);
-		tree = tree->left;
+		tree = tree->right;
 	}
 	data->cmd->argv[i] = NULL;
 }

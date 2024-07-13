@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 14:12:52 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:43:59 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define EXECUTION_H
 
 # include "ast.h"
+
+/* execute.c */
+void		execute(t_data *data);
+int			end_builtin(int in_parent, int exit_status, t_data *data);
 
 /* get_heredocs.c */
 void		get_heredocs(t_tree **tree, t_data *data);
@@ -24,10 +28,6 @@ int			set_redirections(t_tree **tree, t_data *data);
 /* prepare_exec.c */
 void		prepare_exec_absolute(t_tree *tree, t_data *data);
 void		prepare_exec_relative(t_tree *tree, t_data *data);
-
-/* execute.c */
-void		execute(t_data *data);
-int			end_builtin(int in_parent, int exit_status, t_data *data);
 
 /* run_cmd.c */
 void		run_cmd(t_tree *tree, t_data *data);
