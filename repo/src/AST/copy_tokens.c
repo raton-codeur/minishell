@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_AST.c                                        :+:      :+:    :+:   */
+/*   copy_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 10:19:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 23:14:23 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/07/11 23:40:02 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/07/13 14:12:52 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AST.h"
+#include "ast.h"
 
 static int	copy_token_content(t_iterable current, t_iterable *current_copy)
 {
@@ -56,27 +56,4 @@ t_list	*copy_tokens(t_list *tokens, int size, t_data *data)
 		i++;
 	}
 	return (result);
-}
-
-t_tree	*tree_new(t_list *tokens, t_data *data)
-{
-	t_tree	*result;
-
-	result = ft_calloc(1, sizeof(t_tree));
-	if (result == NULL)
-		error_exit(MALLOC, data);
-	result->content = tokens;
-	return (result);
-}
-
-void	build_AST(t_data *data)
-{
-	if (data->tokens == NULL)
-		return ;
-	data->ast = ft_calloc(1, sizeof(t_tree));
-	if (data->ast == NULL)
-		error_exit(MALLOC, data);
-	data->ast->content = copy_tokens(\
-		data->tokens, list_size(data->tokens), data);
-	expand_tree(&data->ast, data);
 }

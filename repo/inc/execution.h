@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 15:49:18 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:12:52 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
-# include "AST.h"
+# include "ast.h"
 
 /* get_heredocs.c */
 void		get_heredocs(t_tree **tree, t_data *data);

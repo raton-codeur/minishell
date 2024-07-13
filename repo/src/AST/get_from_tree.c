@@ -6,11 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:23:40 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:16 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 14:12:52 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AST.h"
+#include "ast.h"
 
 char	*get_content(t_tree *tree)
 {

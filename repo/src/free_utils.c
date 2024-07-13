@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:27:35 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/07 16:36:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:04:01 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	tree_clear(t_tree **tree)
 {
 	if (*tree == NULL)
 		return ;
+	list_clear((t_list **)&(*tree)->content, free_token);
 	tree_clear(&(*tree)->left);
 	tree_clear(&(*tree)->right);
-	list_clear((t_list **)&(*tree)->content, free_token);
 	free(*tree);
 	*tree = NULL;
 }

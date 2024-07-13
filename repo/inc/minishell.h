@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 15:58:27 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:18:26 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	fd_error(char *file, t_data *data);
 /* error_2.c */
 void	cmd_pathname_error(char *cmd, t_data *data);
 
-/* init_data.c */
+/* data_utils.c */
 void	get_input(t_data *data);
 void	get_path(t_data *data);
 void	init_data(t_data *data, int argc, char **argv, char **envp);

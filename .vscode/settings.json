@@ -10,7 +10,7 @@
 		"tuple": "c",
 		"type_traits": "c",
 		"utility": "c",
-		"AST.h": "c",
+		"ast.h": "c",
 		"parsing.h": "c",
 		"minishell.h": "c",
 		"libft.h": "c",
