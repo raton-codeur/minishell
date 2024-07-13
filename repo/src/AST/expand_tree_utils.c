@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:44:54 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 16:19:04 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:23:04 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_list	*find_broket(t_list **node, t_tree *tree)
 	set_iterable(&current, tree->content);
 	while (current.node)
 	{
-		if (current.type == T_BROKET_LEFT || current.type == T_BROKET_RIGHT
+		if (current.type == T_BROKET_LEFT
+			|| current.type == T_BROKET_RIGHT
 			|| current.type == T_DOUBLE_BROKET_LEFT
 			|| current.type == T_DOUBLE_BROKET_RIGHT)
 		{
@@ -50,7 +51,7 @@ t_list	*find_broket(t_list **node, t_tree *tree)
 	return (NULL);
 }
 
-void	new_tree(t_data *data)
+t_tree	*new_tree(t_list *tokens, t_data *data)
 {
 	data->tree = ft_calloc(1, sizeof(t_tree));
 	if (data->tree == NULL)

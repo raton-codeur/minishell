@@ -6,11 +6,10 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:39:25 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 16:14:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:37:10 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
 #include "execution.h"
 
 static void	set_variable(t_iterable *current)

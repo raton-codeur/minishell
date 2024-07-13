@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 10:46:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:23:16 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_for_reset_input(t_data *data)
+void	free_input(t_data *data)
 {
 	free(data->input);
 	data->input = NULL;
@@ -32,13 +32,13 @@ void	free_for_reset_input(t_data *data)
 
 void	reset_input(t_data *data)
 {
-	free_for_reset_input(data);
+	free_input(data);
 	get_path(data);
 }
 
 void	free_all(t_data *data)
 {
-	free_for_reset_input(data);
+	free_input(data);
 	list_clear(&data->env, free_kv);
 	rl_clear_history();
 }

@@ -6,11 +6,10 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:15:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:37:01 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "execution.h"
 
 void	print_type(int type)

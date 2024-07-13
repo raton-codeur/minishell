@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 15:59:29 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/11 23:32:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_input(t_data *data)
 	char	*prompt;
 	char	*save;
 
-	prompt = ft_itoa(data->exit_status);
+	prompt = ft_itoa(g_exit_status);
 	if (prompt == NULL)
 		error_exit(MALLOC, data);
 	save = prompt;
