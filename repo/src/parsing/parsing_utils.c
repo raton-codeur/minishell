@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:30:49 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 23:08:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:58:54 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ void	parse_brokets(t_data *data)
 	set_iterables(&current, &next, data->tokens);
 	while (current.node)
 	{
-		if (current.type == T_BROKET_LEFT
-			|| current.type == T_BROKET_RIGHT
-			|| current.type == T_DOUBLE_BROKET_LEFT
-			|| current.type == T_DOUBLE_BROKET_RIGHT)
+		if (get_broket(current.node))
 		{
 			if (next.node == NULL)
 				return (syntax_error("newline", data));

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 23:33:16 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:05:51 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	exec_cmd_in_new_child(t_tree *tree, t_data *data)
 
 static int	exec_builtin_in_parent(t_tree *tree, t_data *data)
 {
-	while (is_broket(tree))
+	while (get_broket(tree->content))
 		tree = tree->right;
 	if (tree == NULL)
 		return (0);

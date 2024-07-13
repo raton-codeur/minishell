@@ -6,37 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 14:46:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:38:32 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	get_input(t_data *data)
-{
-	char	*prompt;
-	char	*save;
-
-	prompt = NULL;
-	if (prompt == NULL)
-		error_exit(MALLOC, data);
-	save = prompt;
-	prompt = ft_strjoin("[", prompt);
-	free(save);
-	if (prompt == NULL)
-		error_exit(MALLOC, data);
-	save = prompt;
-	prompt = ft_strjoin(prompt, "] minishell >>> ");
-	free(save);
-	if (prompt == NULL)
-		error_exit(MALLOC, data);
-	data->input = readline(prompt);
-	free(prompt);
-	if (data->input == NULL)
-		error_exit(READLINE, data);
-	if (data->input[0] != '\0' && !ft_strisspace(data->input))
-		add_history(data->input);
-}
 
 static char	**add_slash(char **path)
 {
@@ -100,4 +74,30 @@ void	init_data(t_data *data, int argc, char **argv, char **envp)
 	data->out = 1;
 	init_env(data, envp);
 	get_path(data);
+}
+
+void	get_input(t_data *data)
+{
+	char	*prompt;
+	char	*save;
+
+	prompt = ft_itoa(g_exit_status);
+	if (prompt == NULL)
+		error_exit(MALLOC, data);
+	save = prompt;
+	prompt = ft_strjoin("[", prompt);
+	free(save);
+	if (prompt == NULL)
+		error_exit(MALLOC, data);
+	save = prompt;
+	prompt = ft_strjoin(prompt, "] minishell >>> ");
+	free(save);
+	if (prompt == NULL)
+		error_exit(MALLOC, data);
+	data->input = readline(prompt);
+	free(prompt);
+	if (data->input == NULL)
+		error_exit(READLINE, data);
+	if (data->input[0] != '\0' && !ft_strisspace(data->input))
+		add_history(data->input);
 }

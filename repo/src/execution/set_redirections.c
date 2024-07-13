@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:36:47 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:05:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,18 @@ static void	set_here_doc(t_tree **tree, t_data *data)
 
 int	set_redirections(t_tree **tree, t_data *data)
 {
-	if (!is_broket(*tree))
+	int	broket;
+
+	broket = get_broket((*tree)->content);
+	if (broket == 0)
 		return (0);
-	if (get_type(*tree) == T_BROKET_LEFT)
+	if (broket == T_BROKET_LEFT)
 		set_in(tree, data);
-	else if (get_type(*tree) == T_BROKET_RIGHT)
+	else if (broket == T_BROKET_RIGHT)
 		set_out(tree, data);
-	else if (get_type(*tree) == T_DOUBLE_BROKET_RIGHT)
+	else if (broket == T_DOUBLE_BROKET_RIGHT)
 		set_append(tree, data);
-	else if (get_type(*tree) == T_DOUBLE_BROKET_LEFT)
+	else if (broket == T_DOUBLE_BROKET_LEFT)
 		set_here_doc(tree, data);
 	*tree = (*tree)->right;
 	return (set_redirections(tree, data));

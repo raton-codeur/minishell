@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:05:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	get_heredocs_cmd(t_tree **tree, t_data *data)
 	t_tree	*current;
 
 	current = *tree;
-	while (is_broket(current))
+	while (get_broket(current->content))
 	{
 		if (get_type(current) == T_DOUBLE_BROKET_LEFT)
 		{

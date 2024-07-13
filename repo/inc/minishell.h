@@ -6,11 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/07/13 16:18:26 by qhauuy           ###   ########.fr       */
-=======
-/*   Updated: 2024/07/11 23:28:46 by qhauuy           ###   ########.fr       */
->>>>>>> 31260249afa83f1a2005fc9e3ad180e4a67731c3
+/*   Updated: 2024/07/13 16:38:47 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +157,9 @@ void	fd_error(char *file, t_data *data);
 void	cmd_pathname_error(char *cmd, t_data *data);
 
 /* data_utils.c */
-void	get_input(t_data *data);
 void	get_path(t_data *data);
 void	init_data(t_data *data, int argc, char **argv, char **envp);
+void	get_input(t_data *data);
 
 /* minimum_env.c */
 void	minimum_env(t_data *data);
