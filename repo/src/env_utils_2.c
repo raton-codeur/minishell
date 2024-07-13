@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 10:03:08 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 22:31:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,22 @@ t_list	*insert_in_env(char *envp_line, t_data *data)
 	return (result);
 }
 
+static char	*get_envp_line(t_list *node)
+{
+	char	*tmp;
+	char	*result;
+
+	tmp = ft_strjoin(get_key(node), "=");
+	if (tmp == NULL)
+		return (NULL);
+	result = ft_strjoin(tmp, get_value(node));
+	free(tmp);
+	return (result);
+}
+
 char	**get_envp(t_data *data)
 {
 	char	**result;
-	char	*tmp;
 	t_list	*current;
 	int		i;
 
@@ -94,20 +106,17 @@ char	**get_envp(t_data *data)
 	i = 0;
 	while (current)
 	{
-		if (get_value(current)[0] == '\0')
+		if (get_value(current)[0] != '\0')
 		{
-			current = current->next;
-			continue ;
+			result[i] = get_envp_line(current);
+			if (result[i] == NULL)
+			{
+				deep_free((void **)result, i);
+				return (error_exit(MALLOC, data), NULL);
+			}
+			i++;
 		}
-		tmp = ft_strjoin(get_key(current), "=");
-		if (tmp == NULL)
-			return (deep_free((void **)result, i), error_exit(MALLOC, data), NULL);
-		result[i] = ft_strjoin(tmp, get_value(current));
-		free(tmp);
-		if (result[i] == NULL)
-			return (deep_free((void **)result, i), error_exit(MALLOC, data), NULL);
 		current = current->next;
-		i++;
 	}
 	result[i] = NULL;
 	return (result);

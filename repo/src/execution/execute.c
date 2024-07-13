@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 17:53:47 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 22:13:03 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static void	new_child(t_tree *tree, t_data *data)
+static void	run_in_new_child(t_tree *tree, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -68,5 +68,5 @@ void	execute(t_data *data)
 		return ;
 	get_heredocs(&data->ast, data);
 	if (!run_builtin_in_parent(data->ast, data))
-		new_child(data->ast, data);
+		run_in_new_child(data->ast, data);
 }

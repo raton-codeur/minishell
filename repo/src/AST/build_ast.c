@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:19:45 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 17:25:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 22:57:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static void	split_tree_pipe(t_tree **tree, t_list *pipe, t_data *data)
 		return (syntax_error("|", data));
 	new_tree(data);
 	data->tree->left->content
-		= copy_tokens(tokens, list_node_index(tokens, pipe), data);
-	data->tree->content = copy_tokens(pipe, 1, data);
+		= get_tokens(tokens, list_node_index(tokens, pipe), data);
+	data->tree->content = get_tokens(pipe, 1, data);
 	if (list_size(pipe->next) == 0)
 		return (syntax_error("|", data));
 	data->tree->right->content
-		= copy_tokens(pipe->next, list_size(pipe->next), data);
+		= get_tokens(pipe->next, list_size(pipe->next), data);
 	if (data->tree->content == NULL
 		|| data->tree->left->content == NULL
 		|| data->tree->right->content == NULL)
@@ -42,12 +42,12 @@ static void	split_tree_pipe(t_tree **tree, t_list *pipe, t_data *data)
 static void	split_tree_broket(t_tree **tree, t_list *broket, t_data *data)
 {
 	new_tree(data);
-	data->tree->content = copy_tokens(broket, 1, data);
-	data->tree->left->content = copy_tokens(broket->next, 1, data);
+	data->tree->content = get_tokens(broket, 1, data);
+	data->tree->left->content = get_tokens(broket->next, 1, data);
 	list_remove_node((t_list **)&(*tree)->content, broket->next, free_token);
 	list_remove_node((t_list **)&(*tree)->content, broket, free_token);
 	data->tree->right->content
-		= copy_tokens((*tree)->content, list_size((*tree)->content), data);
+		= get_tokens((*tree)->content, list_size((*tree)->content), data);
 	if ((*tree)->content == NULL)
 		tree_clear(&data->tree->right);
 	if (data->tree->content == NULL
@@ -69,9 +69,9 @@ static void	split_tree(t_tree **tree, t_data *data)
 		return ;
 	new_tree(data);
 	tree_clear(&data->tree->left);
-	data->tree->content = copy_tokens(tokens, 1, data);
+	data->tree->content = get_tokens(tokens, 1, data);
 	data->tree->right->content
-		= copy_tokens(tokens->next, list_size(tokens->next), data);
+		= get_tokens(tokens->next, list_size(tokens->next), data);
 	if (data->tree->content == NULL || data->tree->right->content == NULL)
 		error_exit(MALLOC, data);
 	tree_clear(tree);
@@ -101,7 +101,7 @@ void	build_ast(t_data *data)
 	data->ast = ft_calloc(1, sizeof(t_tree));
 	if (data->ast == NULL)
 		error_exit(MALLOC, data);
-	data->ast->content = copy_tokens(\
+	data->ast->content = get_tokens(\
 		data->tokens, list_size(data->tokens), data);
 	expand_tree(&data->ast, data);
 }

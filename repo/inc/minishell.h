@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 16:38:47 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 21:46:43 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ enum e_error
 	LEXING,
 	QUOTE,
 	PIPE,
-	FORK,
-	ENV
+	FORK
 };
 
 typedef struct s_kv

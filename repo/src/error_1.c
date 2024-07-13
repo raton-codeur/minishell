@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 23:35:03 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/13 21:47:49 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_error(int code)
 {
-	if (code != DEFAULT)
+	if (code)
 		ft_putstr_fd("minishell: ", 2);
 	if (code == MALLOC)
 		ft_putendl_fd("memory allocation error", 2);
