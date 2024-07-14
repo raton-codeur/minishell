@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 15:55:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 16:39:23 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
- void	run_in_new_child(t_tree *tree, t_data *data)
+static void	run_in_new_child(t_tree *tree, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -34,7 +34,7 @@
 		g_exit_status = WEXITSTATUS(status);
 }
 
- int	run_builtin_in_parent(t_tree *tree, t_data *data)
+static int	run_builtin_in_parent(t_tree *tree, t_data *data)
 {
 	while (tree && get_broket(tree->content))
 		tree = tree->right;
@@ -68,6 +68,6 @@ void	execute(t_data *data)
 	if (data->ast == NULL)
 		return ;
 	get_heredocs(&data->ast, data);
-	// if (!run_builtin_in_parent(data->ast, data))
-	// 	run_in_new_child(data->ast, data);
+	if (!run_builtin_in_parent(data->ast, data))
+		run_in_new_child(data->ast, data);
 }

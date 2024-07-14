@@ -6,13 +6,11 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 16:34:46 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 16:38:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
-
 
 static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 {
