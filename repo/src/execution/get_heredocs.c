@@ -6,25 +6,31 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 16:38:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 16:56:50 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+static int	is_delimiter(char *line, char *delimiter)
+{
+	if (ft_strchr(line, '\n'))
+		*strchr(line, '\n') = '\0';
+	return (ft_strcmp(line, delimiter) == 0);
+}
+
 static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 {
 	char	*line;
-	int		n;
 
-	n = ft_strlen(delimiter);
 	ft_putstr_fd("heredoc >>> ", 1);
 	errno = 0;
 	line = get_next_line(0);
 	if (line == NULL && errno)
 		heredoc_error(pipe_, data);
-	while (line && ft_strncmp(line, delimiter, n) != 0)
+	while (line && !is_delimiter(line, delimiter))
 	{
+		line[ft_strlen(line)] = '\n';
 		write(pipe_[1], line, ft_strlen(line));
 		free(line);
 		ft_putstr_fd("heredoc >>> ", 1);
@@ -64,8 +70,8 @@ void	get_heredocs(t_tree **tree, t_data *data)
 		return ;
 	if (get_type(*tree) == T_PIPE)
 	{
-		get_heredocs_cmd(&(*tree)->right, data);
 		get_heredocs(&(*tree)->left, data);
+		get_heredocs_cmd(&(*tree)->right, data);
 	}
 	else
 		get_heredocs_cmd(tree, data);
