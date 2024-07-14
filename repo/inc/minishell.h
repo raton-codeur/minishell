@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 21:46:43 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:27:03 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,16 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
-/* readline, rl_clear_history, rl_on_new_line
-       rl_replace_line, rl_redisplay, add_history */
 # include <stdio.h>
-/* printf, perror */
 # include <stdlib.h>
-/* malloc, free, exit, getenv */
 # include <unistd.h>
-/* write, access, open, read, close, fork
-       getcwd, chdir, unlink, execve, dup, dup2
-       pipe, isatty, ttyname, ttyslot */
 # include <sys/types.h>
-/* wait, waitpid, wait3, wait4, kill */
 # include <sys/stat.h>
-/* stat, lstat, fstat */
 # include <sys/wait.h>
-/* wait, waitpid, wait3, wait4 */
 # include <signal.h>
-/* signal, sigaction, sigemptyset, sigaddset */
 # include <dirent.h>
-/* opendir, readdir, closedir */
+# include <errno.h>
 # include <string.h>
-/* strerror */
-# include <sys/ioctl.h>
-/* ioctl */
-# include <termios.h>
-/* tcsetattr, tcgetattr */
-# include <curses.h>
-/* tgetent, tgetflag, tgetnum, tgetstr
-       tgoto, tputs */
-
 # include "libft.h"
 
 enum e_token
@@ -154,10 +134,13 @@ void	fd_error(char *file, t_data *data);
 
 /* error_2.c */
 void	cmd_pathname_error(char *cmd, t_data *data);
+void	heredoc_error(t_data *data);
 
-/* data_utils.c */
-void	get_path(t_data *data);
+/* data_utils_1.c */
 void	init_data(t_data *data, int argc, char **argv, char **envp);
+void	get_path(t_data *data);
+
+/* data_utils_2.c */
 void	get_input(t_data *data);
 
 /* minimum_env.c */

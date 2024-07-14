@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 13:29:19 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 14:13:45 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 {
 	char	*line;
 
+	printf("---------------\nerrno avant printf %d\n", errno);
 	printf("heredoc> ");
 	line = get_next_line(0);
-	if (line == NULL)
+	printf("errno apres gnl %d\n----------------\n", errno);
+	if (line == NULL && errno)
 		return (close_2(pipe_), error_exit(READLINE, data));
+	else if (line == NULL)
+		return ;
 	while (ft_strcmp(line, delimiter) != 0)
 	{
 		write(pipe_[1], line, ft_strlen(line));
