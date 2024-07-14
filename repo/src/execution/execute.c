@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 16:39:23 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 17:21:24 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	run_builtin_in_parent(t_tree *tree, t_data *data)
 	if (tree == NULL)
 		return (1);
 	if (ft_strcmp(get_content(tree), "cd") == 0)
-		return (cd_(tree, data, 1));
+		return (cd_(tree, data, 1), 1);
 	else if (ft_strcmp(get_content(tree), "export") == 0)
 		return (export_(tree, data, 1));
 	else if (ft_strcmp(get_content(tree), "unset") == 0)
