@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:58:43 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 15:07:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 16:30:22 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@ void	cmd_pathname_error(char *cmd, t_data *data)
 {
 	char	*message;
 
-	message = ft_strjoin(cmd, ": command not found");
+	message = ft_strjoin(cmd, ": command not found\n");
 	if (!message)
 		error_exit(MALLOC, data);
-	ft_putendl_fd(message, 2);
+	ft_putstr_fd(message, 2);
 	free(message);
 	free_all(data);
 	exit(127);
 }
 
-void	heredoc_error(t_data *data)
+void	heredoc_error(int pipe_[2], t_data *data)
 {
-	perror("minishell");
+	ft_putchar_fd('\n', 1);
+	perror("minishell: get_next_line");
+	close_2(pipe_);
+	error_exit(0, data);
 	free_all(data);
 	exit(1);
 }

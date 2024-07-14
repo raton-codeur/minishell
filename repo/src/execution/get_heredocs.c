@@ -6,33 +6,36 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 14:13:45 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 16:34:46 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+
+
 static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 {
 	char	*line;
+	int		n;
 
-	printf("---------------\nerrno avant printf %d\n", errno);
-	printf("heredoc> ");
+	n = ft_strlen(delimiter);
+	ft_putstr_fd("heredoc >>> ", 1);
+	errno = 0;
 	line = get_next_line(0);
-	printf("errno apres gnl %d\n----------------\n", errno);
 	if (line == NULL && errno)
-		return (close_2(pipe_), error_exit(READLINE, data));
-	else if (line == NULL)
-		return ;
-	while (ft_strcmp(line, delimiter) != 0)
+		heredoc_error(pipe_, data);
+	while (line && ft_strncmp(line, delimiter, n) != 0)
 	{
 		write(pipe_[1], line, ft_strlen(line));
-		write(pipe_[1], "\n", 1);
 		free(line);
-		line = readline("heredoc> ");
-		if (line == NULL)
-			return (close_2(pipe_), error_exit(READLINE, data));
+		ft_putstr_fd("heredoc >>> ", 1);
+		line = get_next_line(0);
+		if (line == NULL && errno)
+			return (heredoc_error(pipe_, data));
 	}
+	if (line == NULL)
+		ft_putchar_fd('\n', 1);
 	free(line);
 }
 
@@ -42,7 +45,7 @@ static void	get_heredocs_cmd(t_tree **tree, t_data *data)
 	t_tree	*current;
 
 	current = *tree;
-	while (get_broket(current->content))
+	while (current && get_broket(current->content))
 	{
 		if (get_type(current) == T_DOUBLE_BROKET_LEFT)
 		{

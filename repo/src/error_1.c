@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 21:47:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 16:30:08 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,21 @@
 
 void	print_error(int code)
 {
-	if (code)
-		ft_putstr_fd("minishell: ", 2);
 	if (code == MALLOC)
-		ft_putendl_fd("memory allocation error", 2);
+		ft_putendl_fd("minishell: memory allocation error", 2);
 	else if (code == READLINE)
-		ft_putendl_fd("readline failed", 2);
+		perror("minishell: readline");
 	else if (code == LEXING)
-		ft_putendl_fd("lexical error", 2);
+		ft_putendl_fd("minishell: lexical error", 2);
 	else if (code == QUOTE)
-		ft_putendl_fd("invalid quotes", 2);
+		ft_putendl_fd("minishell: invalid quotes", 2);
 	else if (code == PIPE)
-		ft_putendl_fd("pipe failed", 2);
+		perror("pipe");
 	else if (code == FORK)
-		ft_putendl_fd("fork failed", 2);
+		perror("fork");
 }
 
-void	error(int code, t_data *data)
+void	error_reset(int code, t_data *data)
 {
 	print_error(code);
 	reset_input(data);
@@ -50,13 +48,13 @@ void	syntax_error(char *token, t_data *data)
 
 	message = ft_strjoin(\
 		"minishell: syntax error near unexpected token `", token);
-	if (!message)
+	if (message == NULL)
 		error_exit(MALLOC, data);
-	message_join = ft_strjoin(message, "'");
+	message_join = ft_strjoin(message, "'\n");
 	free(message);
-	if (!message_join)
+	if (message_join == NULL)
 		error_exit(MALLOC, data);
-	ft_putendl_fd(message_join, 2);
+	ft_putstr_fd(message_join, 2);
 	free(message_join);
 	reset_input(data);
 	g_exit_status = 2;

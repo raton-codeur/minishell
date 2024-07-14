@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 23:32:47 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:55:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static void	run_in_new_child(t_tree *tree, t_data *data)
+ void	run_in_new_child(t_tree *tree, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -34,10 +34,12 @@ static void	run_in_new_child(t_tree *tree, t_data *data)
 		g_exit_status = WEXITSTATUS(status);
 }
 
-static int	run_builtin_in_parent(t_tree *tree, t_data *data)
+ int	run_builtin_in_parent(t_tree *tree, t_data *data)
 {
-	while (get_broket(tree->content))
+	while (tree && get_broket(tree->content))
 		tree = tree->right;
+	if (tree == NULL)
+		return (1);
 	if (ft_strcmp(get_content(tree), "cd") == 0)
 		return (cd_(tree, data, 1));
 	else if (ft_strcmp(get_content(tree), "export") == 0)
@@ -66,6 +68,6 @@ void	execute(t_data *data)
 	if (data->ast == NULL)
 		return ;
 	get_heredocs(&data->ast, data);
-	if (!run_builtin_in_parent(data->ast, data))
-		run_in_new_child(data->ast, data);
+	// if (!run_builtin_in_parent(data->ast, data))
+	// 	run_in_new_child(data->ast, data);
 }

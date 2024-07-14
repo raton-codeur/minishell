@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 15:27:03 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 16:30:44 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ enum e_error
 	LEXING,
 	QUOTE,
 	PIPE,
-	FORK
+	FORK,
 };
 
 typedef struct s_kv
@@ -134,7 +134,7 @@ void	fd_error(char *file, t_data *data);
 
 /* error_2.c */
 void	cmd_pathname_error(char *cmd, t_data *data);
-void	heredoc_error(t_data *data);
+void	heredoc_error(int pipe_[2], t_data *data);
 
 /* data_utils_1.c */
 void	init_data(t_data *data, int argc, char **argv, char **envp);

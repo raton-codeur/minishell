@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 16:54:05 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 17:21:48 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 15:42:23 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	get_broket(t_list *node)
 {
 	t_token	*token;
 
+	if (node == NULL)
+		return (0);
 	token = node->content;
 	if (token->type == T_BROKET_LEFT)
 		return (T_BROKET_LEFT);
