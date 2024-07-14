@@ -6,20 +6,21 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 17:05:46 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 13:29:19 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static void	get_heredoc_readline(t_tree *current, int pipe_[2], t_data *data)
+static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 {
 	char	*line;
 
-	line = readline("heredoc> ");
+	printf("heredoc> ");
+	line = get_next_line(0);
 	if (line == NULL)
 		return (close_2(pipe_), error_exit(READLINE, data));
-	while (ft_strcmp(line, get_content(current->left)) != 0)
+	while (ft_strcmp(line, delimiter) != 0)
 	{
 		write(pipe_[1], line, ft_strlen(line));
 		write(pipe_[1], "\n", 1);
@@ -43,9 +44,9 @@ static void	get_heredocs_cmd(t_tree **tree, t_data *data)
 		{
 			if (pipe(pipe_))
 				error_exit(PIPE, data);
-			get_heredoc_readline(current, pipe_, data);
+			get_heredoc(get_content(current->left), pipe_, data);
 			close(pipe_[1]);
-			((t_token *)((t_list *)((current)->content))->content)->here_doc \
+			((t_token *)((t_list *)((current)->content))->content)->here_doc
 				= pipe_[0];
 		}
 		current = current->right;

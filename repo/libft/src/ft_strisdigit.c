@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:04:54 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 10:05:26 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/14 13:12:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strisdigit(char *s)
+int	ft_strisdigit(char *s)
 {
 	int	i;
 
