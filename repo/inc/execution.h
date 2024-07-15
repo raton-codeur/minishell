@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 13:43:30 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:06:54 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,9 @@ void		exit_(t_tree *tree, t_data *data, int in_parent);
 /* exit_utils.c */
 int			is_long_long(char *n, t_data *data);
 long long	ft_atoll(const char *s);
+
+/* signals.c */
+void		sigint_handler_parent(int sig);
+void		sigint_handler_child(int sig);
 
 #endif

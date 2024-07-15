@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 14:07:16 by jteste           ###   ########.fr       */
+/*   Created: 2024/07/15 14:05:28 by jteste            #+#    #+#             */
+/*   Updated: 2024/07/15 14:19:22 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-unsigned char	g_exit_status;
-
-int	main(int argc, char **argv, char **envp)
+void	sigint_handler_parent(int sig)
 {
-	t_data	data;
-
-	init_data(&data, argc, argv, envp);
-	signal(SIGINT, sigint_handler_parent);
-	signal(SIGQUIT, SIG_IGN);
-	while (1)
+	if (sig == SIGINT)
 	{
-		signal(SIGINT, sigint_handler_parent);
-		get_input(&data);
-		parse(&data);
-		list_print(data.tokens, print_token);
-		build_ast(&data);
-		tree_print(data.ast);
-		execute(&data);
-		reset_input(&data);
+		g_exit_status = 130;
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	return (free_all(&data), 0);
+}
+
+void	sigint_handler_child(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_exit_status = 130;
+		printf("\n");
+	}
+}
+
+void	sigint_handler_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_exit_status = 130;
+	}
 }

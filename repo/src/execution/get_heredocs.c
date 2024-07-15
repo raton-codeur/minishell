@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredocs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 16:56:50 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:19:57 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 		heredoc_error(pipe_, data);
 	while (line && !is_delimiter(line, delimiter))
 	{
+		if (g_exit_status == 130)
+		{
+		
+		}
+		
 		line[ft_strlen(line)] = '\n';
 		write(pipe_[1], line, ft_strlen(line));
 		free(line);
