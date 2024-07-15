@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 14:13:24 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:30:51 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	execute(t_data *data)
 	if (data->ast == NULL)
 		return ;
 	get_heredocs(&data->ast, data);
+	if (data->ast == NULL)
+		return ;
 	if (run_builtin_in_parent(data->ast, data))
 		return ;
 	signal(SIGINT, sigint_handler_child);

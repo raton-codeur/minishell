@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredocs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 14:19:57 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:29:15 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 static int	is_delimiter(char *line, char *delimiter)
 {
+	int	result;
+
 	if (ft_strchr(line, '\n'))
-		*strchr(line, '\n') = '\0';
-	return (ft_strcmp(line, delimiter) == 0);
+	{
+		line[ft_strlen(line) - 1] = '\0';
+		result = ft_strcmp(line, delimiter) == 0;
+		line[ft_strlen(line)] = '\n';
+		return (result);
+	}
+	else
+		return (ft_strcmp(line, delimiter) == 0);
 }
 
 static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
@@ -32,9 +40,11 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 	{
 		if (g_exit_status == 130)
 		{
-		
+			free(line);
+			reset_input(data);
+			get_input(data);
+			return ;
 		}
-		
 		line[ft_strlen(line)] = '\n';
 		write(pipe_[1], line, ft_strlen(line));
 		free(line);
