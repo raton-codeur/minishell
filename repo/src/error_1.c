@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 16:30:08 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:37:12 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	print_error(int code)
 {
 	if (code == MALLOC)
-		ft_putendl_fd("minishell: memory allocation error", 2);
+		ft_putstr_fd("minishell: memory allocation error\n", 2);
 	else if (code == READLINE)
 		perror("minishell: readline");
 	else if (code == LEXING)
-		ft_putendl_fd("minishell: lexical error", 2);
+		ft_putstr_fd("minishell: lexical error\n", 2);
 	else if (code == QUOTE)
-		ft_putendl_fd("minishell: invalid quotes", 2);
+		ft_putstr_fd("minishell: invalid quotes\n", 2);
 	else if (code == PIPE)
 		perror("pipe");
 	else if (code == FORK)

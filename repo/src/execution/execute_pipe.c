@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pipe.c                                        :+:      :+:    :+:   */
+/*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:06:04 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/10 10:27:58 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:43:39 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static pid_t	child_left(t_tree *tree, t_data *data, int pipe_[2])
 		data->out = pipe_[1];
 		close(pipe_[0]);
 		if (get_type(tree) == T_PIPE)
-			exec_pipe(tree, data);
+			execute_pipe(tree, data);
 		else
 			run_cmd(tree, data);
 	}
 	return (pid);
 }
 
-void	exec_pipe(t_tree *tree, t_data *data)
+void	execute_pipe(t_tree *tree, t_data *data)
 {
 	pid_t	pid[2];
 	int		pipe_[2];

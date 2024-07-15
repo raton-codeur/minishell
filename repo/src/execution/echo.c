@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:50:21 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:24:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ void	echo_(t_tree *tree, t_data *data)
 		ft_printf(" %s", *argv++);
 	if (!option)
 		ft_printf("\n");
-	free_all(data);
-	exit(0);
+	finish_builtin(0, 0, data);
 }

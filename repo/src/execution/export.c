@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/13 23:26:21 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:33:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	sort_export_list(t_list **env)
 	}
 }
 
-static void	print_export(t_list **envp)
+static void	export_print(t_list **envp)
 {
 	t_list	*current;
 
@@ -118,15 +118,15 @@ static void	add_export_variable(t_data *data)
 	}
 }
 
-int	export_(t_tree *tree, t_data *data, int in_parent)
+void	export_(t_tree *tree, t_data *data, int in_parent)
 {
 	prepare_exec_relative(tree, data);
 	if (data->cmd->argc == 1)
 	{
-		print_export(&data->env);
-		end_builtin(in_parent, 0, data);
+		export_print(&data->env);
+		finish_builtin(in_parent, 0, data);
 	}
 	else
 		add_export_variable(data);
-	return (end_builtin(in_parent, 0, data));
+	finish_builtin(in_parent, 0, data);
 }

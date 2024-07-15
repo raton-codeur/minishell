@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:53:54 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 13:13:17 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:34:27 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ static void	print_kv_env(void *p)
 void	env_(t_data *data)
 {
 	list_print(data->env, print_kv_env);
-	free_all(data);
-	exit(0);
+	finish_builtin(0, 0, data);
 }

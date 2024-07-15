@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/10 15:49:01 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:38:59 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,26 @@ static char	*get_new_path(char *arg, t_data *data)
 	}
 }
 
-int	cd_(t_tree *tree, t_data *data, int in_parent)
+void	cd_(t_tree *tree, t_data *data, int in_parent)
 {
 	char	*new_path;
 
 	prepare_exec_relative(tree, data);
 	if (data->cmd->argc > 2)
 	{
-		ft_putendl_fd("cd: too many arguments", 2);
-		return (end_builtin(in_parent, 1, data));
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (finish_builtin(in_parent, 1, data));
 	}
 	new_path = get_new_path(data->cmd->argv[1], data);
 	if (new_path == NULL)
-		return (end_builtin(in_parent, 1, data));
+		return (finish_builtin(in_parent, 1, data));
 	if (check_cd_error(new_path) == 1)
-		return (free(new_path), end_builtin(in_parent, 1, data));
+		return (free(new_path), finish_builtin(in_parent, 1, data));
 	if (check_symbolic_link(new_path) == 1)
 	{
-		ft_putendl_fd("cd: symbolic link not allowed", 2);
-		return (free(new_path), end_builtin(in_parent, 1, data));
+		ft_putstr_fd("cd: symbolic link not allowed\n", 2);
+		return (free(new_path), finish_builtin(in_parent, 1, data));
 	}
 	change_directory(new_path, data);
-	return (end_builtin(in_parent, 0, data));
+	finish_builtin(in_parent, 0, data);
 }

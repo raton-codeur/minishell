@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 15:10:48 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:43:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,19 @@ static void	exit_numeric_error(t_data *data)
 	message = ft_strjoin("minishell: exit: ", data->cmd->argv[1]);
 	if (!message)
 		error_exit(MALLOC, data);
-	message_join = ft_strjoin(message, ": numeric argument required");
+	message_join = ft_strjoin(message, ": numeric argument required\n");
 	free(message);
 	if (!message_join)
 		error_exit(MALLOC, data);
-	ft_putendl_fd(message_join, 2);
+	ft_putstr_fd(message_join, 2);
 	free(message_join);
 	free_all(data);
 	exit(2);
 }
 
+/* a remplacer par
+finish_builtin(in_parent, ft_atoll(code), data)
+*/
 void	exit_with_code(char *code, t_data *data)
 {
 	unsigned char	exit_status;
@@ -39,10 +42,10 @@ void	exit_with_code(char *code, t_data *data)
 	exit(exit_status);
 }
 
-int	exit_(t_tree *tree, t_data *data, int in_parent)
+void	exit_(t_tree *tree, t_data *data, int in_parent)
 {
 	if (in_parent)
-		ft_putendl_fd("exit", 2);
+		ft_putstr_fd("exit\n", 2);
 	prepare_exec_relative(tree, data);
 	if (data->cmd->argc > 1)
 	{
@@ -50,16 +53,17 @@ int	exit_(t_tree *tree, t_data *data, int in_parent)
 		{
 			if (data->cmd->argc > 2)
 			{
-				ft_putendl_fd("minishell: exit: too many arguments", 2);
+				ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 				g_exit_status = 1;
-				return (end_builtin(in_parent, 1, data));
+				return (finish_builtin(in_parent, 1, data));
 			}
 			else
-				return (exit_with_code(data->cmd->argv[1], data), 1);
+				return (finish_builtin(in_parent, \
+					ft_atoll(data->cmd->argv[1]), data));
 		}
 		else
-			return (exit_numeric_error(data), 1);
+			return (exit_numeric_error(data));
 	}
 	else
-		return (exit_with_code("0", data), 1);
+		return (finish_builtin(in_parent, 0, data));
 }

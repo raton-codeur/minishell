@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:46:44 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:56:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 13:29:59 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	unset_(t_tree *tree, t_data *data, int in_parent)
+void	unset_(t_tree *tree, t_data *data, int in_parent)
 {
 	char	**argv;
 
@@ -21,5 +21,5 @@ int	unset_(t_tree *tree, t_data *data, int in_parent)
 	argv++;
 	while (*argv != NULL)
 		remove_from_env(*argv++, data);
-	return (end_builtin(in_parent, 0, data));
+	finish_builtin(in_parent, 0, data);
 }
