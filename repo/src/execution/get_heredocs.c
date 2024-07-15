@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 14:37:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 16:40:53 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 	line = get_next_line(0);
 	if (line == NULL && errno)
 		heredoc_error(pipe_, data);
+	signal(SIGINT, sigint_handler_heredoc);
 	while (line && !is_delimiter(line, delimiter))
 	{
+		write(pipe_[1], line, ft_strlen(line));
+		free(line);
+		ft_putstr_fd("heredoc >>> ", 1);
+		line = get_next_line(0);
 		if (g_exit_status == 130)
 		{
 			free(line);
@@ -45,10 +50,6 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 			get_input(data);
 			return ;
 		}
-		write(pipe_[1], line, ft_strlen(line));
-		free(line);
-		ft_putstr_fd("heredoc >>> ", 1);
-		line = get_next_line(0);
 		if (line == NULL && errno)
 			return (heredoc_error(pipe_, data));
 	}
@@ -82,6 +83,7 @@ void	get_heredocs(t_tree **tree, t_data *data)
 {
 	if (*tree == NULL)
 		return ;
+	g_exit_status = 0;
 	if (get_type(*tree) == T_PIPE)
 	{
 		get_heredocs(&(*tree)->left, data);

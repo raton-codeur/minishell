@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 16:30:44 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 16:30:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,10 @@ void	remove_from_env(char *key, t_data *data);
 /* env_utils_2.c */
 t_list	*insert_in_env(char *env_line, t_data *data);
 char	**get_envp(t_data *data);
+
+/* signals.c */
+void		sigint_handler_parent(int sig);
+void		sigint_handler_child(int sig);
+void		sigint_handler_heredoc(int sig);
 
 #endif
