@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 16:40:53 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:09:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	is_delimiter(char *line, char *delimiter)
 
 	if (ft_strchr(line, '\n'))
 	{
-		*ft_strchr(line, '\n') = '\0';
+		line[ft_strlen(line) - 1] = '\0';
 		result = ft_strcmp(line, delimiter) == 0;
 		line[ft_strlen(line)] = '\n';
 		return (result);
@@ -31,12 +31,14 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 {
 	char	*line;
 
+	g_exit_status = 0;
 	ft_putstr_fd("heredoc >>> ", 1);
 	errno = 0;
 	line = get_next_line(0);
-	if (line == NULL && errno)
+	if (g_exit_status == 130)
+		return (free(line), free_input(data));
+	if (line == NULL && errno && errno != EINTR)
 		heredoc_error(pipe_, data);
-	signal(SIGINT, sigint_handler_heredoc);
 	while (line && !is_delimiter(line, delimiter))
 	{
 		write(pipe_[1], line, ft_strlen(line));
@@ -44,13 +46,8 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 		ft_putstr_fd("heredoc >>> ", 1);
 		line = get_next_line(0);
 		if (g_exit_status == 130)
-		{
-			free(line);
-			reset_input(data);
-			get_input(data);
-			return ;
-		}
-		if (line == NULL && errno)
+			return (free(line), free_input(data));
+		if (line == NULL && errno && errno != EINTR)
 			return (heredoc_error(pipe_, data));
 	}
 	if (line == NULL)
@@ -71,6 +68,8 @@ static void	get_heredocs_cmd(t_tree **tree, t_data *data)
 			if (pipe(pipe_))
 				error_exit(PIPE, data);
 			get_heredoc(get_content(current->left), pipe_, data);
+			if (data->ast == NULL)
+				return ;
 			close(pipe_[1]);
 			((t_token *)((t_list *)((current)->content))->content)->here_doc
 				= pipe_[0];
@@ -83,11 +82,11 @@ void	get_heredocs(t_tree **tree, t_data *data)
 {
 	if (*tree == NULL)
 		return ;
-	g_exit_status = 0;
 	if (get_type(*tree) == T_PIPE)
 	{
 		get_heredocs(&(*tree)->left, data);
-		get_heredocs_cmd(&(*tree)->right, data);
+		if (*tree)
+			get_heredocs_cmd(&(*tree)->right, data);
 	}
 	else
 		get_heredocs_cmd(tree, data);

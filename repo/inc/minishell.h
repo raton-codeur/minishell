@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 16:30:35 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 17:56:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,6 @@ char	**get_envp(t_data *data);
 void		sigint_handler_parent(int sig);
 void		sigint_handler_child(int sig);
 void		sigint_handler_heredoc(int sig);
+void		set_sigint_handler_heredoc();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:05:28 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/15 16:35:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:02:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	sigint_handler_child(int sig)
 	}
 }
 
-void	sigint_handler_heredoc(int sig)
+void	set_sigint_handler_heredoc()
 {
-	if (sig == SIGINT)
-		g_exit_status = 130;
+	struct sigaction sa;
+	sa.sa_handler = sigint_handler_child;
+	sigaction(SIGINT, &sa, NULL);
 }

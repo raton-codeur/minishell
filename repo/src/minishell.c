@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 16:30:04 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 17:52:33 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,16 @@ int	main(int argc, char **argv, char **envp)
 	return (free_all(&data), 0);
 }
 
+// int main()
+// {
+// 	struct sigaction sa;
+
+//     sa.sa_handler = sigint_handler_heredoc;
+// 	// sigemptyset(&sa.sa_mask);
+// 	// sa.sa_flags = 0;
+// 	sigaction(SIGINT, &sa, NULL);
+
+// 	int fd = 0;
+// 	char *s = get_next_line(fd);
+// 	printf("%s\n", s);
+// }

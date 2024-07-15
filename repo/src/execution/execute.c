@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 14:34:37 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 14:56:52 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/07/15 17:54:49 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	execute(t_data *data)
 
 	if (data->ast == NULL)
 		return ;
+	set_sigint_handler_heredoc();
 	get_heredocs(&data->ast, data);
+	signal(SIGINT, sigint_handler_parent);
 	if (data->ast == NULL)
 		return ;
 	if (run_builtin_in_parent(data->ast, data))
