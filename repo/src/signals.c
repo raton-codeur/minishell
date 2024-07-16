@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:05:28 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/15 18:02:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 10:14:00 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,19 @@ void	sigint_handler_child(int sig)
 	}
 }
 
-void	set_sigint_handler_heredoc()
+void	set_sigint_handler_heredoc(void)
 {
 	struct sigaction sa;
 	sa.sa_handler = sigint_handler_child;
 	sigaction(SIGINT, &sa, NULL);
+}
+
+void	sigquit_handler(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		g_exit_status = 131;
+		printf("Quit\n");
+		signal(SIGQUIT, SIG_IGN);
+	}
 }

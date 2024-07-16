@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 17:54:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 10:21:13 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	execute(t_data *data)
 		return ;
 	set_sigint_handler_heredoc();
 	get_heredocs(&data->ast, data);
-	signal(SIGINT, sigint_handler_parent);
 	if (data->ast == NULL)
 		return ;
 	if (run_builtin_in_parent(data->ast, data))
 		return ;
 	signal(SIGINT, sigint_handler_child);
+	signal(SIGQUIT, sigquit_handler);
 	pid = fork();
 	if (pid == -1)
 		error_exit(FORK, data);
