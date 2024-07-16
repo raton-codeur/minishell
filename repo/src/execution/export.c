@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/15 13:33:14 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:40:26 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	print_export_content(void *p)
 
 void	export_error(t_list *new, t_data *data)
 {
-	printf("minishell: export: `%s': not a valid identifier\n", get_key(new));
+	if (data->cmd->argc == 2)
+		printf("minishell: export: `%s': not a valid identifier\n", data->cmd->argv[1]);
+	else
+		printf("minishell: export: `%s': not a valid identifier\n", get_key(new));
 	list_remove_node(&data->env, new, free_kv);
 	g_exit_status = 1;
 }
@@ -111,7 +114,7 @@ static void	add_export_variable(t_data *data)
 	while (i < data->cmd->argc)
 	{
 		new = insert_in_env(data->cmd->argv[i], data);
-		if (ft_isword_start(get_key(new)[0]) == 0)
+		if ((ft_isword_start(get_key(new)[0]) == 0) || (ft_strchr(get_key(new), ' ') != NULL)) 
 			return (export_error(new, data));
 		// tant que on est pas sur le egual, si il y a un car qui nest pas un word content -> error
 		i++;

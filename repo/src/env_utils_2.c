@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 22:31:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:29:53 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	has_value(char *envp_line)
 		i++;
 	i++;
 	if (envp_line[i] == '\0')
+		return (0);
+	if (envp_line[i] == '\0' && envp_line[i - 1] == '=')
 		return (0);
 	return (1);
 }
@@ -45,7 +47,8 @@ static t_kv	*get_kv(char *envp_line)
 	else
 	{
 		i = 0;
-		while (envp_line[i] != '=')
+		while (envp_line[i] != '='
+			&& envp_line[i] != '+' && envp_line[i] != '-')
 			i++;
 		result->key = ft_substr(envp_line, 0, i++);
 		result->value = ft_substr(envp_line, i, ft_strlen(envp_line) - i);
