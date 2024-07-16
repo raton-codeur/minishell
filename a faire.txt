@@ -1,3 +1,10 @@
+-
+env avec des parametre check les fichiers
+-
+cd check lien symbolique avant pb de permission
+-
+revoir SIGSTOP dans une commande comme cat sans arg
+-
 quand on fait export A=
 on est en train de definir la cle "A="...
 

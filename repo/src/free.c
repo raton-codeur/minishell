@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 16:44:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 12:13:59 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	reset_input(t_data *data)
 	free_input(data);
 	get_path(data);
 	signal(SIGINT, sigint_handler_parent);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	free_all(t_data *data)

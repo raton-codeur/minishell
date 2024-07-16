@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:05:28 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 10:14:00 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/16 12:22:45 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	set_sigint_handler_heredoc(void)
 
 void	sigquit_handler(int sig)
 {
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT && g_exit_status != 131)
 	{
 		g_exit_status = 131;
 		printf("Quit\n");

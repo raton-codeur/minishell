@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:06:04 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 14:12:45 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/16 12:33:49 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,14 @@ void	execute_pipe(t_tree *tree, t_data *data)
 	waitpid(pid[0], &status, 0);
 	if (WIFEXITED(status))
 		return (free_all(data), exit(WEXITSTATUS(status)));
+	if (WIFSIGNALED(status))
+	{
+		close_2(pipe_);
+		free_all(data);
+		if (WTERMSIG(status) == SIGINT)
+			g_exit_status = 130;
+		else if (WTERMSIG(status) == SIGQUIT)
+			g_exit_status = 131;
+		exit(g_exit_status);
+	}
 }

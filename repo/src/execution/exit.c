@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 14:30:51 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:22:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	exit_(t_tree *tree, t_data *data, int in_parent)
 				return (finish_builtin(in_parent, 1, data));
 			}
 			else
-				return (finish_builtin(in_parent, \
+				return (finish_builtin(0, \
 					ft_atoll(data->cmd->argv[1]), data));
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 15:27:21 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 09:55:43 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/16 12:13:47 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,4 @@ void	get_input(t_data *data)
 		return (free_all(data), exit(g_exit_status));
 	if (data->input && data->input[0] != '\0' && !ft_strisspace(data->input))
 		add_history(data->input);
-	signal(SIGINT, sigint_handler_parent);
-	signal(SIGQUIT, SIG_IGN);
 }
