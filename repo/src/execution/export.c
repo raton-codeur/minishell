@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 14:39:15 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:57:31 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	print_export_content(void *p)
 	t_kv	*kv;
 
 	kv = p;
-	if (kv->value[0] != '\0')
-		printf("declare -x %s=\"%s\"\n", kv->key, kv->value);
-	else
+	if (kv->value == NULL)
 		printf("declare -x %s\n", kv->key);
+	else
+		printf("declare -x %s=\"%s\"\n", kv->key, kv->value);
 }
 
 void	export_error(t_list *new, t_data *data)
@@ -41,8 +41,13 @@ static t_kv	*copy_env_content(t_kv *content)
 	if (new_content == NULL)
 		return (NULL);
 	new_content->key = ft_strdup(content->key);
-	new_content->value = ft_strdup(content->value);
-	if (new_content->key == NULL || new_content->value == NULL)
+	if (content->value != NULL)
+	{
+		new_content->value = ft_strdup(content->value);
+		if (new_content->value == NULL)
+			return (free_kv(new_content), NULL);
+	}
+	if (new_content->key == NULL)
 		return (free_kv(new_content), NULL);
 	return (new_content);
 }
@@ -115,8 +120,9 @@ static void	add_export_variable(t_data *data)
 	{
 		new = insert_in_env(data->cmd->argv[i], data);
 		if ((ft_isword_start(get_key(new)[0]) == 0) || (ft_strchr(get_key(new), ' ') != NULL)) 
-			return (export_error(new, data));
-		// tant que on est pas sur le egual, si il y a un car qui nest pas un word content -> error
+			export_error(new, data);
+		else
+			g_exit_status = 0;
 		i++;
 	}
 }
@@ -127,9 +133,9 @@ void	export_(t_tree *tree, t_data *data, int in_parent)
 	if (data->cmd->argc == 1)
 	{
 		export_print(&data->env);
-		finish_builtin(in_parent, 0, data);
+		finish_builtin(in_parent, g_exit_status, data);
 	}
 	else
 		add_export_variable(data);
-	finish_builtin(in_parent, 0, data);
+	finish_builtin(in_parent, g_exit_status, data);
 }

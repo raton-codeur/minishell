@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:06:04 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 14:04:17 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:16:06 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	execute_pipe(t_tree *tree, t_data *data)
 	close_2(pipe_);
 	waitpid(pid[1], NULL, 0);
 	waitpid(pid[0], &status, 0);
-	if (WIFEXITED(status))
+	if (WIFEXITED(status) || WIFSIGNALED(status))
 		return (free_all(data), exit(WEXITSTATUS(status)));
-	// if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-	// 	return (free_all(data), exit(130));
 }

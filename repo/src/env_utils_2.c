@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 14:36:31 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 17:01:10 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,34 @@ static t_kv	*get_kv(char *envp_line)
 	result = ft_calloc(1, sizeof(t_kv));
 	if (result == NULL)
 		return (NULL);
+	i = 0;
 	if (!has_value(envp_line))
 	{
-		result->key = ft_strdup(envp_line);
-		result->value = ft_strdup("");
+		if (envp_line[ft_strlen(envp_line) - 1] == '=')
+		{
+			envp_line[ft_strlen(envp_line) - 1] = '\0';
+			result->key = ft_strdup(envp_line);
+			result->value = ft_strdup("");
+			if (result->value == NULL)
+				return (free_kv(result), NULL);
+		}
+		else
+		{
+			result->key = ft_strdup(envp_line);
+			result->value = NULL;
+		}
 	}
 	else
 	{
-		i = 0;
 		while (envp_line[i] != '='
 			&& envp_line[i] != '+' && envp_line[i] != '-')
 			i++;
 		result->key = ft_substr(envp_line, 0, i++);
 		result->value = ft_substr(envp_line, i, ft_strlen(envp_line) - i);
+		if (result->value == NULL)
+			return (free_kv(result), NULL);
 	}
-	if (result->key == NULL || result->value == NULL)
+	if (result->key == NULL)
 		return (free_kv(result), NULL);
 	return (result);
 }

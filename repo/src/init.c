@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 13:53:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 15:46:55 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	init_data(t_data *data, int argc, char **argv, char **envp)
 	ft_bzero(data, sizeof(t_data));
 	data->out = 1;
 	init_env(data, envp);
-	// signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_handler_parent);
 }
 
 static char	*get_prompt(t_data *data)
@@ -61,9 +62,9 @@ void	reset_input(t_data *data)
 	if (data->input == NULL && errno)
 		error_exit(READLINE, data);
 	else if (data->input == NULL)
-		return (free_all(data), exit(g_exit_status));
+		return (printf("exit\n"), free_all(data), exit(g_exit_status));
 	if (data->input && data->input[0] != '\0' && !ft_strisspace(data->input))
 		add_history(data->input);
 	get_path(data);
-	// signal(SIGINT, sigint_handler_parent);
+	signal(SIGINT, sigint_handler_parent);
 }

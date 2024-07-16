@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:05:28 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 14:16:34 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:12:26 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	sigint_handler_child(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_exit_status = 130;
 		printf("\n");
+		g_exit_status = 130;
 	}
 }
 
@@ -50,4 +50,10 @@ void	sigquit_handler(int sig)
 		printf("Quit\n");
 		signal(SIGQUIT, SIG_IGN);
 	}
+}
+
+void	reset_signal(void)
+{
+	signal(SIGINT, sigint_handler_parent);
+	signal(SIGQUIT, SIG_IGN);
 }

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 14:08:32 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 16:13:25 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ void	init_env(t_data *data, char **envp);
 /* signals.c */
 void	sigint_handler_parent(int sig);
 void	sigint_handler_child(int sig);
-void	sigint_handler_heredoc(int sig);
 void	set_sigint_handler_heredoc(void);
 void	sigquit_handler(int sig);
+void	reset_signal(void);
 
 /* error_1.c */
 void	print_error(int code);
