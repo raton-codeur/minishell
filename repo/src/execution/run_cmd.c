@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:05:19 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 13:39:37 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:06:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	run_cmd(t_tree *tree, t_data *data)
 	if (has_slash(get_content(tree)))
 	{
 		analyse_file(tree, data);
-		prepare_exec_relative(tree, data);
+		prepare_execution_relative(tree, data);
 	}
 	else
-		prepare_exec_absolute(tree, data);
+		prepare_execution_absolute(tree, data);
 	envp = get_envp(data);
 	if (execve(data->cmd->pathname, data->cmd->argv, envp) == -1)
 	{

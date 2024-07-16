@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:14:22 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 18:22:57 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:11:36 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static void	exit_numeric_error(t_data *data)
+static void	exit_numerical_error(t_data *data)
 {
 	char	*message;
 	char	*message_join;
@@ -30,23 +30,11 @@ static void	exit_numeric_error(t_data *data)
 	exit(2);
 }
 
-/* a remplacer par
-finish_builtin(in_parent, ft_atoll(code), data)
-*/
-void	exit_with_code(char *code, t_data *data)
-{
-	unsigned char	exit_status;
-
-	exit_status = ft_atoll(code);
-	free_all(data);
-	exit(exit_status);
-}
-
 void	exit_(t_tree *tree, t_data *data, int in_parent)
 {
 	if (in_parent)
 		ft_putstr_fd("exit\n", 2);
-	prepare_exec_relative(tree, data);
+	prepare_execution_relative(tree, data);
 	if (data->cmd->argc > 1)
 	{
 		if (is_long_long(data->cmd->argv[1], data))
@@ -58,12 +46,11 @@ void	exit_(t_tree *tree, t_data *data, int in_parent)
 				return (finish_builtin(in_parent, 1, data));
 			}
 			else
-				return (finish_builtin(0, \
-					ft_atoll(data->cmd->argv[1]), data));
+				finish_builtin(0, ft_atoll(data->cmd->argv[1]), data);
 		}
 		else
-			return (exit_numeric_error(data));
+			return (exit_numerical_error(data));
 	}
 	else
-		return (finish_builtin(0, 0, data));
+		finish_builtin(0, 0, data);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_exec.c                                     :+:      :+:    :+:   */
+/*   prepare_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:33:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/14 13:13:44 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:05:42 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ static void	prepare_argv(t_tree *tree, t_data *data)
 	data->cmd->argv[i] = NULL;
 }
 
-void	prepare_exec_absolute(t_tree *tree, t_data *data)
+void	prepare_execution_absolute(t_tree *tree, t_data *data)
 {
 	prepare_argv(tree, data);
 	data->cmd->pathname = get_pathname(data->cmd->argv[0], data);
 }
 
-void	prepare_exec_relative(t_tree *tree, t_data *data)
+void	prepare_execution_relative(t_tree *tree, t_data *data)
 {
 	prepare_argv(tree, data);
 	data->cmd->pathname = ft_strdup(data->cmd->argv[0]);

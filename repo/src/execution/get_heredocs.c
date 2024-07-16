@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredocs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 10:20:01 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:59:40 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 {
 	char	*line;
 
-	g_exit_status = 0;
+	// g_exit_status = 0;
 	ft_putstr_fd("heredoc >>> ", 1);
 	errno = 0;
 	line = get_next_line(0);
-	if (g_exit_status == 130)
-		return (free(line), free_input(data));
-	if (line == NULL && errno && errno != EINTR)
+	// if (g_exit_status == 130)
+	// 	return (free(line), free_for_new_input(data));
+	// if (line == NULL && errno && errno != EINTR)
+	if (line == NULL && errno) 
 		heredoc_error(pipe_, data);
 	while (line && !is_delimiter(line, delimiter))
 	{
@@ -45,9 +46,10 @@ static void	get_heredoc(char *delimiter, int pipe_[2], t_data *data)
 		free(line);
 		ft_putstr_fd("heredoc >>> ", 1);
 		line = get_next_line(0);
-		if (g_exit_status == 130)
-			return (free(line), free_input(data));
-		if (line == NULL && errno && errno != EINTR)
+		// if (g_exit_status == 130)
+		// 	return (free(line), free_for_new_input(data));
+		// if (line == NULL && errno && errno != EINTR)
+		if (line == NULL && errno)
 			return (heredoc_error(pipe_, data));
 	}
 	if (line == NULL)
@@ -80,6 +82,7 @@ static void	get_heredocs_cmd(t_tree **tree, t_data *data)
 
 void	get_heredocs(t_tree **tree, t_data *data)
 {
+	set_sigint_handler_heredoc();
 	if (*tree == NULL)
 		return ;
 	if (get_type(*tree) == T_PIPE)

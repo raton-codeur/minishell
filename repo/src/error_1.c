@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 13:37:12 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:07:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,17 @@ void	print_error(int code)
 		perror("pipe");
 	else if (code == FORK)
 		perror("fork");
+	else if (code == SIGACTION)
+		perror("sigaction");
+	else if (code == PWD)
+		perror("minishell: pwd");
 }
 
-void	error_reset(int code, t_data *data)
-{
-	print_error(code);
-	reset_input(data);
-}
+// void	error_free(int code, t_data *data)
+// {
+// 	print_error(code);
+// 	free_input(data);
+// }
 
 void	error_exit(int code, t_data *data)
 {
@@ -56,7 +60,7 @@ void	syntax_error(char *token, t_data *data)
 		error_exit(MALLOC, data);
 	ft_putstr_fd(message_join, 2);
 	free(message_join);
-	reset_input(data);
+	free_input(data);
 	g_exit_status = 2;
 }
 

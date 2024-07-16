@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_utils_2.c                                     :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 15:27:21 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 12:13:47 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/07/16 13:53:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	init_data(t_data *data, int argc, char **argv, char **envp)
+{
+	(void)argc,
+	(void)argv;
+	ft_bzero(data, sizeof(t_data));
+	data->out = 1;
+	init_env(data, envp);
+	// signal(SIGQUIT, sigquit_handler);
+}
 
 static char	*get_prompt(t_data *data)
 {
@@ -40,7 +50,7 @@ static char	*get_prompt(t_data *data)
 	return (result);
 }
 
-void	get_input(t_data *data)
+void	reset_input(t_data *data)
 {
 	char	*prompt;
 
@@ -54,4 +64,6 @@ void	get_input(t_data *data)
 		return (free_all(data), exit(g_exit_status));
 	if (data->input && data->input[0] != '\0' && !ft_strisspace(data->input))
 		add_history(data->input);
+	get_path(data);
+	// signal(SIGINT, sigint_handler_parent);
 }

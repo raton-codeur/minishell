@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:06:04 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 12:33:49 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:04:17 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,11 @@ void	execute_pipe(t_tree *tree, t_data *data)
 		error_exit(PIPE, data);
 	pid[0] = child_right(tree->right, data, pipe_);
 	pid[1] = child_left(tree->left, data, pipe_);
-	close(pipe_[0]);
-	close(pipe_[1]);
+	close_2(pipe_);
 	waitpid(pid[1], NULL, 0);
 	waitpid(pid[0], &status, 0);
 	if (WIFEXITED(status))
 		return (free_all(data), exit(WEXITSTATUS(status)));
-	if (WIFSIGNALED(status))
-	{
-		close_2(pipe_);
-		free_all(data);
-		if (WTERMSIG(status) == SIGINT)
-			g_exit_status = 130;
-		else if (WTERMSIG(status) == SIGQUIT)
-			g_exit_status = 131;
-		exit(g_exit_status);
-	}
+	// if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	// 	return (free_all(data), exit(130));
 }

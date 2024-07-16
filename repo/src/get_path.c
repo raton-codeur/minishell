@@ -1,40 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_utils_1.c                                     :+:      :+:    :+:   */
+/*   reset_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 17:52:44 by qhauuy           ###   ########.fr       */
+/*   Created: 2024/07/16 13:20:17 by qhauuy            #+#    #+#             */
+/*   Updated: 2024/07/16 13:20:34 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	init_env(t_data *data, char **envp)
-{
-	int	i;
-
-	i = 0;
-	if (envp == NULL)
-		return (minimum_env(data));
-	while (envp[i])
-		insert_in_env(envp[i++], data);
-	minimum_env(data);
-}
-
-void	init_data(t_data *data, int argc, char **argv, char **envp)
-{
-	(void)argc,
-	(void)argv;
-	ft_bzero(data, sizeof(t_data));
-	data->out = 1;
-	init_env(data, envp);
-	get_path(data);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_handler_parent);
-}
 
 static char	**add_slash(char **path)
 {

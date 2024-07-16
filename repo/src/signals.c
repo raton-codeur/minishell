@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:05:28 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 12:22:45 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:13:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ void	sigint_handler_child(int sig)
 
 void	set_sigint_handler_heredoc(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
+
 	sa.sa_handler = sigint_handler_child;
-	sigaction(SIGINT, &sa, NULL);
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		error_exit(SIGACTION, NULL);
 }
 
 void	sigquit_handler(int sig)
 {
-	if (sig == SIGQUIT && g_exit_status != 131)
+	if (sig == SIGQUIT)
 	{
 		g_exit_status = 131;
 		printf("Quit\n");
