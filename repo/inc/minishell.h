@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 09:53:24 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:08:32 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ enum e_error
 	QUOTE,
 	PIPE,
 	FORK,
+	SIGACTION,
+	PWD
 };
 
 typedef struct s_kv
@@ -113,21 +115,29 @@ void	tree_print(t_tree *tree);
 void	print_cmd(t_cmd *cmd);
 void	print_kv(void *p);
 
+/* init.c */
+void	init_data(t_data *data, int argc, char **argv, char **envp);
+void	reset_input(t_data *data);
+
 /* free.c */
 void	free_input(t_data *data);
 void	free_all(t_data *data);
-void	reset_input(t_data *data);
-void	close_2(int pipe_[2]);
 
-/* free_utils.c */
-void	free_token(void *p);
-void	tree_clear(t_tree **tree);
-void	free_cmd(t_data *data);
-void	free_kv(void *p);
+/* get_path.c */
+void	get_path(t_data *data);
+
+/* init_env.c */
+void	init_env(t_data *data, char **envp);
+
+/* signals.c */
+void	sigint_handler_parent(int sig);
+void	sigint_handler_child(int sig);
+void	sigint_handler_heredoc(int sig);
+void	set_sigint_handler_heredoc(void);
+void	sigquit_handler(int sig);
 
 /* error_1.c */
 void	print_error(int code);
-void	error(int code, t_data *data);
 void	error_exit(int code, t_data *data);
 void	syntax_error(char *token, t_data *data);
 void	fd_error(char *file, t_data *data);
@@ -136,15 +146,12 @@ void	fd_error(char *file, t_data *data);
 void	cmd_pathname_error(char *cmd, t_data *data);
 void	heredoc_error(int pipe_[2], t_data *data);
 
-/* data_utils_1.c */
-void	init_data(t_data *data, int argc, char **argv, char **envp);
-void	get_path(t_data *data);
-
-/* data_utils_2.c */
-void	get_input(t_data *data);
-
-/* minimum_env.c */
-void	minimum_env(t_data *data);
+/* free_utils.c */
+void	free_token(void *p);
+void	tree_clear(t_tree **tree);
+void	free_cmd(t_data *data);
+void	free_kv(void *p);
+void	close_2(int pipe_[2]);
 
 /* env_utils_1.c */
 char	*get_key(t_list *node);
@@ -156,12 +163,5 @@ void	remove_from_env(char *key, t_data *data);
 /* env_utils_2.c */
 t_list	*insert_in_env(char *env_line, t_data *data);
 char	**get_envp(t_data *data);
-
-/* signals.c */
-void	sigint_handler_parent(int sig);
-void	sigint_handler_child(int sig);
-void	sigint_handler_heredoc(int sig);
-void	set_sigint_handler_heredoc(void);
-void	sigquit_handler(int sig);
 
 #endif

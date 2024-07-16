@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/15 13:38:59 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:06:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	cd_(t_tree *tree, t_data *data, int in_parent)
 {
 	char	*new_path;
 
-	prepare_exec_relative(tree, data);
+	prepare_execution_relative(tree, data);
 	if (data->cmd->argc > 2)
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);

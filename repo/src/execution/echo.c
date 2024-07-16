@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:50:21 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 13:24:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:06:35 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	echo_(t_tree *tree, t_data *data)
 	int		option;
 	char	**argv;
 
-	prepare_exec_relative(tree, data);
+	prepare_execution_relative(tree, data);
 	argv = data->cmd->argv;
 	argv++;
 	option = 0;

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:09:24 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 12:13:05 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:00:10 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@ void	execute(t_data *data)
 
 	if (data->ast == NULL)
 		return ;
-	set_sigint_handler_heredoc();
 	get_heredocs(&data->ast, data);
-	if (data->ast == NULL)
-		return ;
+	// if (data->ast == NULL)
+	// 	return ;
 	if (run_builtin_in_parent(data->ast, data))
 		return ;
-	signal(SIGINT, sigint_handler_child);
-	signal(SIGQUIT, sigquit_handler);
 	pid = fork();
 	if (pid == -1)
 		error_exit(FORK, data);

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:26:53 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 23:18:00 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:51:04 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void	find_dollars_in_double_quotes(t_data *data)
 void	parse_quotes(t_data *data)
 {
 	if (!quotes_are_closed(data))
-		return (print_error(QUOTE), reset_input(data));
+		return (print_error(QUOTE), free_input(data));
 	get_char_in_quotes(data);
 	find_dollars_in_double_quotes(data);
 	change_all_consecutive(data, T_SIMPLE_QUOTE, "", T_CHARACTER);

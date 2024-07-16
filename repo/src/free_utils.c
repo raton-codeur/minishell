@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:27:35 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/13 16:04:01 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:28:07 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,10 @@ void	free_kv(void *p)
 	free(kv->key);
 	free(kv->value);
 	free(kv);
+}
+
+void	close_2(int pipe_[2])
+{
+	close(pipe_[0]);
+	close(pipe_[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 16:44:38 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:05:36 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void		execute_pipe(t_tree *tree, t_data *data);
 /* set_redirections.h */
 int			set_redirections(t_tree **tree, t_data *data);
 
-/* prepare_exec.c */
-void		prepare_exec_absolute(t_tree *tree, t_data *data);
-void		prepare_exec_relative(t_tree *tree, t_data *data);
+/* prepare_execution.c */
+void		prepare_execution_absolute(t_tree *tree, t_data *data);
+void		prepare_execution_relative(t_tree *tree, t_data *data);
 
 /* run_builtin.c */
 int			run_builtin_in_parent(t_tree *tree, t_data *data);

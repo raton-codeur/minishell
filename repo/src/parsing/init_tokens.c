@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:36 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/08 22:55:47 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:50:42 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_tokens(t_data *data)
 			return (free(new.content), error_exit(MALLOC, data));
 		new.token->content = new.content;
 		if (get_type(&new))
-			return (free_token(new.token), reset_input(data));
+			return (free_token(new.token), free_input(data));
 		new.node = list_new(new.token);
 		if (new.node == NULL)
 			return (free_token(new.token), error_exit(MALLOC, data));

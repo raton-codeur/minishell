@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimum_env.c                                      :+:      :+:    :+:   */
+/*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:52:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 16:02:07 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:30:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,22 @@ static void	init_pwd(t_data *data)
 	reset_value("PWD", new_value, data);
 }
 
-static void	init_oldpwd(t_data *data)
+static void	minimum_env(t_data *data)
 {
+	init_shlvl(data);
+	init_pwd(data);
 	if (!in_env("OLDPWD", data))
 		insert_in_env("OLDPWD=", data);
 }
 
-void	minimum_env(t_data *data)
+void	init_env(t_data *data, char **envp)
 {
-	init_shlvl(data);
-	init_pwd(data);
-	init_oldpwd(data);
+	int	i;
+
+	i = 0;
+	if (envp == NULL)
+		return (minimum_env(data));
+	while (envp[i])
+		insert_in_env(envp[i++], data);
+	minimum_env(data);
 }

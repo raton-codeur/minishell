@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 13:40:26 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/16 14:39:15 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static void	add_export_variable(t_data *data)
 
 void	export_(t_tree *tree, t_data *data, int in_parent)
 {
-	prepare_exec_relative(tree, data);
+	prepare_execution_relative(tree, data);
 	if (data->cmd->argc == 1)
 	{
 		export_print(&data->env);

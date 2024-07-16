@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:26:38 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 12:13:59 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/16 13:47:14 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,9 @@ void	free_input(t_data *data)
 	free_cmd(data);
 }
 
-void	reset_input(t_data *data)
-{
-	free_input(data);
-	get_path(data);
-	signal(SIGINT, sigint_handler_parent);
-	signal(SIGQUIT, SIG_IGN);
-}
-
 void	free_all(t_data *data)
 {
 	free_input(data);
 	list_clear(&data->env, free_kv);
 	rl_clear_history();
-}
-
-void	close_2(int pipe_[2])
-{
-	close(pipe_[0]);
-	close(pipe_[1]);
 }
