@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 17:01:10 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:01:17 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	**get_envp(t_data *data)
 	i = 0;
 	while (current)
 	{
-		if (get_value(current)[0] != '\0')
+		if (get_value(current) && get_value(current)[0] != '\0')
 		{
 			result[i] = get_envp_line(current);
 			if (result[i] == NULL)

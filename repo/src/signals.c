@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:05:28 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 16:12:26 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 15:52:03 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	set_sigint_handler_heredoc(void)
 	struct sigaction	sa;
 
 	sa.sa_handler = sigint_handler_child;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		error_exit(SIGACTION, NULL);
 }

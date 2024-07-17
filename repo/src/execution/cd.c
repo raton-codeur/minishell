@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 14:06:35 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 15:23:12 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void	cd_(t_tree *tree, t_data *data, int in_parent)
 	new_path = get_new_path(data->cmd->argv[1], data);
 	if (new_path == NULL)
 		return (finish_builtin(in_parent, 1, data));
-	if (check_cd_error(new_path) == 1)
-		return (free(new_path), finish_builtin(in_parent, 1, data));
 	if (check_symbolic_link(new_path) == 1)
 	{
 		ft_putstr_fd("cd: symbolic link not allowed\n", 2);
 		return (free(new_path), finish_builtin(in_parent, 1, data));
 	}
+	if (check_cd_error(new_path) == 1)
+		return (free(new_path), finish_builtin(in_parent, 1, data));
 	change_directory(new_path, data);
 	finish_builtin(in_parent, 0, data);
 }

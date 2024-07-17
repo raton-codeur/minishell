@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:12:57 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 15:46:45 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 15:19:24 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		reset_input(&data);
 		parse(&data);
-		// list_print(data.tokens, print_token);
 		build_ast(&data);
-		// tree_print(data.ast);
 		execute(&data);
 		free_input(&data);
 	}

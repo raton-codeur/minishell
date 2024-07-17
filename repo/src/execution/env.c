@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:53:54 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/15 13:34:27 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:02:17 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	print_kv_env(void *p)
 	t_kv	*kv;
 
 	kv = p;
-	if (kv->value[0] != '\0')
+	if (kv->value && kv->value[0] != '\0')
 		printf("%s=%s\n", kv->key, kv->value);
 }
 

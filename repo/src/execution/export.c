@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 13:00:46 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/16 16:57:31 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 15:20:44 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	print_export_content(void *p)
 void	export_error(t_list *new, t_data *data)
 {
 	if (data->cmd->argc == 2)
-		printf("minishell: export: `%s': not a valid identifier\n", data->cmd->argv[1]);
+		printf("minishell: export: `%s': not a valid identifier\n",
+			data->cmd->argv[1]);
 	else
-		printf("minishell: export: `%s': not a valid identifier\n", get_key(new));
+		printf("minishell: export: `%s': not a valid identifier\n",
+			get_key(new));
 	list_remove_node(&data->env, new, free_kv);
 	g_exit_status = 1;
 }
