@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:28:09 by jteste            #+#    #+#             */
-/*   Updated: 2024/07/17 15:23:12 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/17 17:44:07 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	cd_(t_tree *tree, t_data *data, int in_parent)
 	prepare_execution_relative(tree, data);
 	if (data->cmd->argc > 2)
 	{
-		ft_putstr_fd("cd: too many arguments\n", 2);
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		return (finish_builtin(in_parent, 1, data));
 	}
 	new_path = get_new_path(data->cmd->argv[1], data);
@@ -75,7 +75,7 @@ void	cd_(t_tree *tree, t_data *data, int in_parent)
 		return (finish_builtin(in_parent, 1, data));
 	if (check_symbolic_link(new_path) == 1)
 	{
-		ft_putstr_fd("cd: symbolic link not allowed\n", 2);
+		ft_putstr_fd("minishell: cd: symbolic link not allowed\n", 2);
 		return (free(new_path), finish_builtin(in_parent, 1, data));
 	}
 	if (check_cd_error(new_path) == 1)

@@ -1,0 +1,13 @@
+test :
+	@ make --no-print-directory
+	@ ./minishell
+
+valgrind :
+	make
+	valgrind --track-fds=yes --trace-children=yes --suppressions=../ignore_readline_leaks --leak-check=full ./minishell
+# --track-fds=yes
+# --trace-children=yes
+# --suppressions=ignore_readline_leaks
+# --leak-check=full
+# --show-leak-kinds=all
+# --track-origins=yes

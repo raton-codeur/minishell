@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:33:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 14:05:42 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 17:54:32 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*get_pathname(char *name, t_data *data)
 	result = NULL;
 	i = 0;
 	if (data->path == NULL)
-		return (NULL);
+		return (cmd_pathname_error(name, data), NULL);
 	while (data->path[i])
 	{
 		result = ft_strjoin(data->path[i], name);

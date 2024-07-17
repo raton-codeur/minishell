@@ -6,13 +6,13 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:52:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 13:30:02 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 17:39:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_good_shlvl(char *s)
+static int	proper_shlvl(char *s)
 {
 	if (s[0] == '\0')
 		return (0);
@@ -35,7 +35,7 @@ static void	init_shlvl(t_data *data)
 		insert_in_env("SHLVL=1", data);
 	else
 	{
-		if (!is_good_shlvl(get_value(node)))
+		if (!proper_shlvl(get_value(node)))
 			new_value = ft_strdup("1");
 		else
 			new_value = ft_itoa(ft_atoi(get_value(node)) + 1);
@@ -64,7 +64,7 @@ static void	minimum_env(t_data *data)
 	init_shlvl(data);
 	init_pwd(data);
 	if (!in_env("OLDPWD", data))
-		insert_in_env("OLDPWD=", data);
+		insert_in_env("OLDPWD", data);
 }
 
 void	init_env(t_data *data, char **envp)

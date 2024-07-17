@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 14:05:36 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:28:57 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void		pwd_(t_data *data);
 
 /* export.c */
 void		export_(t_tree *tree, t_data *data, int in_parent);
+
+/* export_print.c */
+void		export_print(t_data *data);
 
 /* unset.c */
 void		unset_(t_tree *tree, t_data *data, int in_parent);

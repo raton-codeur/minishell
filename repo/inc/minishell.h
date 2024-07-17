@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 16:13:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 18:32:30 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,6 @@ typedef struct s_data
 
 extern unsigned char	g_exit_status;
 
-/* print.c */ // a supp
-void	print_type(int type);
-void	print_token(void *p);
-void	tree_print(t_tree *tree);
-void	print_cmd(t_cmd *cmd);
-void	print_kv(void *p);
-
 /* init.c */
 void	init_data(t_data *data, int argc, char **argv, char **envp);
 void	reset_input(t_data *data);
@@ -161,6 +154,7 @@ void	reset_value(char *key, char *new_value, t_data *data);
 void	remove_from_env(char *key, t_data *data);
 
 /* env_utils_2.c */
+int		is_proper(char *envp_line);
 t_list	*insert_in_env(char *env_line, t_data *data);
 char	**get_envp(t_data *data);
 

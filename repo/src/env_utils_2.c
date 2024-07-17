@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:48:14 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/17 16:01:17 by jteste           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:43:02 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	has_value(char *envp_line)
+int	is_proper(char *envp_line)
 {
-	int	i;
-
 	if (ft_strchr(envp_line, '=') == NULL)
-		return (0);
-	if (envp_line[0] == '=')
-		return (0);
-	i = 0;
-	while (envp_line[i] != '=')
-		i++;
-	i++;
-	if (envp_line[i] == '\0')
-		return (0);
-	if (envp_line[i] == '\0' && envp_line[i - 1] == '=')
-		return (0);
-	return (1);
+		return (ft_strisword(envp_line));
+	else
+	{
+		if (!ft_isword_start(*envp_line))
+			return (0);
+		envp_line++;
+		while (*envp_line != '=')
+		{
+			if (!ft_isword_content(*envp_line))
+				return (0);
+			envp_line++;
+		}
+		return (1);
+	}
 }
 
 static t_kv	*get_kv(char *envp_line)
@@ -39,35 +39,22 @@ static t_kv	*get_kv(char *envp_line)
 	result = ft_calloc(1, sizeof(t_kv));
 	if (result == NULL)
 		return (NULL);
-	i = 0;
-	if (!has_value(envp_line))
+	if (!is_proper(envp_line) || (ft_strchr(envp_line, '=') == NULL))
 	{
-		if (envp_line[ft_strlen(envp_line) - 1] == '=')
-		{
-			envp_line[ft_strlen(envp_line) - 1] = '\0';
-			result->key = ft_strdup(envp_line);
-			result->value = ft_strdup("");
-			if (result->value == NULL)
-				return (free_kv(result), NULL);
-		}
-		else
-		{
-			result->key = ft_strdup(envp_line);
-			result->value = NULL;
-		}
+		result->key = ft_strdup(envp_line);
+		if (result->key == NULL)
+			return (free_kv(result), NULL);
 	}
 	else
 	{
-		while (envp_line[i] != '='
-			&& envp_line[i] != '+' && envp_line[i] != '-')
+		i = 0;
+		while (envp_line[i] != '=')
 			i++;
 		result->key = ft_substr(envp_line, 0, i++);
 		result->value = ft_substr(envp_line, i, ft_strlen(envp_line) - i);
-		if (result->value == NULL)
+		if (result->key == NULL || result->value == NULL)
 			return (free_kv(result), NULL);
 	}
-	if (result->key == NULL)
-		return (free_kv(result), NULL);
 	return (result);
 }
 
@@ -122,7 +109,7 @@ char	**get_envp(t_data *data)
 	i = 0;
 	while (current)
 	{
-		if (get_value(current) && get_value(current)[0] != '\0')
+		if (get_value(current))
 		{
 			result[i] = get_envp_line(current);
 			if (result[i] == NULL)

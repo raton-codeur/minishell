@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:50:21 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 14:06:35 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/17 16:49:37 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	echo_(t_tree *tree, t_data *data)
 			argv++;
 	}
 	if (*argv)
-		ft_printf("%s", *argv++);
+		printf("%s", *argv++);
 	while (*argv)
-		ft_printf(" %s", *argv++);
+		printf(" %s", *argv++);
 	if (!option)
-		ft_printf("\n");
+		printf("\n");
 	finish_builtin(0, 0, data);
 }

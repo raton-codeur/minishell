@@ -25,21 +25,6 @@ fclean : clean
 	@ make fclean --no-print-directory -C libft > /dev/null && printf "libft.a deleted\n"
 	@ rm -f $(NAME) && printf "$(NAME) deleted\n"
 
-# re : fclean all
-re : clean all
+re : fclean all
 
 .PHONY : all clean fclean re
-
-test :
-	@ make --no-print-directory
-	@ ./minishell
-
-valgrind :
-	make
-	valgrind --track-fds=yes --trace-children=yes --suppressions=../ignore_readline_leaks --leak-check=full --show-leak-kinds=all ./minishell
-# --track-fds=yes
-# --trace-children=yes
-# --suppressions=ignore_readline_leaks
-# --leak-check=full
-# --show-leak-kinds=all
-# --track-origins=yes
