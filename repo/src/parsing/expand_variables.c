@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:26:17 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/11 23:31:13 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:36:12 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_list	*get_new_tokens(char *s)
 
 	result = NULL;
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		new.content = ft_calloc(2, sizeof(char));
 		if (new.content == NULL)
@@ -88,7 +88,7 @@ static void	expand_variable(t_iterable *current, t_data *data)
 		set_iterable(current, current->node->next);
 	}
 	else if (!(ft_isword_start(current->content[0]))
-		|| !in_env(current->content, data))
+		|| !get_value(in_env(current->content, data)))
 		remove_and_update(current, NULL, data);
 	else
 		insert_value(current, data);

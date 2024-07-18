@@ -1,3 +1,10 @@
+supp print.c
+
+supp -fsanitize
+
+supp make test
+-
+env -i -> PATH est initialisé mais pas montré par env
 -
 [2] minishell >>> a|<fd
          <
@@ -14,4 +21,13 @@ alors que
 bash: df: No such file or directory
 a: command not found
 [0] bash >>>
+-
+[0] bash >>> export | grep PWD
+declare -x OLDPWD
+[0] bash >>> cd
+[0] bash >>> export | grep PWD
+declare -x OLDPWD
+[0] bash >>> cd
+[0] bash >>> export | grep PWD
+declare -x OLDPWD="/home/qhauuy"
 -

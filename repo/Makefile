@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -I inc -I libft -g3
+CFLAGS = -Wall -Werror -Wextra -I inc -I libft -g3 -fsanitize=address
 LFLAGS = -lreadline
 LIBFT = libft/libft.a
 OBJS = $(patsubst src/%,tmp/%,$(SRCS:.c=.o))
@@ -45,6 +45,7 @@ SRCS = $(addprefix src/, \
 	init_env.c \
 	minishell.c \
 	env_utils_2.c \
+	print.c \
 )
 
 tmp/%.o : src/%.c
@@ -70,3 +71,9 @@ fclean : clean
 re : fclean all
 
 .PHONY : all clean fclean re
+
+
+
+test :
+	@ make --no-print-directory
+	./minishell 

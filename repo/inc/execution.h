@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:40:30 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/17 16:28:57 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/18 21:30:48 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void		echo_(t_tree *tree, t_data *data);
 void		cd_(t_tree *tree, t_data *data, int in_parent);
 
 /* cd_utils.c */
-int			check_cd_error(char *new_path);
-int			check_symbolic_link(char *new_path);
-int			is_home_needed(char *arg, int argc);
-char		*return_home(t_data *data);
+char		*dup_home(t_data *data);
 
 /* pwd.c */
 void		pwd_(t_data *data);
