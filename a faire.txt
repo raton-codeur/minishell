@@ -5,7 +5,8 @@ supp -fsanitize
 supp make test
 
 
-
+-
+mauvaise tranmission du code derreur....
 
 [130] /home/qhauuy/Desktop/minishell/repo >>> cat|cat|ls
 inc  libft  Makefile  minishell  src  tmp
