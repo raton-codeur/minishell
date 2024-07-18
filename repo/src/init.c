@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:04:29 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 15:46:55 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/18 23:18:39 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	init_data(t_data *data, int argc, char **argv, char **envp)
 	ft_bzero(data, sizeof(t_data));
 	data->out = 1;
 	init_env(data, envp);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_handler_parent);
+	set_parent_signals();
 }
 
 static char	*get_prompt(t_data *data)
@@ -55,6 +54,7 @@ void	reset_input(t_data *data)
 {
 	char	*prompt;
 
+	set_parent_signals();
 	prompt = get_prompt(data);
 	errno = 0;
 	data->input = readline(prompt);
@@ -66,5 +66,4 @@ void	reset_input(t_data *data)
 	if (data->input && data->input[0] != '\0' && !ft_strisspace(data->input))
 		add_history(data->input);
 	get_path(data);
-	signal(SIGINT, sigint_handler_parent);
 }

@@ -3,6 +3,18 @@ supp print.c
 supp -fsanitize
 
 supp make test
+
+
+
+
+[130] /home/qhauuy/Desktop/minishell/repo >>> cat|cat|ls
+inc  libft  Makefile  minishell  src  tmp
+^\[131] /home/qhauuy/Desktop/minishell/repo >>> cat|cat|ls
+inc  libft  Makefile  minishell  src  tmp
+^C
+[130] /home/qhauuy/Desktop/minishell/repo >>> 
+
+
 -
 env -i -> PATH est initialisé mais pas montré par env
 -

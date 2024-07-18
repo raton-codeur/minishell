@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:06:04 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 16:16:06 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/19 00:10:13 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,31 @@ void	execute_pipe(t_tree *tree, t_data *data)
 {
 	pid_t	pid[2];
 	int		pipe_[2];
-	int		status;
+	int		status[2];
 
 	if (pipe(pipe_))
 		error_exit(PIPE, data);
-	pid[0] = child_right(tree->right, data, pipe_);
-	pid[1] = child_left(tree->left, data, pipe_);
+	pid[0] = child_left(tree->left, data, pipe_);
+	pid[1] = child_right(tree->right, data, pipe_);
 	close_2(pipe_);
-	waitpid(pid[1], NULL, 0);
-	waitpid(pid[0], &status, 0);
-	if (WIFEXITED(status) || WIFSIGNALED(status))
-		return (free_all(data), exit(WEXITSTATUS(status)));
+	waitpid(pid[0], &status[0], 0);
+	waitpid(pid[1], &status[1], 0);
+	free_all(data);
+	if (WIFEXITED(status[1]))
+		g_exit_status = WEXITSTATUS(status[1]);
+	else if (WIFSIGNALED(status[1]) && WTERMSIG(status[1]) == SIGINT)
+		g_exit_status = 130;
+	else if (WIFSIGNALED(status[1]) && WTERMSIG(status[1]) == SIGQUIT)
+		g_exit_status = 131;
+
+	if (WIFEXITED(status[0]) && WEXITSTATUS(status[0]) == 130)
+		exit(130);
+	if (WIFEXITED(status[0]) && WEXITSTATUS(status[0]) == 131)
+		exit(131);
+	if (WIFSIGNALED(status[0]) && WTERMSIG(status[0]) == SIGINT)
+		exit(130);
+	if (WIFSIGNALED(status[0]) && WTERMSIG(status[0]) == SIGQUIT)
+		exit(131);
+	if (WIFEXITED(status[1]))
+		exit(WEXITSTATUS(status[1]));
 }

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:02:27 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/16 16:10:29 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/19 00:12:05 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,31 @@ static void	get_heredocs_cmd(t_tree **tree, t_data *data)
 	}
 }
 
-void	get_heredocs(t_tree **tree, t_data *data)
+static void	get_heredocs_rec(t_tree **tree, t_data *data)
 {
-	set_sigint_handler_heredoc();
 	if (*tree == NULL)
 		return ;
 	if (get_type(*tree) == T_PIPE)
 	{
-		get_heredocs(&(*tree)->left, data);
+		get_heredocs_rec(&(*tree)->left, data);
 		if (*tree)
 			get_heredocs_cmd(&(*tree)->right, data);
 	}
 	else
 		get_heredocs_cmd(tree, data);
+}
+
+void	get_heredocs(t_tree **tree, t_data *data)
+{
+	int	save;
+
+	save = g_exit_status;
+	g_exit_status = 0;
+	set_heredoc_signals();
+	get_heredocs_rec(tree, data);
+	if (g_exit_status == 130)
+		ft_putchar_fd('\n', 2);
+	else
+		g_exit_status = save;
+	set_parent_signals();
 }

@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:37:50 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/18 17:07:25 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/18 23:15:31 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,16 @@ void	get_path(t_data *data);
 /* init_env.c */
 void	init_env(t_data *data, char **envp);
 
+/* set_signals.c */
+void	set_child_signals(void);
+void	set_parent_signals(void);
+void	set_heredoc_signals(void);
+
 /* signals.c */
-void	sigint_handler_parent(int sig);
-void	sigint_handler_child(int sig);
-void	set_sigint_handler_heredoc(void);
-void	sigquit_handler(int sig);
-void	reset_signal(void);
+void	sigint_parent(int sig);
+void	sigint_child(int sig);
+void	sigint_heredoc(void);
+void	sigquit_child(int sig);
 
 /* error_1.c */
 void	print_error(int code);

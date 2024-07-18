@@ -45,6 +45,7 @@ SRCS = $(addprefix src/, \
 	init_env.c \
 	minishell.c \
 	env_utils_2.c \
+	set_signals.c \
 	print.c \
 )
 
