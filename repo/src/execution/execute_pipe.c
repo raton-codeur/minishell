@@ -6,7 +6,7 @@
 /*   By: qhauuy <qhauuy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:06:04 by qhauuy            #+#    #+#             */
-/*   Updated: 2024/07/19 00:10:13 by qhauuy           ###   ########.fr       */
+/*   Updated: 2024/07/19 00:23:44 by qhauuy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ void	execute_pipe(t_tree *tree, t_data *data)
 	waitpid(pid[0], &status[0], 0);
 	waitpid(pid[1], &status[1], 0);
 	free_all(data);
+
 	if (WIFEXITED(status[1]))
 		g_exit_status = WEXITSTATUS(status[1]);
+
 	else if (WIFSIGNALED(status[1]) && WTERMSIG(status[1]) == SIGINT)
 		g_exit_status = 130;
 	else if (WIFSIGNALED(status[1]) && WTERMSIG(status[1]) == SIGQUIT)
@@ -72,10 +74,12 @@ void	execute_pipe(t_tree *tree, t_data *data)
 		exit(130);
 	if (WIFEXITED(status[0]) && WEXITSTATUS(status[0]) == 131)
 		exit(131);
+
 	if (WIFSIGNALED(status[0]) && WTERMSIG(status[0]) == SIGINT)
 		exit(130);
 	if (WIFSIGNALED(status[0]) && WTERMSIG(status[0]) == SIGQUIT)
 		exit(131);
+
 	if (WIFEXITED(status[1]))
 		exit(WEXITSTATUS(status[1]));
 }
